@@ -1,0 +1,64 @@
+# =================================================================
+# Unity 子文件夹项目专用 .gitignore
+# 适用于：根目录/projects/YourGame/...
+# =================================================================
+
+# --- Unity 自动生成的临时文件夹 (最关键) ---
+**/[Ll]ibrary/
+**/[Tt]emp/
+**/[Oo]bj/
+**/[Bb]uild/
+**/[Bb]uilds/
+**/[Ll]ogs/
+**/[Mm]emoryCaptures/
+**/[Uu]nityPackageManager/
+
+# --- IDE/编辑器生成的项目文件 (这些是根据本地环境生成的，不应上传) ---
+**/.vs/
+**/.gradle/
+**/.idea/
+**/.consulo/
+**/*.csproj
+**/*.unityproj
+**/*.sln
+**/*.suo
+**/*.tmp
+**/*.user
+**/*.userprefs
+**/*.pidb
+**/*.booproj
+**/*.svd
+**/*.pdb
+**/*.opendb
+**/*.IDB
+**/*.VC.db
+**/cmake-build-*/
+
+# --- 用户特定的设置 ---
+**/UserSettings/
+**/.Plastic/
+
+# --- 资源导入/构建产生的临时属性 ---
+**/ExportedObj/
+**/AssetBundles/
+**/Assets/AddressableAssetsData/VideoCache/
+**/Assets/StreamingAssets/aa/*
+
+# --- 操作系统生成的文件 ---
+**/.DS_Store
+**/Thumbs.db
+**/desktop.ini
+
+# --- 编译出来的可执行文件 (建议忽略，大文件建议通过 Release 页面上传) ---
+**/*.exe
+**/*.apk
+**/*.unitypackage
+**/*.app
+**/*.appx
+**/*.ipa
+
+# --- 崩溃报告 ---
+**/sysinfo.txt
+
+# --- 如果你使用了某些特定插件 ---
+**/Assets/AssetStoreTools*
