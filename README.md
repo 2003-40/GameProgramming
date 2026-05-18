@@ -1,28 +1,81 @@
-# 游戏名称：The Azure Lattice (青金格窗)
-**开发版本：** Unity 2022.3 (URP)
-**开发者：** Sihan Wang
-**项目类型：** 3分钟视觉叙事解谜游戏 (Vertical Slice)
+# Game Name：Mineral Odyssey (矿石奇遇记)
+This is a 2D top-down pixel-art adventure and management game developed in Unity. This project aims to showcase core development skills such as dungeon generation, inventory systems, AI combat, and data persistence through a complete "gather-process-trade-upgrade" loop.
 
-## 1. 游戏愿景 (Game Concept)
-《The Azure Lattice》是一款受到《Gorogoa》和《笼中窥梦》启发的视觉解谜小品。游戏以波斯精美的瓷砖建筑为载体，通过“无限缩放”和“拼贴艺术”展现沙漠文明的诗意。玩家将在3分钟的流程中，从一扇格窗深入到一个微缩的宇宙。
+---
 
-## 2. 核心机制 (Core Mechanics)
-*   **无缝缩放 (Seamless Zooming):** 点击特定区域（如格窗内部），镜头将平滑切入，揭示隐藏在图案中的新场景。
-*   **图案对齐 (Pattern Alignment):** 旋转混乱的瓷砖碎片，当图案完整时，通往下一层空间的路径将会开启。
-*   **拼贴叙事 (Collage Storytelling):** 所有的视觉元素均来自公共领域（Public Domain）的波斯细密画与建筑摄影。
+## 🎮 Core Gameplay Loop
 
-## 3. 技术栈 (Technical Stack)
-*   **Cinemachine:** 用于实现不同层级间的平滑镜头过渡。
-*   **Sprite Masks:** 实现“窗中画”的物理遮挡效果。
-*   **LeanTween/DOTween:** 用于处理碎片旋转和 UI 的平滑反馈。
-*   **URP 2D Renderer:** 利用 2D 光照增强瓷砖的釉面质感。
+1.  **Mining:** Enter a multi-layered mine, using tools to excavate different grades of ore (implemented using the Tilemap system).
+2.  **Survival:** The first two layers are safe zones; starting from the third layer, players will encounter monsters with varying AI behaviors.
+3.  **Processing:** Bring raw ores back to the resource house and transform them into refined products using a forge.
+4.  **Trading:** Sell refined products at the shop to earn gold.
+5.  **Progression:** Use gold to purchase larger inventory space or more powerful weapons to explore deeper mine layers.
 
-## 4. 开发进度 (Roadmap)
-- [x] 核心概念确立与素材搜集
-- [ ] 原型开发：实现基础缩放逻辑 (In Progress)
-- [ ] 关卡设计：三层嵌套空间构建
-- [ ] 视觉打磨：粒子效果（风沙）与音效添加
-- [ ] 最终测试与性能优化
+---
+## 🛠 Tech Stack
 
-## 5. 资源致谢 (Credits)
-*   [此处填写你提供的图片来源链接，如 Wikimedia Commons/Met Museum]
+*   **Engine:** Unity 2022.3 LTS
+*   **Rendering:** Universal Render Pipeline (URP) 2D
+*   **Programming Language:** C#
+*   **Key Components / Technologies:**
+    *   **Tilemap:** For dynamic and destructible map environments.
+    *   **ScriptableObjects:** To decouple item data (e.g., name, price, sprite) from game logic.
+    *   **Singleton Pattern:** For managing global game states (e.g., player assets, level status).
+    *   **A\* Pathfinding:** Basic AI navigation for enemies.
+    *   **JSON / PlayerPrefs:** For simple save/load functionality.
+
+---
+
+## 📅 Development Roadmap
+
+This project is planned to be completed within 4 weeks:
+
+- [ ] **Phase 1: Core Mechanics Prototype (Week 1)**
+    - Player movement and Tilemap destruction logic
+    - Basic inventory system (data layer)
+- [ ] **Phase 2: System Logic & Core Loop (Week 2)**
+    - Resource processing logic (forge)
+    - Shop system for buying and selling
+    - Scene transitions and data persistence across scenes
+- [ ] **Phase 3: Combat & AI (Week 3)**
+    - Enemy spawning algorithms
+    - Player attack and damage detection system
+    - Mine layer difficulty balancing
+- [ ] **Phase 4: Polishing & Testing (Week 4)**
+    - UI/UX interface optimization
+    - Sound effects and visual particle effects
+    - Bug fixing and performance optimization
+
+---
+
+## 🚀 Getting Started
+
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/2003-40/GameProgramming.git
+    ```
+2.  **Open in Unity:**
+    Add the project to Unity Hub (recommended version 2022.3.x).
+3.  **Run the game:**
+    Open `MainScene.unity` in the `Assets/Scenes` folder and click Play.
+
+---
+
+## 🖼 Screenshots
+
+> [Coming Soon...]
+
+---
+
+## 🤝 Acknowledgements & Resources
+
+*   Art Assets: [Kenney.nl](https://kenney.nl/) / [Itch.io Free Assets]
+*   Sound Effects: [Bfxr]
+*   Special Thanks: [Your Professor/TA's Name] for guidance
+
+--- 
+
+### 📝 Author
+-   **Name:** Sihan Wang
+-   **University:** Dundee International Institute of Central South University
+-   **Contact:** 2617378@mydundee.ac.uk
