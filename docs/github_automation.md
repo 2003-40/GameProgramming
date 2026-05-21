@@ -53,11 +53,10 @@ This sets:
 
 ### How it behaves
 
-When you run `git commit` (without `-m`), the hook drafts a message like:
+When you run `git commit` (without `-m`), the hook drafts a one-line message:
+- format: `<type>(<scope>): <summary> (#issue-id)`
 - type/scope inferred from branch name (`feature/*` -> `feat`, `fix/*` -> `fix`, etc.)
 - issue id inferred from branch name number (e.g. `feature/123-inventory`)
-- staged file areas listed under `What`
-- branch name written in the message
 
 ### Branch naming recommendation
 

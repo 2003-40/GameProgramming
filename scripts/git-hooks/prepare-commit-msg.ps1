@@ -49,44 +49,10 @@ $scopeMatch = [regex]::Match($branch, "^[^/]+/([^/-]+)")
 if ($scopeMatch.Success) {
     $scope = $scopeMatch.Groups[1].Value.ToLowerInvariant()
 }
-
-$files = @(git diff --cached --name-only | Where-Object { -not [string]::IsNullOrWhiteSpace($_) })
-$areas = @()
-foreach ($file in $files) {
-    $parts = $file -split "[/\\]"
-    if ($parts.Count -ge 2) {
-        $areas += "$($parts[0])/$($parts[1])"
-    }
-    elseif ($parts.Count -eq 1) {
-        $areas += $parts[0]
-    }
-}
-
-$areas = $areas | Sort-Object -Unique
-if ($areas.Count -eq 0) {
-    $areas = @("<staged files not found>")
-}
-
-$areasText = ($areas | ForEach-Object { "- $_" }) -join "`n"
-
-$refsLine = "- <add issue id>"
+$refsSuffix = ""
 if ($issueId) {
-    $refsLine = "- #$issueId"
+    $refsSuffix = " (#$issueId)"
 }
 
-$template = @"
-$type($scope): <summary>
-
-Why:
-- <why this change is needed>
-
-What:
-$areasText
-
-Refs:
-$refsLine
-Branch:
-- $branch
-"@
-
+$template = "$type($scope): <summary>$refsSuffix"
 Set-Content -LiteralPath $CommitMsgFile -Value $template -NoNewline
