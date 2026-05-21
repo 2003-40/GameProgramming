@@ -79,3 +79,11 @@ This project is planned to be completed within 4 weeks:
 -   **Name:** Sihan Wang
 -   **University:** Dundee International Institute of Central South University
 -   **Contact:** 2617378@mydundee.ac.uk
+
+---
+
+## Workflow Automation
+
+- GitHub Kanban auto-management and commit message automation guide:
+  - docs/github_automation.md
+
