@@ -55,15 +55,13 @@ This project is planned to be completed within 4 weeks:
     git clone https://github.com/2003-40/GameProgramming.git
     ```
 2.  **Open in Unity:**
-    Add the project to Unity Hub (recommended version 2022.3.x).
+    Add the project to Unity Hub (recommended version 2022.3).
 3.  **Run the game:**
     Open `MainScene.unity` in the `Assets/Scenes` folder and click Play.
 
 ---
-
-## 🖼 Screenshots
-
-> [Coming Soon...]
+## 📼 Screenshots
+![FirstLevel](image.png)
 
 ---
 
@@ -78,4 +76,12 @@ This project is planned to be completed within 4 weeks:
 ### 📝 Author
 -   **Name:** Sihan Wang
 -   **University:** Dundee International Institute of Central South University
--   **Contact:** 2617378@mydundee.ac.uk
+-   **Contact:** 2617378@dundee.ac.uk
+
+---
+
+## Workflow Automation
+
+- GitHub Kanban auto-management and commit message automation guide:
+  - docs/github_automation.md
+

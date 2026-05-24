@@ -1,0 +1,2041 @@
+fileFormatVersion: 2
+guid: 01cb39a6f07e0ed4aa5a78b33a2f6604
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 47
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: '!LiquidDrop_0'
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 369
+        width: 30
+        height: 15
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5a84c261a4bac44469c7873f8655704b
+      internalID: 812119693
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_1'
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 369
+        width: 24
+        height: 15
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8efa7b49c34853a40b79e4b09d1c934d
+      internalID: 93602333
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_2'
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 369
+        width: 30
+        height: 15
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c94cbbe1eb14c814aa1092c2bef6c536
+      internalID: -1491198101
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_3'
+      rect:
+        serializedVersion: 2
+        x: 153
+        y: 369
+        width: 30
+        height: 15
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8c108eb970c6d6641ab09e71adb90b01
+      internalID: 1196367232
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_4'
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 369
+        width: 24
+        height: 15
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 77c3c3610a416d745b43c89b692ae4ec
+      internalID: 1372026052
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_5'
+      rect:
+        serializedVersion: 2
+        x: 249
+        y: 369
+        width: 30
+        height: 15
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a8490b241458b146989d0e0d7bc57c1
+      internalID: -1667647581
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_6'
+      rect:
+        serializedVersion: 2
+        x: 297
+        y: 369
+        width: 30
+        height: 15
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dc58333fb5ef53848a4880a71b800b08
+      internalID: -131611765
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_7'
+      rect:
+        serializedVersion: 2
+        x: 348
+        y: 369
+        width: 24
+        height: 15
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 624bbc653e9d6094896b6efd3b0508ad
+      internalID: -1086535730
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_8'
+      rect:
+        serializedVersion: 2
+        x: 393
+        y: 369
+        width: 30
+        height: 15
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2b6afdec00974c04da193a367bf89547
+      internalID: -1166109612
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_9'
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 288
+        width: 30
+        height: 48
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1670d7d88ea7e2e4e9a42aebed61324b
+      internalID: -1182035443
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_10'
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 300
+        width: 36
+        height: 36
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 699c160e1fee11841a2acd50f090ade5
+      internalID: -875331691
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_11'
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 288
+        width: 30
+        height: 48
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d8da7a49a5e022e4388f2cdbd7978777
+      internalID: 590749241
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_12'
+      rect:
+        serializedVersion: 2
+        x: 153
+        y: 288
+        width: 30
+        height: 48
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c2a61815591d85949a64395273f3c28f
+      internalID: -471092805
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_13'
+      rect:
+        serializedVersion: 2
+        x: 198
+        y: 300
+        width: 36
+        height: 36
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fd53a4aa17d29e640bc331cd0ddbc4ec
+      internalID: 506111442
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_14'
+      rect:
+        serializedVersion: 2
+        x: 249
+        y: 288
+        width: 30
+        height: 48
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3135c7e472f500749b0b4aa6d9c3a6df
+      internalID: -853984888
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_15'
+      rect:
+        serializedVersion: 2
+        x: 297
+        y: 288
+        width: 30
+        height: 48
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ee577f99322a54a49b906b225ef25f6a
+      internalID: -2123686387
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_16'
+      rect:
+        serializedVersion: 2
+        x: 342
+        y: 300
+        width: 36
+        height: 36
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 679b8815e922066448cb8c1bc0557c2e
+      internalID: 1306216728
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_17'
+      rect:
+        serializedVersion: 2
+        x: 393
+        y: 288
+        width: 30
+        height: 48
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f14b8f8c4277b54a88e91113d3a713e
+      internalID: -144706268
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_18'
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 279
+        width: 6
+        height: 6
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b6e1e46c754cb64e81747245edf34e7
+      internalID: -769111409
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_19'
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 282
+        width: 6
+        height: 6
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: db06fcfed11ec31479f7fcd2917b453b
+      internalID: 1817815774
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_20'
+      rect:
+        serializedVersion: 2
+        x: 117
+        y: 279
+        width: 6
+        height: 6
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5d87281f76696d24f9539bf971991172
+      internalID: -149924806
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_21'
+      rect:
+        serializedVersion: 2
+        x: 165
+        y: 279
+        width: 6
+        height: 6
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e7e010f25848ce428459243564bc195
+      internalID: 175463
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_22'
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 282
+        width: 6
+        height: 6
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 777c40a6c46e91b4c9bb209ed88f3316
+      internalID: 693315670
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_23'
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 279
+        width: 6
+        height: 6
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f4f4a417ab02c944fb09c654914279eb
+      internalID: -599819509
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_24'
+      rect:
+        serializedVersion: 2
+        x: 309
+        y: 279
+        width: 6
+        height: 6
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8368884d7cefb27479412d9c7daa8564
+      internalID: 985497699
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_25'
+      rect:
+        serializedVersion: 2
+        x: 357
+        y: 282
+        width: 6
+        height: 6
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 62f5949f630bffc4492cdd86efd11460
+      internalID: -41675390
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_26'
+      rect:
+        serializedVersion: 2
+        x: 405
+        y: 279
+        width: 6
+        height: 6
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8c820556130fd184c9cab31b95e59827
+      internalID: -1375886244
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_27'
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 243
+        width: 24
+        height: 33
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 276f90e9cc1c3894e9ba967c793e2be3
+      internalID: -697696761
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_28'
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 240
+        width: 24
+        height: 33
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d641839c73b589d4696b5fa8c7d9054c
+      internalID: -987511412
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_29'
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 243
+        width: 24
+        height: 30
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: de2f6db190635e04e915533c1dd22046
+      internalID: 1703742295
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_30'
+      rect:
+        serializedVersion: 2
+        x: 156
+        y: 243
+        width: 24
+        height: 33
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 729cf6ec3732b2141abd0dc4878c0846
+      internalID: 1230276813
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_31'
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 240
+        width: 24
+        height: 33
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 63ebf4d73df7e3e4abc30c1a46f310a4
+      internalID: -1628087309
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_32'
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 243
+        width: 24
+        height: 30
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 68a328bd53e3812419680ed3b5c62c72
+      internalID: 2043551629
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_33'
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 243
+        width: 24
+        height: 33
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 97e58d75c008e244484aeaa2fcd0d6d4
+      internalID: 998450706
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_34'
+      rect:
+        serializedVersion: 2
+        x: 348
+        y: 240
+        width: 24
+        height: 33
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d1d1c9f2c0ba1a24eb8a1db474e18166
+      internalID: 497230276
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_35'
+      rect:
+        serializedVersion: 2
+        x: 396
+        y: 243
+        width: 24
+        height: 30
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c2301ec5add20b4296aee6d779d452d
+      internalID: 947928403
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_36'
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 207
+        width: 6
+        height: 12
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4ed611c9711226d4a8546b6249b9dcd3
+      internalID: -1602632483
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_37'
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 198
+        width: 36
+        height: 36
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7770fdd7ab648ab459d10434469b59c7
+      internalID: -274393300
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_38'
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 177
+        width: 48
+        height: 63
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8e3ed177e66dbf84b9bfa14aa3e0979b
+      internalID: 90225611
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_39'
+      rect:
+        serializedVersion: 2
+        x: 165
+        y: 207
+        width: 6
+        height: 12
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 36eaaa776415a004799882f30c5b47ec
+      internalID: 16515026
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_40'
+      rect:
+        serializedVersion: 2
+        x: 198
+        y: 198
+        width: 36
+        height: 36
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7b0bf5d942bf7ca458293ec50728440c
+      internalID: 90319006
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_41'
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 177
+        width: 48
+        height: 63
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 37fd0a1ebbc8d8d41af5aad8a42b85bb
+      internalID: -484992141
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_42'
+      rect:
+        serializedVersion: 2
+        x: 309
+        y: 207
+        width: 6
+        height: 12
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ebd817ef94e07ea4f8022f0e3efd9d9f
+      internalID: -668596001
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_43'
+      rect:
+        serializedVersion: 2
+        x: 342
+        y: 198
+        width: 36
+        height: 36
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9ec0eb144134be246bf352c19fe1c1f6
+      internalID: -278480570
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_44'
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 177
+        width: 48
+        height: 63
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8dba457ea4e797c41942eb936b20c77a
+      internalID: 1198621161
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_45'
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 177
+        width: 30
+        height: 15
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 728e8120530b6714b962e0b0ede593a4
+      internalID: 2052670935
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_46'
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 177
+        width: 24
+        height: 15
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 76e44dd50a486ef4da05999a053d7b61
+      internalID: 1432051098
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_47'
+      rect:
+        serializedVersion: 2
+        x: 153
+        y: 177
+        width: 30
+        height: 15
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1bed9e2e02c144047b53e6e6133f07eb
+      internalID: -327800313
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_48'
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 177
+        width: 24
+        height: 15
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 97edf33dc3897574a817ec84a3316c9d
+      internalID: -1474938055
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_49'
+      rect:
+        serializedVersion: 2
+        x: 297
+        y: 177
+        width: 30
+        height: 15
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e2be25b82f74764c8d383758348870c
+      internalID: 104875874
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_50'
+      rect:
+        serializedVersion: 2
+        x: 348
+        y: 177
+        width: 24
+        height: 15
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f5c552fb5a0ef4f44b8fc6414d26ac6a
+      internalID: -709516394
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_51'
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 96
+        width: 30
+        height: 48
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e17cd22b9ef8b224795e4e8a86d9055b
+      internalID: -1544718516
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_52'
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 108
+        width: 36
+        height: 36
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c45c515d29d2e4e4c95b0c5c952dc3a7
+      internalID: 584518715
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_53'
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 96
+        width: 30
+        height: 48
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 49b5091c64ce85d47a0e10e8cba27592
+      internalID: 1815998309
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_54'
+      rect:
+        serializedVersion: 2
+        x: 153
+        y: 96
+        width: 30
+        height: 48
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4f6e43074b0aa9d4196fd6e69558a9a1
+      internalID: -2129614636
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_55'
+      rect:
+        serializedVersion: 2
+        x: 198
+        y: 108
+        width: 36
+        height: 36
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4d760cc6f54b7db4ebd7e5f5feb5e967
+      internalID: 821440770
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_56'
+      rect:
+        serializedVersion: 2
+        x: 249
+        y: 96
+        width: 30
+        height: 48
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 32f7df770e5e4094ebe415b6963c7030
+      internalID: 1314453608
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_57'
+      rect:
+        serializedVersion: 2
+        x: 297
+        y: 96
+        width: 30
+        height: 48
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fbf30f164e99e484e9acc9c22a068e7f
+      internalID: 1376117843
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_58'
+      rect:
+        serializedVersion: 2
+        x: 342
+        y: 108
+        width: 36
+        height: 36
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f735c07077914a04bbb6d1c3c833c8f8
+      internalID: -983542833
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_59'
+      rect:
+        serializedVersion: 2
+        x: 393
+        y: 96
+        width: 30
+        height: 48
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4330c5da45477474fb16e3317797c87c
+      internalID: 1364588212
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_60'
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 87
+        width: 6
+        height: 6
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 69857bc1c0bcbe54fb559ff7ce3b4b04
+      internalID: 2045382077
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_61'
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 90
+        width: 6
+        height: 6
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d08ec39f64d4341438075400153739fd
+      internalID: 1578397297
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_62'
+      rect:
+        serializedVersion: 2
+        x: 117
+        y: 87
+        width: 6
+        height: 6
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ece31b21d3fca04fac6d09013ae87b6
+      internalID: -728872798
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_63'
+      rect:
+        serializedVersion: 2
+        x: 165
+        y: 87
+        width: 6
+        height: 6
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 31ec501446ce8ce48aa0eb229203e88d
+      internalID: 74357754
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_64'
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 90
+        width: 6
+        height: 6
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cc4eaf10ad62845489fe51268b8613dc
+      internalID: -358623258
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_65'
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 87
+        width: 6
+        height: 6
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e5e5161d4688be444b8f56aad59ce31a
+      internalID: -907193493
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_66'
+      rect:
+        serializedVersion: 2
+        x: 309
+        y: 87
+        width: 6
+        height: 6
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 66ecbce1f2aea6c4da0ac6597532217b
+      internalID: -1896976393
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_67'
+      rect:
+        serializedVersion: 2
+        x: 357
+        y: 90
+        width: 6
+        height: 6
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: efd333d0f4b68a047980c5089f59d7ac
+      internalID: -76974749
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_68'
+      rect:
+        serializedVersion: 2
+        x: 405
+        y: 87
+        width: 6
+        height: 6
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d61d567c7e2c96e4aa4e39d3f7f92777
+      internalID: -2077790221
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_69'
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 51
+        width: 24
+        height: 33
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf8e249e53a6c5b438d7710135ce14ea
+      internalID: 514022461
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_70'
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 48
+        width: 24
+        height: 33
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 79d682e444c45c5458f280c43428ac13
+      internalID: -1671187667
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_71'
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 51
+        width: 24
+        height: 30
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 292590aa4dbfe1e4989413ce816a4978
+      internalID: 2014627579
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_72'
+      rect:
+        serializedVersion: 2
+        x: 156
+        y: 51
+        width: 24
+        height: 33
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c1175411d030ef94db254b0fcc680a28
+      internalID: -1074386084
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_73'
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 48
+        width: 24
+        height: 33
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aaaa083317a034c4fb44895e159573a1
+      internalID: -562836039
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_74'
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 51
+        width: 24
+        height: 30
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d19e4bffa86222c48a1bb8d3a12c3929
+      internalID: -1624885911
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_75'
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 51
+        width: 24
+        height: 33
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c999a44e0b071844b29481c092ef399
+      internalID: -66093827
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_76'
+      rect:
+        serializedVersion: 2
+        x: 348
+        y: 48
+        width: 24
+        height: 33
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fdc18c7224085954a8d26ed43e82d4ae
+      internalID: -2024814072
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_77'
+      rect:
+        serializedVersion: 2
+        x: 396
+        y: 51
+        width: 24
+        height: 30
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 03ac819537b23c84493681cd45257447
+      internalID: 733047107
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_78'
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 15
+        width: 6
+        height: 12
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 011116f412fb9bb4b83ec7ac0c229b95
+      internalID: -1588087426
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_79'
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 6
+        width: 36
+        height: 36
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cba946dc59dc27e4faf797873c34861c
+      internalID: 2026042017
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_80'
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 48
+        height: 48
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 29806997e16abcf43b65cc0b7ce7aedc
+      internalID: 1190581548
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_81'
+      rect:
+        serializedVersion: 2
+        x: 165
+        y: 15
+        width: 6
+        height: 12
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 003c4aadfe3b8304f9c6e452f6cd34d9
+      internalID: 1268134755
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_82'
+      rect:
+        serializedVersion: 2
+        x: 198
+        y: 6
+        width: 36
+        height: 36
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a3e95be2e10a92742a80406832462c15
+      internalID: -1284162075
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_83'
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 0
+        width: 48
+        height: 48
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 709445f091fdbc14c8d9b69bc66279c3
+      internalID: 1874379826
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_84'
+      rect:
+        serializedVersion: 2
+        x: 309
+        y: 15
+        width: 6
+        height: 12
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c9b5ae17049edc64796dcb3ba80d2f31
+      internalID: -439306459
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_85'
+      rect:
+        serializedVersion: 2
+        x: 342
+        y: 6
+        width: 36
+        height: 36
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0a5814751ef59c843ab3a806686f23b3
+      internalID: -1954964080
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!LiquidDrop_86'
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 0
+        width: 48
+        height: 48
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 592814caa05153b418626b495020a499
+      internalID: -777575741
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      '!LiquidDrop_0': 812119693
+      '!LiquidDrop_1': 93602333
+      '!LiquidDrop_10': -875331691
+      '!LiquidDrop_11': 590749241
+      '!LiquidDrop_12': -471092805
+      '!LiquidDrop_13': 506111442
+      '!LiquidDrop_14': -853984888
+      '!LiquidDrop_15': -2123686387
+      '!LiquidDrop_16': 1306216728
+      '!LiquidDrop_17': -144706268
+      '!LiquidDrop_18': -769111409
+      '!LiquidDrop_19': 1817815774
+      '!LiquidDrop_2': -1491198101
+      '!LiquidDrop_20': -149924806
+      '!LiquidDrop_21': 175463
+      '!LiquidDrop_22': 693315670
+      '!LiquidDrop_23': -599819509
+      '!LiquidDrop_24': 985497699
+      '!LiquidDrop_25': -41675390
+      '!LiquidDrop_26': -1375886244
+      '!LiquidDrop_27': -697696761
+      '!LiquidDrop_28': -987511412
+      '!LiquidDrop_29': 1703742295
+      '!LiquidDrop_3': 1196367232
+      '!LiquidDrop_30': 1230276813
+      '!LiquidDrop_31': -1628087309
+      '!LiquidDrop_32': 2043551629
+      '!LiquidDrop_33': 998450706
+      '!LiquidDrop_34': 497230276
+      '!LiquidDrop_35': 947928403
+      '!LiquidDrop_36': -1602632483
+      '!LiquidDrop_37': -274393300
+      '!LiquidDrop_38': 90225611
+      '!LiquidDrop_39': 16515026
+      '!LiquidDrop_4': 1372026052
+      '!LiquidDrop_40': 90319006
+      '!LiquidDrop_41': -484992141
+      '!LiquidDrop_42': -668596001
+      '!LiquidDrop_43': -278480570
+      '!LiquidDrop_44': 1198621161
+      '!LiquidDrop_45': 2052670935
+      '!LiquidDrop_46': 1432051098
+      '!LiquidDrop_47': -327800313
+      '!LiquidDrop_48': -1474938055
+      '!LiquidDrop_49': 104875874
+      '!LiquidDrop_5': -1667647581
+      '!LiquidDrop_50': -709516394
+      '!LiquidDrop_51': -1544718516
+      '!LiquidDrop_52': 584518715
+      '!LiquidDrop_53': 1815998309
+      '!LiquidDrop_54': -2129614636
+      '!LiquidDrop_55': 821440770
+      '!LiquidDrop_56': 1314453608
+      '!LiquidDrop_57': 1376117843
+      '!LiquidDrop_58': -983542833
+      '!LiquidDrop_59': 1364588212
+      '!LiquidDrop_6': -131611765
+      '!LiquidDrop_60': 2045382077
+      '!LiquidDrop_61': 1578397297
+      '!LiquidDrop_62': -728872798
+      '!LiquidDrop_63': 74357754
+      '!LiquidDrop_64': -358623258
+      '!LiquidDrop_65': -907193493
+      '!LiquidDrop_66': -1896976393
+      '!LiquidDrop_67': -76974749
+      '!LiquidDrop_68': -2077790221
+      '!LiquidDrop_69': 514022461
+      '!LiquidDrop_7': -1086535730
+      '!LiquidDrop_70': -1671187667
+      '!LiquidDrop_71': 2014627579
+      '!LiquidDrop_72': -1074386084
+      '!LiquidDrop_73': -562836039
+      '!LiquidDrop_74': -1624885911
+      '!LiquidDrop_75': -66093827
+      '!LiquidDrop_76': -2024814072
+      '!LiquidDrop_77': 733047107
+      '!LiquidDrop_78': -1588087426
+      '!LiquidDrop_79': 2026042017
+      '!LiquidDrop_8': -1166109612
+      '!LiquidDrop_80': 1190581548
+      '!LiquidDrop_81': 1268134755
+      '!LiquidDrop_82': -1284162075
+      '!LiquidDrop_83': 1874379826
+      '!LiquidDrop_84': -439306459
+      '!LiquidDrop_85': -1954964080
+      '!LiquidDrop_86': -777575741
+      '!LiquidDrop_9': -1182035443
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
