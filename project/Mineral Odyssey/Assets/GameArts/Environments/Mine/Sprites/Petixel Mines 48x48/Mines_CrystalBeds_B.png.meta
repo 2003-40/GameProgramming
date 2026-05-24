@@ -1,0 +1,721 @@
+fileFormatVersion: 2
+guid: 025dfcf103c733843ae273e4311ef1a1
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 47
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Mines_CrystalBeds_B_0
+      rect:
+        serializedVersion: 2
+        x: 382
+        y: 616
+        width: 100
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 665685c537eb9304d938ea36f71ad980
+      internalID: 1347167531
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mines_CrystalBeds_B_1
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 285
+        width: 144
+        height: 240
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: baf5b45ab5f226f47991dd6e3927adcf
+      internalID: 97344452
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mines_CrystalBeds_B_2
+      rect:
+        serializedVersion: 2
+        x: 624
+        y: 288
+        width: 144
+        height: 237
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c643d92d3e9dd943939c300927456dc
+      internalID: 211589284
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mines_CrystalBeds_B_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 337
+        width: 97
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7242402c01515c0428799699e69f7dce
+      internalID: 76390247
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mines_CrystalBeds_B_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 193
+        width: 97
+        height: 143
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 60d98b71e20f09c4686e9d426551c2ad
+      internalID: -2000755848
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mines_CrystalBeds_B_5
+      rect:
+        serializedVersion: 2
+        x: 483
+        y: 623
+        width: 141
+        height: 145
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 1, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 10132d2e286ce6f40b836a4731fd8bcc
+      internalID: -1367524156
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mines_CrystalBeds_B_6
+      rect:
+        serializedVersion: 2
+        x: 625
+        y: 624
+        width: 142
+        height: 143
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 33f950a939f2b8345851f3c73e8e1e32
+      internalID: -1433894114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mines_CrystalBeds_B_7
+      rect:
+        serializedVersion: 2
+        x: 623
+        y: 526
+        width: 145
+        height: 97
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9ae43a8c5f655214c86208a3cc37eed1
+      internalID: -771457232
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mines_CrystalBeds_B_8
+      rect:
+        serializedVersion: 2
+        x: 382
+        y: 477
+        width: 99
+        height: 137
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 159f0bc29525e834abee8130dde3dc39
+      internalID: 115002155
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mines_CrystalBeds_B_9
+      rect:
+        serializedVersion: 2
+        x: 481
+        y: 478
+        width: 141
+        height: 145
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2a891b4aa9894074092cce8b600fb427
+      internalID: -940162570
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mines_CrystalBeds_B_10
+      rect:
+        serializedVersion: 2
+        x: 481
+        y: 333
+        width: 142
+        height: 143
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f00f9adf1f5ac1c4baba5aca3cc85adf
+      internalID: -819014034
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mines_CrystalBeds_B_11
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 526
+        width: 141
+        height: 239
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a15a301119a3e184fa9f3764ed70bd43
+      internalID: 2087306742
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mines_CrystalBeds_B_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 621
+        width: 102
+        height: 147
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7b3a8106d56f926448c60eac73e72059
+      internalID: -961030555
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mines_CrystalBeds_B_13
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 477
+        width: 96
+        height: 142
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0801631319c90444d9bed9fa80db4464
+      internalID: -1762653752
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mines_CrystalBeds_B_14
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 621
+        width: 138
+        height: 147
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 95f05ff6e1dbd3049b82fe4b37df49aa
+      internalID: -2132302243
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mines_CrystalBeds_B_15
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 477
+        width: 137
+        height: 141
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7a76a371b162f7546b3267af5aa9fabb
+      internalID: 1847921275
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mines_CrystalBeds_B_16
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 335
+        width: 142
+        height: 143
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a43d7ce4321391c4fbb2943580dcfc61
+      internalID: -1848836318
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mines_CrystalBeds_B_17
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 191
+        width: 142
+        height: 144
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb81a2f80ad230b4fbc7aee33a1a4c6b
+      internalID: -1046225569
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mines_CrystalBeds_B_18
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 47
+        width: 97
+        height: 143
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 01cc0b09034480a4d9528ae4afabd2f0
+      internalID: -602921821
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mines_CrystalBeds_B_19
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 43
+        width: 143
+        height: 147
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a302954bc7317894bb4e8963755e952f
+      internalID: 879069694
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mines_CrystalBeds_B_20
+      rect:
+        serializedVersion: 2
+        x: 241
+        y: 43
+        width: 143
+        height: 242
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b62d6aa115d24d4b92442899f57626a
+      internalID: -1787276709
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mines_CrystalBeds_B_21
+      rect:
+        serializedVersion: 2
+        x: 385
+        y: 43
+        width: 96
+        height: 148
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 43dc6519cd6d5db4cb0c0abccd5a55a5
+      internalID: -804662648
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mines_CrystalBeds_B_22
+      rect:
+        serializedVersion: 2
+        x: 482
+        y: 47
+        width: 142
+        height: 142
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3ad5c61ba0c5e5d499510fd0845bd4b9
+      internalID: 1719090680
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mines_CrystalBeds_B_23
+      rect:
+        serializedVersion: 2
+        x: 624
+        y: 46
+        width: 144
+        height: 242
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 93536d7f1286bac4cbce6ebe025677dd
+      internalID: -691745528
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mines_CrystalBeds_B_24
+      rect:
+        serializedVersion: 2
+        x: 383
+        y: 335
+        width: 98
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1d3daba4d6b88174d99a60f5ce134360
+      internalID: 1309153317
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mines_CrystalBeds_B_25
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 190
+        width: 144
+        height: 141
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 79210841a5bdf31408d42054f34534a6
+      internalID: -1508504538
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mines_CrystalBeds_B_26
+      rect:
+        serializedVersion: 2
+        x: 385
+        y: 191
+        width: 96
+        height: 143
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0a14e0cdc099f9d45b34dd5ad9e3727b
+      internalID: 529421800
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Mines_CrystalBeds_B_0: 1347167531
+      Mines_CrystalBeds_B_1: 97344452
+      Mines_CrystalBeds_B_10: -819014034
+      Mines_CrystalBeds_B_11: 2087306742
+      Mines_CrystalBeds_B_12: -961030555
+      Mines_CrystalBeds_B_13: -1762653752
+      Mines_CrystalBeds_B_14: -2132302243
+      Mines_CrystalBeds_B_15: 1847921275
+      Mines_CrystalBeds_B_16: -1848836318
+      Mines_CrystalBeds_B_17: -1046225569
+      Mines_CrystalBeds_B_18: -602921821
+      Mines_CrystalBeds_B_19: 879069694
+      Mines_CrystalBeds_B_2: 211589284
+      Mines_CrystalBeds_B_20: -1787276709
+      Mines_CrystalBeds_B_21: -804662648
+      Mines_CrystalBeds_B_22: 1719090680
+      Mines_CrystalBeds_B_23: -691745528
+      Mines_CrystalBeds_B_24: 1309153317
+      Mines_CrystalBeds_B_25: -1508504538
+      Mines_CrystalBeds_B_26: 529421800
+      Mines_CrystalBeds_B_3: 76390247
+      Mines_CrystalBeds_B_4: -2000755848
+      Mines_CrystalBeds_B_5: -1367524156
+      Mines_CrystalBeds_B_6: -1433894114
+      Mines_CrystalBeds_B_7: -771457232
+      Mines_CrystalBeds_B_8: 115002155
+      Mines_CrystalBeds_B_9: -940162570
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

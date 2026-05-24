@@ -1,0 +1,1623 @@
+fileFormatVersion: 2
+guid: 048be93ca85f57941b96e4335772ceb2
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 47
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: '!$CollectibleCrystal_0'
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 687
+        width: 528
+        height: 63
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 75523e50151933848826291ed320a710
+      internalID: -935277169
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!$CollectibleCrystal_1'
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 600
+        width: 45
+        height: 66
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 22982f0ee08686b47b9b699d7c54b366
+      internalID: 1155062064
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!$CollectibleCrystal_2'
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 600
+        width: 45
+        height: 66
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 63c5637e51e5f494a9b807a684a564b6
+      internalID: -2110067719
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!$CollectibleCrystal_3'
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 600
+        width: 45
+        height: 66
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f8031a82aa529614a8be7b5d2f150a7f
+      internalID: 1813475745
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!$CollectibleCrystal_4'
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 600
+        width: 45
+        height: 66
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 10b5d3ccca4775f468e58f2e02eed3f6
+      internalID: 1147564047
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!$CollectibleCrystal_5'
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 600
+        width: 45
+        height: 66
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b2e2c89ef3ac45f4eb242232124dcc38
+      internalID: -721021897
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!$CollectibleCrystal_6'
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 600
+        width: 45
+        height: 66
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 966ced61508f13348a1298ace2914d55
+      internalID: 2110536950
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!$CollectibleCrystal_7'
+      rect:
+        serializedVersion: 2
+        x: 291
+        y: 600
+        width: 45
+        height: 66
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 37ee521b079700e439fed3ff0ebd6491
+      internalID: 1440030248
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!$CollectibleCrystal_8'
+      rect:
+        serializedVersion: 2
+        x: 339
+        y: 600
+        width: 45
+        height: 66
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2f0ab4570d146e440a7b248550c71ad0
+      internalID: -12708913
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!$CollectibleCrystal_9'
+      rect:
+        serializedVersion: 2
+        x: 387
+        y: 600
+        width: 45
+        height: 66
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f6ee8de2c01257b4cba00dcd974e6ebe
+      internalID: -349081558
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!$CollectibleCrystal_10'
+      rect:
+        serializedVersion: 2
+        x: 435
+        y: 600
+        width: 45
+        height: 66
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 531afc0a1beb3f94ea0ba8bf2ee3b1dc
+      internalID: 99332276
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!$CollectibleCrystal_11'
+      rect:
+        serializedVersion: 2
+        x: 483
+        y: 600
+        width: 45
+        height: 66
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5da41abfb488dfb4a8ace14ec8dbf394
+      internalID: -353447564
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!$CollectibleCrystal_12'
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 498
+        width: 45
+        height: 60
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 01afc589fdc5a2e41b86dcee796262f9
+      internalID: 1800017629
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!$CollectibleCrystal_13'
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 498
+        width: 45
+        height: 60
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d4d82f80582f42a4fa78093188114044
+      internalID: 1901576511
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!$CollectibleCrystal_14'
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 498
+        width: 45
+        height: 60
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5426bd8266d670141becaad9cfd9bda3
+      internalID: -1367778946
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!$CollectibleCrystal_15'
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 498
+        width: 45
+        height: 60
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8925313c68a38404e85fac44cde0f892
+      internalID: -1160360876
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!$CollectibleCrystal_16'
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 498
+        width: 45
+        height: 60
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6c4fb73523d468a40a39ae325a429168
+      internalID: -567086567
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!$CollectibleCrystal_17'
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 498
+        width: 45
+        height: 60
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 83f46d88064e1f54fb87d53fbd76bf3d
+      internalID: -483476512
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!$CollectibleCrystal_18'
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 498
+        width: 45
+        height: 60
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 797af8a089f95fb4e9bc171cf8938246
+      internalID: -704311174
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!$CollectibleCrystal_19'
+      rect:
+        serializedVersion: 2
+        x: 336
+        y: 498
+        width: 45
+        height: 60
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dc34e481ab7ced0468472813731d8607
+      internalID: 1333064650
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!$CollectibleCrystal_20'
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 498
+        width: 45
+        height: 60
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 47d3d0636e2d232428a2dab2474e4efe
+      internalID: 614323916
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!$CollectibleCrystal_21'
+      rect:
+        serializedVersion: 2
+        x: 432
+        y: 498
+        width: 45
+        height: 60
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 224c1855bc9d1ab4487f223935f11dc4
+      internalID: -941595978
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!$CollectibleCrystal_22'
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 498
+        width: 45
+        height: 60
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c611db15b4984e740a09e70cbe95c6b3
+      internalID: -1461953660
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!$CollectibleCrystal_23'
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 411
+        width: 45
+        height: 57
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bded7e84edf02494397571c1be2530ce
+      internalID: -1122553811
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!$CollectibleCrystal_24'
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 411
+        width: 45
+        height: 57
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a3f7145a149141b43ab36429a6053b9a
+      internalID: -1494722098
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!$CollectibleCrystal_25'
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 411
+        width: 45
+        height: 57
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d70b8db172dc07848b5cad86d365ad4b
+      internalID: -2105591813
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!$CollectibleCrystal_26'
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 411
+        width: 45
+        height: 57
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4f3f47a426bda7240b0e8a3417f6a389
+      internalID: -1094871145
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!$CollectibleCrystal_27'
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 411
+        width: 45
+        height: 57
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4c9b1b15d4c498f4f871dd7475ff47a6
+      internalID: -1481880011
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!$CollectibleCrystal_28'
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 411
+        width: 45
+        height: 57
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 688a462ad6821a440a59a614fe5da36b
+      internalID: -663616428
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!$CollectibleCrystal_29'
+      rect:
+        serializedVersion: 2
+        x: 291
+        y: 411
+        width: 45
+        height: 57
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8c1608fc3f337874792c27232d20d1f2
+      internalID: 1257077690
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!$CollectibleCrystal_30'
+      rect:
+        serializedVersion: 2
+        x: 339
+        y: 411
+        width: 45
+        height: 57
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a856ca2aa9b11db479ed5f271f0ea650
+      internalID: -643117806
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!$CollectibleCrystal_31'
+      rect:
+        serializedVersion: 2
+        x: 387
+        y: 411
+        width: 45
+        height: 57
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 55f36deb705221f44872582dd4376189
+      internalID: -1722097697
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!$CollectibleCrystal_32'
+      rect:
+        serializedVersion: 2
+        x: 435
+        y: 411
+        width: 45
+        height: 57
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f60ef72a9ecc1947a2b901da1705708
+      internalID: -685939749
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!$CollectibleCrystal_33'
+      rect:
+        serializedVersion: 2
+        x: 483
+        y: 411
+        width: 45
+        height: 57
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c86a93a06b44814bba16e6b1c4baf77
+      internalID: 547212577
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!$CollectibleCrystal_34'
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 288
+        width: 528
+        height: 48
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 122965e6c6f47ad46bac66027faea932
+      internalID: 418469960
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!$CollectibleCrystal_35'
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 195
+        width: 39
+        height: 36
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 90ba608cf3511854f8bca71145ef6596
+      internalID: -1068891971
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!$CollectibleCrystal_36'
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 195
+        width: 39
+        height: 36
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4c6469ad51a52ae44920d5d840f94bd0
+      internalID: 1755337633
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!$CollectibleCrystal_37'
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 195
+        width: 39
+        height: 36
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ac3b035c1d722d247b8c607403fbf7ba
+      internalID: -1128010128
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!$CollectibleCrystal_38'
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 195
+        width: 39
+        height: 36
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 51f736616ecba8944acef5449dee9289
+      internalID: -1889157830
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!$CollectibleCrystal_39'
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 195
+        width: 39
+        height: 36
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 168f3dbbf4158cb4ca76bf1520d1db63
+      internalID: -1926988004
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!$CollectibleCrystal_40'
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 195
+        width: 39
+        height: 36
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6aaed692352e3a346ae4789a99bf889c
+      internalID: 350730538
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!$CollectibleCrystal_41'
+      rect:
+        serializedVersion: 2
+        x: 291
+        y: 195
+        width: 39
+        height: 36
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ccde15f6a941c44ea8ede05ce463e0e
+      internalID: 1201164455
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!$CollectibleCrystal_42'
+      rect:
+        serializedVersion: 2
+        x: 339
+        y: 195
+        width: 39
+        height: 36
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c5b499d84825d84697ef902e162e4a1
+      internalID: -1146977763
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!$CollectibleCrystal_43'
+      rect:
+        serializedVersion: 2
+        x: 387
+        y: 195
+        width: 39
+        height: 36
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a45224e41b05eb3419208073254946ac
+      internalID: 1126450780
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!$CollectibleCrystal_44'
+      rect:
+        serializedVersion: 2
+        x: 435
+        y: 195
+        width: 39
+        height: 36
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e44c367bce3b2634588ac8f70b072885
+      internalID: -1846381349
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!$CollectibleCrystal_45'
+      rect:
+        serializedVersion: 2
+        x: 483
+        y: 195
+        width: 39
+        height: 36
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8c846b92572c0994d80f14eaafcf9b9b
+      internalID: -2124787746
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!$CollectibleCrystal_46'
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 96
+        width: 36
+        height: 48
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9dc45936667091144805bffa84c62f39
+      internalID: -766217617
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!$CollectibleCrystal_47'
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 96
+        width: 36
+        height: 48
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c7cbd2a57aceeb44bb3e3464c44309ca
+      internalID: -2079039608
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!$CollectibleCrystal_48'
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 96
+        width: 36
+        height: 48
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d3a15216d3c942446b22b5543d90639a
+      internalID: 406953897
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!$CollectibleCrystal_49'
+      rect:
+        serializedVersion: 2
+        x: 150
+        y: 96
+        width: 36
+        height: 48
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bc0b41c2ebe86c54492e81ad878aff08
+      internalID: 360143725
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!$CollectibleCrystal_50'
+      rect:
+        serializedVersion: 2
+        x: 198
+        y: 96
+        width: 36
+        height: 48
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f67b40d47cc908438605200b45e775a
+      internalID: -690974400
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!$CollectibleCrystal_51'
+      rect:
+        serializedVersion: 2
+        x: 246
+        y: 96
+        width: 36
+        height: 48
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7fbbabf368e28c94a8d0fdf64ed0fc17
+      internalID: -1576567645
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!$CollectibleCrystal_52'
+      rect:
+        serializedVersion: 2
+        x: 294
+        y: 96
+        width: 36
+        height: 48
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8263429bf9710ff4893fccbb15e272c1
+      internalID: -1691641402
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!$CollectibleCrystal_53'
+      rect:
+        serializedVersion: 2
+        x: 342
+        y: 96
+        width: 36
+        height: 48
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e6dd43470b50e004a8c21675c6828c6d
+      internalID: 893921144
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!$CollectibleCrystal_54'
+      rect:
+        serializedVersion: 2
+        x: 390
+        y: 96
+        width: 36
+        height: 48
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9a876449948fd474cb4609b9952c3190
+      internalID: 1567511177
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!$CollectibleCrystal_55'
+      rect:
+        serializedVersion: 2
+        x: 438
+        y: 96
+        width: 36
+        height: 48
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c8188800a037b834eae92e5302b8e8fc
+      internalID: -581971248
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!$CollectibleCrystal_56'
+      rect:
+        serializedVersion: 2
+        x: 486
+        y: 96
+        width: 36
+        height: 48
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9d8e8b31f4cdba7498a910de1b63d315
+      internalID: 1287271294
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!$CollectibleCrystal_57'
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 3
+        width: 36
+        height: 45
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7253e300282185e47ae901c46d0b9841
+      internalID: -1193113524
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!$CollectibleCrystal_58'
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 3
+        width: 36
+        height: 45
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5da7230f00a4f3b4a80819a22832494e
+      internalID: 93061417
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!$CollectibleCrystal_59'
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 3
+        width: 36
+        height: 45
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 07332f1bb208b4d45af3c7174f917612
+      internalID: 313637702
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!$CollectibleCrystal_60'
+      rect:
+        serializedVersion: 2
+        x: 150
+        y: 3
+        width: 36
+        height: 45
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9adbb02037db39942b594297e2700ba1
+      internalID: -1823384126
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!$CollectibleCrystal_61'
+      rect:
+        serializedVersion: 2
+        x: 198
+        y: 3
+        width: 36
+        height: 45
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 22b3a9a9a84824d4b8b641d87af5d96d
+      internalID: 2090480792
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!$CollectibleCrystal_62'
+      rect:
+        serializedVersion: 2
+        x: 246
+        y: 3
+        width: 36
+        height: 45
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f2c43718970d20b419ee63f740405ed6
+      internalID: -1741752349
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!$CollectibleCrystal_63'
+      rect:
+        serializedVersion: 2
+        x: 294
+        y: 3
+        width: 36
+        height: 45
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ea8bd4a34c7b864e9d10e6964eb6ef4
+      internalID: 458434696
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!$CollectibleCrystal_64'
+      rect:
+        serializedVersion: 2
+        x: 342
+        y: 3
+        width: 36
+        height: 45
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2b62e20bac0bbc544bc0b112e42bb0c6
+      internalID: -1981492054
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!$CollectibleCrystal_65'
+      rect:
+        serializedVersion: 2
+        x: 390
+        y: 3
+        width: 36
+        height: 45
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5aeb68b3f45b790419b5d4b776d58ec5
+      internalID: -293707396
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!$CollectibleCrystal_66'
+      rect:
+        serializedVersion: 2
+        x: 438
+        y: 3
+        width: 36
+        height: 45
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b3064c8d875ad0748979847458cf89f4
+      internalID: 1730559586
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!$CollectibleCrystal_67'
+      rect:
+        serializedVersion: 2
+        x: 486
+        y: 3
+        width: 36
+        height: 45
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 131fe4cb6a306114bbc4abe3d91c43f6
+      internalID: 1583108041
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      '!$CollectibleCrystal_0': -935277169
+      '!$CollectibleCrystal_1': 1155062064
+      '!$CollectibleCrystal_10': 99332276
+      '!$CollectibleCrystal_11': -353447564
+      '!$CollectibleCrystal_12': 1800017629
+      '!$CollectibleCrystal_13': 1901576511
+      '!$CollectibleCrystal_14': -1367778946
+      '!$CollectibleCrystal_15': -1160360876
+      '!$CollectibleCrystal_16': -567086567
+      '!$CollectibleCrystal_17': -483476512
+      '!$CollectibleCrystal_18': -704311174
+      '!$CollectibleCrystal_19': 1333064650
+      '!$CollectibleCrystal_2': -2110067719
+      '!$CollectibleCrystal_20': 614323916
+      '!$CollectibleCrystal_21': -941595978
+      '!$CollectibleCrystal_22': -1461953660
+      '!$CollectibleCrystal_23': -1122553811
+      '!$CollectibleCrystal_24': -1494722098
+      '!$CollectibleCrystal_25': -2105591813
+      '!$CollectibleCrystal_26': -1094871145
+      '!$CollectibleCrystal_27': -1481880011
+      '!$CollectibleCrystal_28': -663616428
+      '!$CollectibleCrystal_29': 1257077690
+      '!$CollectibleCrystal_3': 1813475745
+      '!$CollectibleCrystal_30': -643117806
+      '!$CollectibleCrystal_31': -1722097697
+      '!$CollectibleCrystal_32': -685939749
+      '!$CollectibleCrystal_33': 547212577
+      '!$CollectibleCrystal_34': 418469960
+      '!$CollectibleCrystal_35': -1068891971
+      '!$CollectibleCrystal_36': 1755337633
+      '!$CollectibleCrystal_37': -1128010128
+      '!$CollectibleCrystal_38': -1889157830
+      '!$CollectibleCrystal_39': -1926988004
+      '!$CollectibleCrystal_4': 1147564047
+      '!$CollectibleCrystal_40': 350730538
+      '!$CollectibleCrystal_41': 1201164455
+      '!$CollectibleCrystal_42': -1146977763
+      '!$CollectibleCrystal_43': 1126450780
+      '!$CollectibleCrystal_44': -1846381349
+      '!$CollectibleCrystal_45': -2124787746
+      '!$CollectibleCrystal_46': -766217617
+      '!$CollectibleCrystal_47': -2079039608
+      '!$CollectibleCrystal_48': 406953897
+      '!$CollectibleCrystal_49': 360143725
+      '!$CollectibleCrystal_5': -721021897
+      '!$CollectibleCrystal_50': -690974400
+      '!$CollectibleCrystal_51': -1576567645
+      '!$CollectibleCrystal_52': -1691641402
+      '!$CollectibleCrystal_53': 893921144
+      '!$CollectibleCrystal_54': 1567511177
+      '!$CollectibleCrystal_55': -581971248
+      '!$CollectibleCrystal_56': 1287271294
+      '!$CollectibleCrystal_57': -1193113524
+      '!$CollectibleCrystal_58': 93061417
+      '!$CollectibleCrystal_59': 313637702
+      '!$CollectibleCrystal_6': 2110536950
+      '!$CollectibleCrystal_60': -1823384126
+      '!$CollectibleCrystal_61': 2090480792
+      '!$CollectibleCrystal_62': -1741752349
+      '!$CollectibleCrystal_63': 458434696
+      '!$CollectibleCrystal_64': -1981492054
+      '!$CollectibleCrystal_65': -293707396
+      '!$CollectibleCrystal_66': 1730559586
+      '!$CollectibleCrystal_67': 1583108041
+      '!$CollectibleCrystal_7': 1440030248
+      '!$CollectibleCrystal_8': -12708913
+      '!$CollectibleCrystal_9': -349081558
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
