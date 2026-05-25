@@ -26,25 +26,35 @@ This is a 2D top-down pixel-art adventure and management game developed in Unity
 
 ---
 
-## 📅 Development Roadmap
+## 📅 Development Roadmap & Project Progress
 
-This project is planned to be completed within 4 weeks:
+The project scope has been deliberately optimized to focus on a highly polished, mechanically sound **Vertical Slice**, prioritizing game feel and iterative development over sheer size.
 
-- [x] **Phase 1: Core Mechanics Prototype (Week 1)**
-    - Player movement and Tilemap destruction logic
-    - Basic inventory system (data layer)
-- [ ] **Phase 2: System Logic & Core Loop (Week 2)**
-    - Resource processing logic (forge)
-    - Shop system for buying and selling
-    - Scene transitions and data persistence across scenes
-- [ ] **Phase 3: Combat & AI (Week 3)**
-    - Enemy spawning algorithms
-    - Player attack and damage detection system
-    - Mine layer difficulty balancing
-- [ ] **Phase 4: Polishing & Testing (Week 4)**
-    - UI/UX interface optimization
-    - Sound effects and visual particle effects
-    - Bug fixing and performance optimization
+### 🟩 Phase 1: Core Loop, Mining Mechanics & Economy (Current Week)
+*Goal: Establish the absolute fundamental gameplay loop (Mine → Inventory → Refine → Sell).*
+
+- [x] **Player Movement**: Basic grid-based/smooth character movement and control setup.
+- [ ] **Tilemap & Mining Logic**: Base environment setup using tilemaps, connecting player interaction to tile/ore destruction and resource drops.
+- [ ] **Data Layer & Inventory**: Implementation of a structured inventory system (`ItemData` structs) to handle asset collection properly.
+- [ ] **Economy Systems (Forge & Shop)**: 
+  - Resource processing logic (converting Raw Ore $\rightarrow$ Refined Ingot).
+  - A consolidated NPC Merchant interface located within the main scene for buying and selling items, maximizing stability.
+
+### 🟨 Phase 2: Game Feel & Progression Mechanics (Sprint Week 2)
+*Goal: Address gameplay repetitiveness by adding sensory feedback, tool scaling, and dynamic risk/reward variables.*
+
+- [ ] **Juice & Game Feel (Visual/Audio Feedback)**: Implementation of screen shake, particle effects (flying block debris), and hit animations upon mining.
+- [ ] **Tool Tier Progression**: Configuration of modular tool levels where dynamic efficiency multipliers apply based on the ore metadata (e.g., Iron Pickaxe vs. Copper Ore).
+- [ ] **Mitigating Repetition (Dynamic Spawning)**: Simple, lightweight algorithms to spawn rare high-value veins or explosive/hazard blocks instead of complex, bug-prone combat AI.
+- [ ] **UI Responsiveness**: Implementation of progress bars for refining/forging and runtime popup alerts (e.g., Gold gained, Inventory Full notifications).
+
+### 🟦 Phase 3: Quality Assurance, Polishing & Evaluation (Sprint Week 3)
+*Goal: Strict stabilization, edge-case debugging, code refactoring, and preparing submission materials. No new features.*
+
+- [ ] **Rigorous Playtesting & Debugging**: Systematic testing of border cases (e.g., overflow limits, boundary checks) and logging bug fixes for the final development report.
+- [ ] **UI/UX Polish**: Refining menus, localizing HUD layouts, and smoothing out user interaction states.
+- [ ] **Repository Optimization**: Cleaning up file architecture, ensuring proper asset licensing attribution, and optimizing build size.
+- [ ] **Project Retrospective**: Finalizing documentation detailing architectural choices, solutions to development roadblocks, and design iterations based on user feedback.
 
 ---
 
