@@ -30,7 +30,7 @@ This is a 2D top-down pixel-art adventure and management game developed in Unity
 
 This project is planned to be completed within 4 weeks:
 
-- [ ] **Phase 1: Core Mechanics Prototype (Week 1)**
+- [x] **Phase 1: Core Mechanics Prototype (Week 1)**
     - Player movement and Tilemap destruction logic
     - Basic inventory system (data layer)
 - [ ] **Phase 2: System Logic & Core Loop (Week 2)**
