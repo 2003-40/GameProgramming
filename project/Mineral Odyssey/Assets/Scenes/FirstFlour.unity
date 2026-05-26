@@ -1196,7 +1196,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   oreTilemap: {fileID: 684186136}
   mainCamera: {fileID: 519420031}
-  miningRange: 1.5
+  playerScript: {fileID: 0}
+  miningRange: 2
+  miningAngleCos: 0.7
+  playerToolLevel: 1
+  bounceForce: 4
 --- !u!70 &1619067031
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

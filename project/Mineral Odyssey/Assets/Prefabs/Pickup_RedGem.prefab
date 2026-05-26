@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 3808778027825153421}
   - component: {fileID: 2968418914680962621}
   - component: {fileID: 7337709689763434892}
+  - component: {fileID: -8565716058568426431}
+  - component: {fileID: -7289663341037768761}
   m_Layer: 7
   m_Name: Pickup_RedGem
   m_TagString: Untagged
@@ -130,3 +132,45 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.89361703, y: 1.3404255}
   m_EdgeRadius: 0
+--- !u!114 &-8565716058568426431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1211231293670646606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea80effa49dd21c4ca91f1e409a8328d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  magnetRadius: 2
+  moveSpeed: 6
+  activateDelay: 0.4
+--- !u!50 &-7289663341037768761
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1211231293670646606}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 2
+  m_AngularDrag: 3
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

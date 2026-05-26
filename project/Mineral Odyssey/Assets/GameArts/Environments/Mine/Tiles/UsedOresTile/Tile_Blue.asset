@@ -37,3 +37,6 @@ MonoBehaviour:
   gemstoneName: 
   maxHealth: 4
   dropPrefab: {fileID: 80119885726086267, guid: e87000ce3b6008244a76d18ed98089d5, type: 3}
+  requiredToolLevel: 2
+  hitParticlePrefab: {fileID: 3806134885674647379, guid: 50ef36e236047b640806a7d4eddd7a63, type: 3}
+  crackSprites: []

@@ -19,19 +19,35 @@ public class Player : MonoBehaviour
         movementInput.x = Input.GetAxisRaw("Horizontal");
         movementInput.y = Input.GetAxisRaw("Vertical");
 
-        movementInput = movementInput.normalized;
+        if (movementInput.magnitude > 0)
+        {
+            movementInput = movementInput.normalized;
 
-        animator.SetFloat("Horizontal", movementInput.x);
-        animator.SetFloat("Vertical", movementInput.y);
-        animator.SetFloat("Speed", movementInput.magnitude); // 速度参数，控制动画切换（比如从站立到行走）
+            // 只有在走路移动时，才更新动画机的方向参数
+            animator.SetFloat("Horizontal", movementInput.x);
+            animator.SetFloat("Vertical", movementInput.y);
+        }
+
+        // 无论动没动，随时把速度传给动画机（用于切换 Idle 和 Walk 动画状态）
+        animator.SetFloat("Speed", movementInput.magnitude); 
     }
 
     private void FixedUpdate()
     {
-        // 办法 A：直接用旧版的 velocity 控速移动（最常用）
         rb2D.velocity = movementInput * speed;
+    }
 
-        // 办法 B：如果你想用 MovePosition，就把上面那行 rb2D.velocity 删掉，用下面这行：
-        // rb2D.MovePosition(rb2D.position + movementInput * speed * Time.fixedDeltaTime);
+    /// <summary>
+    /// 【新增方法】供采矿脚本调用，直接抓取动画机当前所处（或最后保留）的面朝方向
+    /// </summary>
+    public Vector2 GetFacingDirection()
+    {
+        if (animator != null)
+        {
+            float h = animator.GetFloat("Horizontal");
+            float v = animator.GetFloat("Vertical");
+            return new Vector2(h, v).normalized;
+        }
+        return Vector2.down; // 兜底默认朝下
     }
 }
