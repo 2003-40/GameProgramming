@@ -209,7 +209,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.24, y: -1.18, z: -10}
+  m_LocalPosition: {x: -3.66, y: 0.2, z: -10}
   m_LocalScale: {x: 0.51791173, y: 0.51791173, z: 0.51791173}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -308,7 +308,7 @@ GameObject:
   - component: {fileID: 684186139}
   - component: {fileID: 684186138}
   - component: {fileID: 684186137}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: OreTilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -937,17 +937,17 @@ MonoBehaviour:
   globalSpawnChance: 8
   orePool:
   - oreName: Yellow Gemstone
-    oreTile: {fileID: 11400000, guid: c7f1de4cb4915964796319e76e789fe3, type: 2}
-    spawnWeight: 0
+    oreTile: {fileID: 11400000, guid: bff9c543ed3aa0d4d9bf971b18bc9dd5, type: 2}
+    spawnWeight: 5
   - oreName: White Gemstone
-    oreTile: {fileID: 11400000, guid: c4a04144f1291264faf036bedbe823c4, type: 2}
-    spawnWeight: 0
+    oreTile: {fileID: 11400000, guid: 931d99415aa54424c9bf3a7d5fe75c10, type: 2}
+    spawnWeight: 2
   - oreName: Blue Gemstone
-    oreTile: {fileID: 11400000, guid: b8a0b2ef5d8c68d4789720bc783f6078, type: 2}
-    spawnWeight: 0
+    oreTile: {fileID: 11400000, guid: 8c298367b43851c41a258f1ab5d49dca, type: 2}
+    spawnWeight: 2
   - oreName: Red Gemstone
-    oreTile: {fileID: 11400000, guid: 2c6fd3cb4f725e94b9752d30e80feba6, type: 2}
-    spawnWeight: 0
+    oreTile: {fileID: 11400000, guid: 97d0f279e5a55f14aad6b4b0f26fba93, type: 2}
+    spawnWeight: 1
 --- !u!1 &1251512580
 GameObject:
   m_ObjectHideFlags: 0
@@ -1045,7 +1045,9 @@ GameObject:
   - component: {fileID: 1619067028}
   - component: {fileID: 1619067027}
   - component: {fileID: 1619067029}
-  m_Layer: 0
+  - component: {fileID: 1619067030}
+  - component: {fileID: 1619067031}
+  m_Layer: 6
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -1113,7 +1115,7 @@ Transform:
   m_GameObject: {fileID: 1619067024}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.24, y: 0.24, z: 0}
+  m_LocalPosition: {x: -3.66, y: 0.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1158,7 +1160,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!95 &1619067029
 Animator:
   serializedVersion: 5
@@ -1180,6 +1182,56 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1619067030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1619067024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d905f35e953a93946b5e6b95c7e8a00d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  oreTilemap: {fileID: 684186136}
+  mainCamera: {fileID: 519420031}
+  miningRange: 1.5
+--- !u!70 &1619067031
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1619067024}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.56666666}
+  m_Size: {x: 0.8666667, y: 1.1333333}
+  m_Direction: 0
 --- !u!1 &1786521006
 GameObject:
   m_ObjectHideFlags: 3
@@ -1333,7 +1385,7 @@ Transform:
   m_GameObject: {fileID: 1880338899}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.24, y: -1.18, z: -10}
+  m_LocalPosition: {x: -3.66, y: 0.2, z: -10}
   m_LocalScale: {x: 0.27065384, y: 0.27065384, z: 0.27065384}
   m_ConstrainProportionsScale: 0
   m_Children:
