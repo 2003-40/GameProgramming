@@ -7,113 +7,78 @@ public class MiningController : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private Tilemap oreTilemap;    
-    [SerializeField] private Camera mainCamera;    
-    [SerializeField] private Player playerScript; 
-
-    [Header("Mining Config")]
-    [SerializeField] private float miningRange = 1.5f; 
-    [SerializeField] [Range(-1f, 1f)] private float miningAngleCos = 0.5f; // 稍微调低到0.5（约前方120度），容错率更高，手感更好
-    [SerializeField] private int playerToolLevel = 1; 
 
     [Header("Juice Config")]
     [SerializeField] private float bounceForce = 4f; 
 
     private Dictionary<Vector3Int, int> oreHealthTracker = new Dictionary<Vector3Int, int>();
     private bool isWobbling = false; 
-    private Collider2D playerCollider;
 
     void Start()
     {
-        if (mainCamera == null) mainCamera = Camera.main;
         if (oreTilemap == null)
         {
             oreTilemap = GameObject.Find("OreTilemap")?.GetComponent<Tilemap>();
         }
+
+        // --------- 【优化修复 Bug 2：出生/刷新时单次排查卡死】 ---------
+        ResolveInitialStuckPlayers();
+    }
+
+    /// <summary>
+    /// 一次性检测，防止游戏刚加载或者矿石生成时把玩家卡在里面
+    /// </summary>
+    private void ResolveInitialStuckPlayers()
+    {
+        Player player = FindFirstObjectByType<Player>();
+        if (player == null || oreTilemap == null) return;
+
+        Collider2D playerCol = player.GetComponent<Collider2D>();
+        if (playerCol == null) return;
+
+        // 获取玩家当前的中心坐标
+        Vector3Int startGrid = oreTilemap.WorldToCell(player.transform.position);
         
-        if (playerScript == null)
+        // 检索周围 3x3 范围的格子
+        for (int x = -1; x <= 1; x++)
         {
-            playerScript = GetComponent<Player>() ?? GetComponentInParent<Player>() ?? FindFirstObjectByType<Player>();
-        }
+            for (int y = -1; y <= 1; y++)
+            {
+                Vector3Int checkPos = startGrid + new Vector3Int(x, y, 0);
+                if (oreTilemap.HasTile(checkPos))
+                {
+                    Vector3 cellCenter = oreTilemap.GetCellCenterWorld(checkPos);
+                    Bounds tileBounds = new Bounds(cellCenter, oreTilemap.cellSize);
 
-        if (playerScript != null)
-        {
-            playerCollider = playerScript.GetComponent<Collider2D>();
+                    // 如果出生时重叠了
+                    if (playerCol.bounds.Intersects(tileBounds))
+                    {
+                        Debug.LogWarning($"[安全启动] 玩家出生在矿石 {checkPos} 内部！执行单次清开处理。");
+                        oreTilemap.SetTile(checkPos, null); // 移除该危险矿石
+                    }
+                }
+            }
         }
     }
 
-    void Update()
+    /// <summary>
+    /// 【纯净化重构】供工具脚本检测到碰撞后直接调用
+    /// </summary>
+    /// <param name="worldHitPos">挥砍命中的世界坐标点</param>
+    /// <param name="incomingToolLevel">当前玩家手持工具的级别</param>
+    public void TryMineAtPosition(Vector3 worldHitPos, int incomingToolLevel)
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            ProcessMining();
-        }
-    }
+        if (oreTilemap == null) return;
 
-    private void ProcessMining()
-    {
-        Vector3 mouseWorldPos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
-        mouseWorldPos.z = 0f;
-
-        Vector3Int gridPos = oreTilemap.WorldToCell(mouseWorldPos);
+        Vector3Int gridPos = oreTilemap.WorldToCell(worldHitPos);
         TileBase clickedTile = oreTilemap.GetTile(gridPos);
 
         if (clickedTile is MiningTile currentOre)
         {
-            // --------- 【修复 Bug 1：防卡死/脱卡机制】 ---------
-            bool isPlayerInsideTile = false;
-            if (playerCollider != null)
+            // 验证工具等级
+            if (incomingToolLevel < currentOre.requiredToolLevel)
             {
-                // 计算当前格子的世界范围边界
-                Vector3 cellCenter = oreTilemap.GetCellCenterWorld(gridPos);
-                Vector3 cellSize = oreTilemap.cellSize;
-                Bounds tileBounds = new Bounds(cellCenter, cellSize);
-
-                // 如果玩家碰撞体和石头格子重合了
-                if (playerCollider.bounds.Intersects(tileBounds))
-                {
-                    isPlayerInsideTile = true; // 标记重合
-                }
-            }
-
-            // 如果没有被压住，正常执行距离和朝向判定
-            if (!isPlayerInsideTile)
-            {
-                // 1.1 限制挖掘距离
-                Vector3 directionToTarget = mouseWorldPos - transform.position;
-                float distance = directionToTarget.magnitude;
-
-                if (distance > miningRange)
-                {
-                    Debug.Log("太远了，手不够长！");
-                    return;
-                }
-
-                // 1.1 面朝向检查（通过动画状态机获取精准记忆方向）
-                Vector3 playerForward = Vector3.up; 
-                if (playerScript != null)
-                {
-                    Vector2 facing = playerScript.GetFacingDirection();
-                    playerForward = new Vector3(facing.x, facing.y, 0f);
-                }
-
-                directionToTarget.Normalize();
-                float dotProduct = Vector3.Dot(playerForward, directionToTarget);
-
-                if (dotProduct < miningAngleCos)
-                {
-                    Debug.Log("你没有面对着矿石！");
-                    return;
-                }
-            }
-            else
-            {
-                Debug.LogWarning("玩家被矿石卡住了！触发紧急脱卡挖掘，无视距离与朝向约束！");
-            }
-
-            // 3.2 挖掘工具等级限制
-            if (playerToolLevel < currentOre.requiredToolLevel)
-            {
-                Debug.Log($"[弹刀！] 工具等级不足！");
+                Debug.Log($"[弹刀！] 工具等级 {incomingToolLevel} 低于矿石所需等级 {currentOre.requiredToolLevel}");
                 return;
             }
 
@@ -131,27 +96,25 @@ public class MiningController : MonoBehaviour
         oreHealthTracker[gridPos]--;
         Vector3 cellWorldPos = oreTilemap.GetCellCenterWorld(gridPos);
 
-        // --------- 【修复 Bug 3：受击粒子每次都触发并自动销毁】 ---------
+        // 受击粒子触发与销毁
         if (ore.hitParticlePrefab != null)
         {
             GameObject particleObj = Instantiate(ore.hitParticlePrefab.gameObject, cellWorldPos, Quaternion.identity);
-            // 提醒：确保粒子Prefab的 Main 模块中 Loop 是关闭的，Play On Awake 是开启的
             ParticleSystem ps = particleObj.GetComponent<ParticleSystem>();
             if (ps != null)
             {
                 ps.Play();
-                // 按照粒子的生存周期延迟自动销毁该特效物体，防止内存泄漏或残留
                 Destroy(particleObj, ps.main.duration + ps.main.startLifetime.constantMax);
             }
         }
 
-        // 2.1 矿石受击震动效果
+        // 矿石受击震动
         if (!isWobbling)
         {
             StartCoroutine(WobbleTilemapVisual());
         }
 
-        // 3.1 矿石多阶段视觉变化
+        // 多阶段视觉碎裂/褪色变化
         float healthPercent = (float)oreHealthTracker[gridPos] / ore.maxHealth;
         Color damageColor = Color.Lerp(Color.gray, Color.white, healthPercent); 
         

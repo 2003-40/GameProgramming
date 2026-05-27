@@ -7,11 +7,19 @@ public class Player : MonoBehaviour
     private Rigidbody2D rb2D;
     private Vector2 movementInput;
     private Animator animator;
+    private ToolController toolController;
+    
+    // 【核心修复】记忆最后一次有效的移动输入，默认朝下
+    private Vector2 lastValidFacing = Vector2.down; 
 
     void Start()
     {
         animator = GetComponent<Animator>();
         rb2D = GetComponent<Rigidbody2D>();
+        toolController = GetComponentInChildren<ToolController>();
+        
+        // 初始同步一次动画机参数
+        UpdateAnimatorParams(lastValidFacing, 0f);
     }
 
     void Update()
@@ -19,35 +27,64 @@ public class Player : MonoBehaviour
         movementInput.x = Input.GetAxisRaw("Horizontal");
         movementInput.y = Input.GetAxisRaw("Vertical");
 
-        if (movementInput.magnitude > 0)
+        if (movementInput.magnitude > 0.01f)
         {
-            movementInput = movementInput.normalized;
-
-            // 只有在走路移动时，才更新动画机的方向参数
-            animator.SetFloat("Horizontal", movementInput.x);
-            animator.SetFloat("Vertical", movementInput.y);
+            // 归一化防止斜向走变快
+            lastValidFacing = movementInput.normalized;
+            
+            // 移动时同步更新动画机
+            UpdateAnimatorParams(lastValidFacing, movementInput.magnitude);
         }
-
-        // 无论动没动，随时把速度传给动画机（用于切换 Idle 和 Walk 动画状态）
-        animator.SetFloat("Speed", movementInput.magnitude); 
+        else
+        {
+            // 【核心修复】停止移动时，速度传 0 切换到 Idle，但方向参数强制锁死
+            UpdateAnimatorParams(lastValidFacing, 0f);
+        }
     }
 
     private void FixedUpdate()
     {
-        rb2D.velocity = movementInput * speed;
+        rb2D.velocity = movementInput.normalized * speed;
+    }
+
+    private void UpdateAnimatorParams(Vector2 facing, float speedParam)
+    {
+        if (animator == null) return;
+        
+        animator.SetFloat("Horizontal", facing.x);
+        animator.SetFloat("Vertical", facing.y);
+        animator.SetFloat("Speed", speedParam);
     }
 
     /// <summary>
-    /// 【新增方法】供采矿脚本调用，直接抓取动画机当前所处（或最后保留）的面朝方向
+    /// 供采矿、攻击等外部脚本调用的绝对同步朝向
     /// </summary>
     public Vector2 GetFacingDirection()
     {
-        if (animator != null)
+        return lastValidFacing;
+    }
+
+    public void SetFacingDirection(Vector2 facing)
+    {
+        if (facing.sqrMagnitude < 0.0001f)
         {
-            float h = animator.GetFloat("Horizontal");
-            float v = animator.GetFloat("Vertical");
-            return new Vector2(h, v).normalized;
+            return;
         }
-        return Vector2.down; // 兜底默认朝下
+
+        lastValidFacing = facing.normalized;
+        UpdateAnimatorParams(lastValidFacing, movementInput.magnitude);
+    }
+
+    public void CheckActionHit()
+    {
+        if (toolController == null)
+        {
+            toolController = GetComponentInChildren<ToolController>();
+        }
+
+        if (toolController != null)
+        {
+            toolController.CheckActionHit();
+        }
     }
 }
