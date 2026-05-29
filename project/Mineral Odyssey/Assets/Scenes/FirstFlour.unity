@@ -2072,7 +2072,7 @@ GameObject:
   - component: {fileID: 1619067027}
   - component: {fileID: 1619067029}
   - component: {fileID: 1619067030}
-  - component: {fileID: 1619067031}
+  - component: {fileID: 1619067032}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -2223,8 +2223,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   oreTilemap: {fileID: 684186136}
   bounceForce: 4
---- !u!70 &1619067031
-CapsuleCollider2D:
+--- !u!60 &1619067032
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -2255,9 +2255,33 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.56666666}
-  m_Size: {x: 0.8666667, y: 1.1333333}
-  m_Direction: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0}
+    oldSize: {x: 0.8666667, y: 1.1333333}
+    newSize: {x: 0.13, y: 0.17}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.24783473, y: 1.1621037}
+      - {x: -0.4381284, y: 0.9511211}
+      - {x: -0.44543403, y: 0.52195406}
+      - {x: -0.339279, y: 0.42075253}
+      - {x: -0.4514254, y: 0.27666187}
+      - {x: -0.45251358, y: 0.10069656}
+      - {x: -0.2994978, y: -0.010528564}
+      - {x: 0.2888244, y: -0.0074911118}
+      - {x: 0.4668987, y: 0.11508131}
+      - {x: 0.46185377, y: 0.26812696}
+      - {x: 0.34572032, y: 0.3975587}
+      - {x: 0.44980875, y: 0.50849295}
+      - {x: 0.4469568, y: 0.9831133}
+      - {x: 0.2607114, y: 1.1525133}
+  m_UseDelaunayMesh: 0
 --- !u!1 &1720420816
 GameObject:
   m_ObjectHideFlags: 0
