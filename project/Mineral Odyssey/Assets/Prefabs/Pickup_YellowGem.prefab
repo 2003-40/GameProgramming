@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1918534473113408811}
   - component: {fileID: -2343221227906134020}
   - component: {fileID: -2493954693363765947}
+  - component: {fileID: 3940253253573154244}
   m_Layer: 7
   m_Name: Pickup_YellowGem
   m_TagString: Untagged
@@ -174,3 +175,16 @@ MonoBehaviour:
   magnetRadius: 2
   moveSpeed: 6
   activateDelay: 0.4
+--- !u!114 &3940253253573154244
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6877814992880134410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6fd665c6ce64959ae8e13307b4a05f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemData: {fileID: 11400000, guid: 5fb116f6918c4284897100e9bc0d5d41, type: 2}

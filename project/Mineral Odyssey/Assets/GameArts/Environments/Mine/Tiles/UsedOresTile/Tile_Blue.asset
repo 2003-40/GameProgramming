@@ -34,7 +34,7 @@ MonoBehaviour:
   m_InstancedGameObject: {fileID: 0}
   m_Flags: 1
   m_ColliderType: 1
-  gemstoneName: 
+  gemstoneName: Blue Gemstone
   maxHealth: 4
   dropPrefab: {fileID: 80119885726086267, guid: e87000ce3b6008244a76d18ed98089d5, type: 3}
   requiredToolLevel: 2
