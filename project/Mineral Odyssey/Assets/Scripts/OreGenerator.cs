@@ -17,10 +17,10 @@ public class OreGenerator : MonoBehaviour
     [SerializeField] private Tilemap oreTilemap;
 
     [Header("地图生成范围 (网格坐标)")]
-    [SerializeField] private int minX = -10;
-    [SerializeField] private int maxX = 10;
-    [SerializeField] private int minY = -10;
-    [SerializeField] private int maxY = 10;
+    [SerializeField] private int minX = -19;
+    [SerializeField] private int maxX = 9;
+    [SerializeField] private int minY = -2;
+    [SerializeField] private int maxY = 4;
 
     [Header("整体生成密度 (0-100%)")]
     [Tooltip("每个格子有多少概率会生成矿石。剩下的格子会保持空白，露出背景。")]
