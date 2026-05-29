@@ -10,17 +10,17 @@ public class OreGenerator : MonoBehaviour
         public string oreName;       // 矿石名称
         public TileBase oreTile;     // 对应的 Tile 资源
         [Range(0, 100)]
-        public float spawnWeight;    // 在“已决定生成矿石”的格子中，该矿石占 know 多少权重
+        public float spawnWeight;    // 在“已决定生成矿石”的格子中，该矿石占多少权重
     }
 
     [Header("组件引用")]
     [SerializeField] private Tilemap oreTilemap;
 
     [Header("地图生成范围 (网格坐标)")]
-    [SerializeField] private int minX = -10;
-    [SerializeField] private int maxX = 10;
-    [SerializeField] private int minY = -10;
-    [SerializeField] private int maxY = 10;
+    [SerializeField] private int minX = -19;
+    [SerializeField] private int maxX = 9;
+    [SerializeField] private int minY = -2;
+    [SerializeField] private int maxY = 4;
 
     [Header("整体生成密度 (0-100%)")]
     [Tooltip("每个格子有多少概率会生成矿石。剩下的格子会保持空白，露出背景。")]
@@ -59,6 +59,18 @@ public class OreGenerator : MonoBehaviour
                 // 如果没抽中，就什么都不做，这个位置在 Tilemap 上就是空的（透明的）
             }
         }
+
+        // ==================== 【新加的物理刷新逻辑】 ====================
+        // 1. 强制刷新 Tilemap 的网格数据和渲染
+        oreTilemap.RefreshAllTiles();
+
+        // 2. 如果你挂载了 CompositeCollider2D，强制让它在运行时重新烘焙出新的物理边缘
+        if (oreTilemap.TryGetComponent<CompositeCollider2D>(out var compositeCollider))
+        {
+            compositeCollider.GenerateGeometry();
+            Debug.Log("OreGenerator: 物理网格重构完毕，矿石墙体已生效！");
+        }
+        // ===============================================================
     }
 
     private TileBase GetRandomOreFromPool()
