@@ -34,7 +34,7 @@ MonoBehaviour:
   m_InstancedGameObject: {fileID: 0}
   m_Flags: 1
   m_ColliderType: 1
-  gemstoneName: 
+  gemstoneName: Raw Iron Ore
   maxHealth: 3
   dropPrefab: {fileID: 8008592905463038290, guid: b468841916f14c24aaecedffb4aa4f4b, type: 3}
   requiredToolLevel: 1
