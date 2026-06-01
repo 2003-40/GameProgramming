@@ -3,8 +3,10 @@ using UnityEngine;
 public class ItemPickup : MonoBehaviour
 {
     [SerializeField] private ItemData itemData;
+    [SerializeField] private ItemRewardMode rewardMode = ItemRewardMode.AutoConvertToGold;
 
     public ItemData ItemData => itemData;
+    public ItemRewardMode RewardMode => rewardMode;
 
     public bool TryCollect()
     {
@@ -14,7 +16,7 @@ public class ItemPickup : MonoBehaviour
             return false;
         }
 
-        if (!InventoryManager.Instance.AddItem(itemData))
+        if (!ItemRewardService.Grant(itemData, rewardMode))
         {
             return false;
         }
