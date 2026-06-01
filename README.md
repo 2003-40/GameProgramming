@@ -31,14 +31,17 @@ This is a 2D top-down pixel-art adventure and management game developed in Unity
 The project scope has been deliberately optimized to focus on a highly polished, mechanically sound **Vertical Slice**, prioritizing game feel and iterative development over sheer size.
 
 ### 🟩 Phase 1: Core Loop, Mining Mechanics & Economy (Current Week)
-*Goal: Establish the absolute fundamental gameplay loop (Mine → Inventory → Refine → Sell).*
+*Goal: Establish the absolute fundamental gameplay loop (Mine -> Collect -> Gold Reward).*
 
 - [x] **Player Movement**: Basic grid-based/smooth character movement and control setup.
-- [ ] **Tilemap & Mining Logic**: Base environment setup using tilemaps, connecting player interaction to tile/ore destruction and resource drops.
-- [ ] **Data Layer & Inventory**: Implementation of a structured inventory system (`ItemData` structs) to handle asset collection properly.
-- [ ] **Economy Systems (Forge & Shop)**: 
-  - Resource processing logic (converting Raw Ore $\rightarrow$ Refined Ingot).
-  - A consolidated NPC Merchant interface located within the main scene for buying and selling items, maximizing stability.
+- [x] **Tilemap & Mining Logic**: Base environment setup using tilemaps, connecting player interaction to tile/ore destruction and resource drops.
+- [x] **Data Layer & Inventory**: Implementation of a structured inventory system (`ItemData` structs) to handle asset collection properly.
+- [x] **Economy Systems (Direct Gold Rewards)**:
+  - Global Gold manager tracks the player's current Gold total.
+  - Mined pickups read `ItemData.Value` and immediately convert common mining rewards into Gold on collection.
+  - Mining UI displays the current Gold amount during play.
+  - Transaction debug logs verify collected item name, item value, and updated Gold total.
+  - Reward logic remains modular so future item collection can branch between direct Gold rewards, inventory storage, crafting, quests, or collection systems.
 
 ### 🟨 Phase 2: Game Feel & Progression Mechanics (Sprint Week 2)
 *Goal: Address gameplay repetitiveness by adding sensory feedback, tool scaling, and dynamic risk/reward variables.*
