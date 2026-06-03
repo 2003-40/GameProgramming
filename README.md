@@ -1,95 +1,126 @@
-# Game Name：Mineral Odyssey (矿石奇遇记)
-This is a 2D top-down pixel-art adventure and management game developed in Unity. This project aims to showcase core development skills such as dungeon generation, inventory systems, AI combat, and data persistence through a complete "gather-process-trade-upgrade" loop.
+# Mineral Odyssey
+
+Mineral Odyssey is a 2D top-down pixel-art mining roguelite built in Unity. The project focuses on a short, repeatable loop where every mining action spends stamina, deeper levels add risk through lightweight monsters and hazards, and permanent upgrades expand what the player can access between runs.
 
 ---
 
-## 🎮 Core Gameplay Loop
+## Core Gameplay Loop
 
-1.  **Mining:** Enter a multi-layered mine, using tools to excavate different grades of ore (implemented using the Tilemap system).
-2.  **Survival:** The first two layers are safe zones; starting from the third layer, players will encounter monsters with varying AI behaviors.
-3.  **Processing:** Bring raw ores back to the resource house and transform them into refined products using a forge.
-4.  **Trading:** Sell refined products at the shop to earn gold.
-5.  **Progression:** Use gold to purchase larger inventory space or more powerful weapons to explore deeper mine layers.
-
----
-## 🛠 Tech Stack
-
-*   **Engine:** Unity 2022.3 LTS
-*   **Rendering:** Universal Render Pipeline (URP) 2D
-*   **Programming Language:** C#
-*   **Key Components / Technologies:**
-    *   **Tilemap:** For dynamic and destructible map environments.
-    *   **ScriptableObjects:** To decouple item data (e.g., name, price, sprite) from game logic.
-    *   **Singleton Pattern:** For managing global game states (e.g., player assets, level status).
-    *   **A\* Pathfinding:** Basic AI navigation for enemies.
-    *   **JSON / PlayerPrefs:** For simple save/load functionality.
+1. **Map Hall:** The player starts in a hub screen with an S-shaped mine-cart route: Start -> Level 1 -> Level 2 -> Level 3. Each level node shows its unlock state, ticket cost, and risk/reward summary.
+2. **Guide & Shop:** The hub UI includes a guide panel for current objectives and a trade/shop panel for buying weapons, upgrading tools, improving card rewards, and increasing sell-value bonuses.
+3. **Run Setup:** Before entering a level, the game displays the current run modifier and offers a temporary card choice that only affects the current run.
+4. **Mining & Combat:** Stamina is the run budget. Mining spends stamina based on ore hardness and depth, while monster hits also reduce stamina. Planning and movement do not spend stamina.
+5. **Reward & Progression:** The run ends when stamina is depleted or the player exits. Earned gold is saved and spent on permanent upgrades, deeper level access, tools, weapons, and card-system upgrades.
 
 ---
 
-## 📅 Development Roadmap & Project Progress
+## Design Pillars
 
-The project scope has been deliberately optimized to focus on a highly polished, mechanically sound **Vertical Slice**, prioritizing game feel and iterative development over sheer size.
-
-### 🟩 Phase 1: Core Loop, Mining Mechanics & Economy (Current Week)
-*Goal: Establish the absolute fundamental gameplay loop (Mine -> Collect -> Gold Reward).*
-
-- [x] **Player Movement**: Basic grid-based/smooth character movement and control setup.
-- [x] **Tilemap & Mining Logic**: Base environment setup using tilemaps, connecting player interaction to tile/ore destruction and resource drops.
-- [x] **Data Layer & Inventory**: Implementation of a structured inventory system (`ItemData` structs) to handle asset collection properly.
-- [x] **Economy Systems (Direct Gold Rewards)**:
-  - Global Gold manager tracks the player's current Gold total.
-  - Mined pickups read `ItemData.Value` and immediately convert common mining rewards into Gold on collection.
-  - Mining UI displays the current Gold amount during play.
-  - Transaction debug logs verify collected item name, item value, and updated Gold total.
-  - Reward logic remains modular so future item collection can branch between direct Gold rewards, inventory storage, crafting, quests, or collection systems.
-
-### 🟨 Phase 2: Game Feel & Progression Mechanics (Sprint Week 2)
-*Goal: Address gameplay repetitiveness by adding sensory feedback, tool scaling, and dynamic risk/reward variables.*
-
-- [ ] **Juice & Game Feel (Visual/Audio Feedback)**: Implementation of screen shake, particle effects (flying block debris), and hit animations upon mining.
-- [ ] **Tool Tier Progression**: Configuration of modular tool levels where dynamic efficiency multipliers apply based on the ore metadata (e.g., Iron Pickaxe vs. Copper Ore).
-- [ ] **Mitigating Repetition (Dynamic Spawning)**: Simple, lightweight algorithms to spawn rare high-value veins or explosive/hazard blocks instead of complex, bug-prone combat AI.
-- [ ] **UI Responsiveness**: Implementation of progress bars for refining/forging and runtime popup alerts (e.g., Gold gained, Inventory Full notifications).
-
-### 🟦 Phase 3: Quality Assurance, Polishing & Evaluation (Sprint Week 3)
-*Goal: Strict stabilization, edge-case debugging, code refactoring, and preparing submission materials. No new features.*
-
-- [ ] **Rigorous Playtesting & Debugging**: Systematic testing of border cases (e.g., overflow limits, boundary checks) and logging bug fixes for the final development report.
-- [ ] **UI/UX Polish**: Refining menus, localizing HUD layouts, and smoothing out user interaction states.
-- [ ] **Repository Optimization**: Cleaning up file architecture, ensuring proper asset licensing attribution, and optimizing build size.
-- [ ] **Project Retrospective**: Finalizing documentation detailing architectural choices, solutions to development roadblocks, and design iterations based on user feedback.
+- **Every swing is a budget decision:** Stamina limits each run without using a timer, so players can plan calmly.
+- **Deeper levels are structured progression:** Level access is gated by tickets, tool capability, and upgrade milestones rather than raw stat inflation.
+- **Cards change the current run:** Temporary cards create tactical variation, such as slower stamina loss, instant gold, bonus ore fragments, combat bonuses, or risky high-reward modifiers.
+- **Shop upgrades support the loop:** Permanent upgrades unlock harder ores, deeper levels, better weapons, card-pool growth, rare-card odds, and passive refinement value bonuses.
+- **Lightweight monsters, not complex combat:** Level 2 introduces one simple monster type. Level 3 introduces two monster types. They create stamina pressure and positioning decisions without turning the project into a full combat game.
+- **No heavy crafting chain:** The forge/refining layer is replaced by a passive shop upgrade that increases sell value, keeping the scope focused and UI-driven.
 
 ---
 
-## 🚀 Getting Started
+## Tech Stack
 
-1.  **Clone the repository:**
-    ```bash
-    git clone https://github.com/2003-40/GameProgramming.git
-    ```
-2.  **Open in Unity:**
-    Add the project to Unity Hub (recommended version 2022.3).
-3.  **Run the game:**
-    Open `MainScene.unity` in the `Assets/Scenes` folder and click Play.
+- **Engine:** Unity 2022.3 LTS
+- **Rendering:** Universal Render Pipeline (URP) 2D
+- **Programming Language:** C#
+- **Key Components / Technologies:**
+  - **Tilemap:** Dynamic and destructible mining environments.
+  - **ScriptableObjects:** Data-driven item, ore, tool, card, level, and upgrade metadata.
+  - **Singleton / Manager Pattern:** Global state for gold, run state, stamina, shop progression, and UI updates.
+  - **Lightweight Enemy Logic:** Simple patrol/chase/attack behaviors for layer-based monster pressure.
+  - **PlayerPrefs / JSON:** Simple save/load support for gold and permanent progression.
 
 ---
-## 📼 Screenshots
+
+## Development Roadmap & Project Progress
+
+The project scope is now reduced for a solo two-week delivery. The priority is a stable, playable vertical slice rather than a complete roguelite system.
+
+### Phase 1: Core Loop, Mining Mechanics & Economy
+
+*Goal: Establish the basic loop: mine -> collect -> earn gold.*
+
+- [x] **Player Movement:** Basic grid-based/smooth character movement and control setup.
+- [x] **Tilemap & Mining Logic:** Tilemap-based ore destruction and resource drops.
+- [x] **Data Layer & Inventory:** Structured item data and inventory support.
+- [x] **Economy Systems:**
+  - Global gold manager tracks the player's current gold total.
+  - Mined pickups read `ItemData.Value` and convert common rewards into gold on collection.
+  - Mining UI displays current gold during play.
+  - Reward logic remains modular for direct gold, inventory storage, future quests, or collection systems.
+
+### Phase 2: Must-Have Vertical Slice
+
+*Goal: Deliver a playable loop that can be demonstrated confidently.*
+
+- [ ] **Stamina Budget:** Add a right-corner stamina UI, spend stamina on mining and enemy damage, and end the run when stamina reaches zero.
+- [ ] **Static Map Hall:** Create a simple hub screen with Start/Level 1/Level 2/Level 3 nodes, ticket costs, and level entry buttons. The mine cart can use simple position jumps instead of full path animation.
+- [ ] **Basic Shop:** Add a text/menu-based shop for tool upgrades and weapon upgrades.
+- [ ] **Tool & Ore Gating:** Use tool level and ore hardness to decide whether an ore can be mined and how much stamina it costs.
+- [ ] **Three Temporary Cards:** Add three run-only cards: slower stamina loss, +20 gold, and chance for double ore fragments.
+- [ ] **Minimal Monster Pressure:** Add one simple monster type in Level 2 and reuse/variant it in Level 3 if time is limited.
+- [ ] **Essential UI Feedback:** Show stamina, gold gain, ticket cost, shop purchase result, and run-end feedback.
+
+### Optional Features After Must-Have
+
+*Goal: Add only if the vertical slice is already stable.*
+
+- [ ] **Guide Panel:** Show current objective and next recommended upgrade in the hub.
+- [ ] **Second Level 3 Monster:** Add a clearly different second monster type for Level 3.
+- [ ] **Rare Veins:** Add one rare high-value vein type with depth-scaled spawn chance.
+- [ ] **Single Hazard Block:** Add one explosive or unstable block type.
+- [ ] **Refinement Multiplier:** Add a passive shop upgrade that increases sell value.
+- [ ] **Run Modifier:** Show one random modifier before card selection.
+
+### Phase 3: Quality Assurance, Polishing & Evaluation
+
+*Goal: Stabilize the vertical slice and prepare final submission materials.*
+
+- [ ] **Playtesting & Balancing:** Validate stamina costs, ticket costs, card strength, ore value, monster pressure, and shallow-level anti-farming.
+- [ ] **UI/UX Polish:** Improve hub navigation, card readability, shop clarity, and in-run feedback.
+- [ ] **Repository Optimization:** Clean project structure, verify asset licensing, and optimize build size.
+- [ ] **Project Retrospective:** Document design iterations, technical choices, testing evidence, and known limitations.
+
+---
+
+## Getting Started
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/2003-40/GameProgramming.git
+   ```
+2. **Open in Unity:**
+   Add the project to Unity Hub using Unity 2022.3 LTS.
+3. **Run the game:**
+   Open the main scene in the Mineral Odyssey Unity project and click Play.
+
+---
+
+## Screenshots
+
 ![FirstLevel](image.png)
 
 ---
 
-## 🤝 Acknowledgements & Resources
+## Acknowledgements & Resources
 
-*   Art Assets: [Kenney.nl](https://kenney.nl/) / [Itch.io Free Assets]
-*   Sound Effects: [Bfxr]
-*   Special Thanks: [Your Professor/TA's Name] for guidance
+- Art Assets: [Kenney.nl](https://kenney.nl/) / Itch.io free assets
+- Sound Effects: Bfxr / Freesound assets where credited
 
---- 
+---
 
-### 📝 Author
--   **Name:** Sihan Wang
--   **University:** Dundee International Institute of Central South University
--   **Contact:** 2617378@dundee.ac.uk
+## Author
+
+- **Name:** Sihan Wang
+- **University:** Dundee International Institute of Central South University
+- **Contact:** 2617378@dundee.ac.uk
 
 ---
 
@@ -97,4 +128,3 @@ The project scope has been deliberately optimized to focus on a highly polished,
 
 - GitHub Kanban auto-management and commit message automation guide:
   - docs/github_automation.md
-

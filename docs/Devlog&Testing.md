@@ -1,4 +1,4 @@
-# Devlog
+# Devlog & Testing
 
 ## 2026-05-24
 By session 4, I will add a quest/task board system inspired by Stardew Valley-style task posting and reward flow, and I will show evidence by peer feedback recommending that a visible task board should be added to make objectives clearer and progression more guided.
