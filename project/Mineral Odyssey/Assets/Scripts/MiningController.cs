@@ -8,10 +8,28 @@ public class MiningController : MonoBehaviour
     [Header("References")]
     [SerializeField] private Tilemap oreTilemap;    
 
+    [Header("Mining Feedback")]
+    [SerializeField] private ParticleSystem fallbackHitParticlePrefab;
+    [SerializeField] private ParticleSystem destroyParticlePrefab;
+    [SerializeField] private MiningParticlePool hitParticlePool;
+    [SerializeField] private MiningParticlePool destroyParticlePool;
+    [SerializeField] private int hitParticleInitialPoolSize = 8;
+    [SerializeField] private int hitParticleMaxPoolSize = 24;
+    [SerializeField] private int destroyParticleInitialPoolSize = 3;
+    [SerializeField] private int destroyParticleMaxPoolSize = 8;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip hitClip;
+    [SerializeField] private AudioClip destroyClip;
+    [Range(0f, 1f)]
+    [SerializeField] private float hitVolume = 0.7f;
+    [Range(0f, 1f)]
+    [SerializeField] private float destroyVolume = 0.9f;
+
     [Header("Juice Config")]
     [SerializeField] private float bounceForce = 4f; 
 
     private Dictionary<Vector3Int, int> oreHealthTracker = new Dictionary<Vector3Int, int>();
+    private Dictionary<ParticleSystem, MiningParticlePool> runtimeParticlePools = new Dictionary<ParticleSystem, MiningParticlePool>();
     private bool isWobbling = false; 
 
     void Start()
@@ -21,8 +39,68 @@ public class MiningController : MonoBehaviour
             oreTilemap = GameObject.Find("OreTilemap")?.GetComponent<Tilemap>();
         }
 
+        SetupFeedbackPools();
+
         // --------- 【优化修复 Bug 2：出生/刷新时单次排查卡死】 ---------
         ResolveInitialStuckPlayers();
+    }
+
+    private void SetupFeedbackPools()
+    {
+        ParticleSystem hitPrefab = fallbackHitParticlePrefab;
+        if (hitPrefab == null)
+        {
+            hitPrefab = FindDefaultHitParticlePrefab();
+        }
+
+        if (hitPrefab != null)
+        {
+            hitParticlePool = EnsureParticlePool(hitParticlePool, "Hit Particle Pool", hitPrefab, hitParticleInitialPoolSize, hitParticleMaxPoolSize);
+            runtimeParticlePools[hitPrefab] = hitParticlePool;
+        }
+
+        if (destroyParticlePrefab != null)
+        {
+            destroyParticlePool = EnsureParticlePool(destroyParticlePool, "Destroy Particle Pool", destroyParticlePrefab, destroyParticleInitialPoolSize, destroyParticleMaxPoolSize);
+            runtimeParticlePools[destroyParticlePrefab] = destroyParticlePool;
+        }
+
+        if (audioSource == null)
+        {
+            audioSource = GetComponent<AudioSource>();
+        }
+    }
+
+    private ParticleSystem FindDefaultHitParticlePrefab()
+    {
+        if (oreTilemap == null)
+        {
+            return null;
+        }
+
+        foreach (Vector3Int position in oreTilemap.cellBounds.allPositionsWithin)
+        {
+            TileBase tile = oreTilemap.GetTile(position);
+            if (tile is MiningTile ore && ore.hitParticlePrefab != null)
+            {
+                return ore.hitParticlePrefab;
+            }
+        }
+
+        return null;
+    }
+
+    private MiningParticlePool EnsureParticlePool(MiningParticlePool pool, string poolName, ParticleSystem prefab, int initialPoolSize, int maxPoolSize)
+    {
+        if (pool == null)
+        {
+            GameObject poolObject = new GameObject(poolName);
+            poolObject.transform.SetParent(transform);
+            pool = poolObject.AddComponent<MiningParticlePool>();
+        }
+
+        pool.Configure(prefab, initialPoolSize, maxPoolSize);
+        return pool;
     }
 
     /// <summary>
@@ -96,17 +174,7 @@ public class MiningController : MonoBehaviour
         oreHealthTracker[gridPos]--;
         Vector3 cellWorldPos = oreTilemap.GetCellCenterWorld(gridPos);
 
-        // 受击粒子触发与销毁
-        if (ore.hitParticlePrefab != null)
-        {
-            GameObject particleObj = Instantiate(ore.hitParticlePrefab.gameObject, cellWorldPos, Quaternion.identity);
-            ParticleSystem ps = particleObj.GetComponent<ParticleSystem>();
-            if (ps != null)
-            {
-                ps.Play();
-                Destroy(particleObj, ps.main.duration + ps.main.startLifetime.constantMax);
-            }
-        }
+        PlayHitFeedback(cellWorldPos, ore);
 
         // 矿石受击震动
         if (!isWobbling)
@@ -151,11 +219,13 @@ public class MiningController : MonoBehaviour
 
     private void ExecuteDestruction(Vector3Int gridPos, MiningTile ore)
     {
+        Vector3 spawnPosition = oreTilemap.GetCellCenterWorld(gridPos);
+
+        PlayDestroyFeedback(spawnPosition);
+
         oreTilemap.SetColor(gridPos, Color.white);
         oreTilemap.SetTileFlags(gridPos, TileFlags.LockColor);
         oreTilemap.SetTile(gridPos, null);
-
-        Vector3 spawnPosition = oreTilemap.GetCellCenterWorld(gridPos);
 
         if (ore.dropPrefab != null)
         {
@@ -169,5 +239,65 @@ public class MiningController : MonoBehaviour
         }
 
         oreHealthTracker.Remove(gridPos);
+    }
+
+    private void PlayHitFeedback(Vector3 position, MiningTile ore)
+    {
+        ParticleSystem hitPrefab = ore.hitParticlePrefab != null ? ore.hitParticlePrefab : fallbackHitParticlePrefab;
+        if (hitPrefab != null)
+        {
+            MiningParticlePool pool = GetPoolForPrefab(hitPrefab, "Hit Particle Pool", hitParticleInitialPoolSize, hitParticleMaxPoolSize);
+            pool.Play(position, Quaternion.identity);
+        }
+
+        PlayOneShot(hitClip, hitVolume);
+    }
+
+    private void PlayDestroyFeedback(Vector3 position)
+    {
+        if (destroyParticlePrefab != null)
+        {
+            MiningParticlePool pool = GetPoolForPrefab(destroyParticlePrefab, "Destroy Particle Pool", destroyParticleInitialPoolSize, destroyParticleMaxPoolSize);
+            pool.Play(position, Quaternion.identity);
+        }
+
+        PlayOneShot(destroyClip, destroyVolume);
+    }
+
+    private void PlayOneShot(AudioClip clip, float volume)
+    {
+        if (audioSource == null || clip == null)
+        {
+            return;
+        }
+
+        audioSource.PlayOneShot(clip, volume);
+    }
+
+    private MiningParticlePool GetPoolForPrefab(ParticleSystem prefab, string poolName, int initialPoolSize, int maxPoolSize)
+    {
+        if (runtimeParticlePools.TryGetValue(prefab, out MiningParticlePool pool) && pool != null)
+        {
+            return pool;
+        }
+
+        if (prefab == fallbackHitParticlePrefab && hitParticlePool != null)
+        {
+            pool = hitParticlePool;
+        }
+        else if (prefab == destroyParticlePrefab && destroyParticlePool != null)
+        {
+            pool = destroyParticlePool;
+        }
+        else
+        {
+            GameObject poolObject = new GameObject($"{poolName} ({prefab.name})");
+            poolObject.transform.SetParent(transform);
+            pool = poolObject.AddComponent<MiningParticlePool>();
+        }
+
+        pool.Configure(prefab, initialPoolSize, maxPoolSize);
+        runtimeParticlePools[prefab] = pool;
+        return pool;
     }
 }
