@@ -9,11 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c34a6dcb16084fce835b29d4c3d0cd58, type: 3}
-  m_Name: RawCopperOre
+  m_Script: {fileID: 11500000, guid: 42d7a2fbc03d4c8bb97e5b9955c26a61, type: 3}
+  m_Name: SteelPickaxe
   m_EditorClassIdentifier: 
-  itemId: ore_raw_copper
-  displayName: Raw Copper Ore
-  icon: {fileID: -1552197438, guid: 0c2f611e73ed6234e8f06c043e6209df, type: 3}
-  itemType: 0
-  value: 10
+  displayName: Steel Pickaxe
+  tier: 3
+  miningPower: 3
+  staminaEfficiency: 3

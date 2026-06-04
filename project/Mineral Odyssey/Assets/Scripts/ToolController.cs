@@ -3,6 +3,7 @@ using UnityEngine;
 public class ToolController : MonoBehaviour
 {
     [Header("Tool Settings")]
+    [SerializeField] private ToolData currentTool;
     [SerializeField] private int toolLevel = 1;
     [SerializeField] private float toolEfficiency = 1f;
     [SerializeField] private float attackRadius = 1f;   // 挥砍检测半径
@@ -73,9 +74,20 @@ public class ToolController : MonoBehaviour
         {
             // 将碰撞点转换为网格坐标传递给采矿管理器
             Vector2 resolvedHitPoint = hitCollider.ClosestPoint(hitCenter);
-            miningController.TryMineAtPosition(resolvedHitPoint, toolLevel, toolEfficiency);
+            miningController.TryMineAtPosition(resolvedHitPoint, CurrentToolLevel, CurrentToolEfficiency);
         }
     }
+
+    public void EquipTool(ToolData tool)
+    {
+        currentTool = tool;
+    }
+
+    public ToolData CurrentTool => currentTool;
+
+    public int CurrentToolLevel => currentTool != null ? currentTool.MiningPower : Mathf.Max(1, toolLevel);
+
+    public float CurrentToolEfficiency => currentTool != null ? currentTool.StaminaEfficiency : Mathf.Max(0.01f, toolEfficiency);
 
     private void OnDrawGizmosSelected()
     {

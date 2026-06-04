@@ -3124,6 +3124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aacf9a5bed462b34e8bfec7d5a7f0ac3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentTool: {fileID: 11400000, guid: 78df7cbe41314225b7d10e531489a73f, type: 2}
   toolLevel: 1
   toolEfficiency: 2
   attackRadius: 0.8

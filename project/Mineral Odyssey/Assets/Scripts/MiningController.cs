@@ -156,11 +156,12 @@ public class MiningController : MonoBehaviour
             // 验证工具等级
             if (incomingToolLevel < currentOre.requiredToolLevel)
             {
-                Debug.Log($"[弹刀！] 工具等级 {incomingToolLevel} 低于矿石所需等级 {currentOre.requiredToolLevel}");
+                Debug.Log($"[Mining Blocked] ToolLevel={incomingToolLevel}, RequiredToolLevel={currentOre.requiredToolLevel}, Ore={currentOre.gemstoneName}, OreHardness={currentOre.hardness}");
                 return;
             }
 
-            int staminaCost = CalculateStaminaCost(currentOre, toolEfficiency);
+            int staminaCost = CalculateStaminaCost(currentOre, incomingToolLevel, toolEfficiency);
+            Debug.Log($"[Mining] ToolLevel={incomingToolLevel}, Ore={currentOre.gemstoneName}, RequiredToolLevel={currentOre.requiredToolLevel}, OreHardness={currentOre.hardness}, OreStaminaMultiplier={currentOre.staminaCostMultiplier}, ToolEfficiency={toolEfficiency}, StaminaCost={staminaCost}");
             if (!StaminaManager.Instance.ConsumeStamina(staminaCost))
             {
                 Debug.Log("[体力不足] 本次挖矿已中止，当前探索结束。");
@@ -171,11 +172,13 @@ public class MiningController : MonoBehaviour
         }
     }
 
-    private int CalculateStaminaCost(MiningTile ore, float toolEfficiency)
+    private int CalculateStaminaCost(MiningTile ore, int toolLevel, float toolEfficiency)
     {
         int hardness = Mathf.Max(1, ore.hardness);
+        float oreMultiplier = Mathf.Max(0.01f, ore.staminaCostMultiplier);
+        int miningPower = Mathf.Max(1, toolLevel);
         float efficiency = Mathf.Max(0.01f, toolEfficiency);
-        return Mathf.Max(1, Mathf.CeilToInt(hardness / efficiency));
+        return Mathf.Max(1, Mathf.CeilToInt((hardness * oreMultiplier) / (miningPower * efficiency)));
     }
 
     private void HandleDamage(Vector3Int gridPos, MiningTile ore)

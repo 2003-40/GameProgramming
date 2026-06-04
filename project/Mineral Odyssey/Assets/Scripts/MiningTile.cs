@@ -10,6 +10,7 @@ public class MiningTile : Tile
     public int hardness = 1;          // 单次挖掘消耗体力的基础硬度
     public GameObject dropPrefab;    // 挖掘成功后掉落的物理物体预制体
 
+    public float staminaCostMultiplier = 1f;
     [Header("UX & Mechanics (New)")]
     public int requiredToolLevel = 1;  // 3.2 挖掘工具等级限制
     public ParticleSystem hitParticlePrefab; // 2.2 受击粒子碎屑飞溅
