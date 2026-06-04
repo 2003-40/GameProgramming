@@ -37,6 +37,7 @@ MonoBehaviour:
   gemstoneName: Yellow Gemstone
   maxHealth: 2
   hardness: 3
+  staminaCostMultiplier: 1
   dropPrefab: {fileID: 6877814992880134410, guid: cbff19e0f62fb0c4e9e48836ce9ceda0, type: 3}
   requiredToolLevel: 1
   hitParticlePrefab: {fileID: 3806134885674647379, guid: 50ef36e236047b640806a7d4eddd7a63, type: 3}

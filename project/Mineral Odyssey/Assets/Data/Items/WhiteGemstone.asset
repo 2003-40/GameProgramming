@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c34a6dcb16084fce835b29d4c3d0cd58, type: 3}
-  m_Name: RawIronOre
+  m_Name: WhiteGemstone
   m_EditorClassIdentifier: 
-  itemId: ore_raw_iron
-  displayName: Raw Iron Ore
+  itemId: gem_white
+  displayName: White Gemstone
   icon: {fileID: 162424472, guid: 0c2f611e73ed6234e8f06c043e6209df, type: 3}
   itemType: 0
   value: 20
