@@ -2336,7 +2336,7 @@ MonoBehaviour:
   minX: -18
   maxX: 9
   minY: 2
-  maxY: 7
+  maxY: 6
   globalSpawnChance: 8
   orePool:
   - oreName: Yellow Gemstone
@@ -2386,7 +2386,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -136, y: 145}
+  m_AnchoredPosition: {x: -150, y: 150}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1106125522
@@ -2695,6 +2695,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
+  defaultMonsterHitStaminaDamage: 10
+  defaultMonsterHitCooldown: 1
+  staminaDamageTags:
+  - Monster
+  - Enemy
+  - Hazard
 --- !u!50 &1619067028
 Rigidbody2D:
   serializedVersion: 4
@@ -3119,6 +3125,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   toolLevel: 1
+  toolEfficiency: 2
   attackRadius: 0.8
   attackOffset: 0.6
   tilemapLayer:

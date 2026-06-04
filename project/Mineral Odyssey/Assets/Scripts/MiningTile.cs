@@ -7,6 +7,7 @@ public class MiningTile : Tile
     [Header("Mining Settings")]
     public string gemstoneName;      // 宝石名称
     public int maxHealth = 3;         // 需要挖掘的次数
+    public int hardness = 1;          // 单次挖掘消耗体力的基础硬度
     public GameObject dropPrefab;    // 挖掘成功后掉落的物理物体预制体
 
     [Header("UX & Mechanics (New)")]

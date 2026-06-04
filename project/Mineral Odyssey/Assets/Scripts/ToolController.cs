@@ -4,6 +4,7 @@ public class ToolController : MonoBehaviour
 {
     [Header("Tool Settings")]
     [SerializeField] private int toolLevel = 1;
+    [SerializeField] private float toolEfficiency = 1f;
     [SerializeField] private float attackRadius = 1f;   // 挥砍检测半径
     [SerializeField] private float attackOffset = 0.75f;   // 检测圈在角色前方的偏移量
     [SerializeField] private LayerMask tilemapLayer;      // 矿石网格所在的图层
@@ -72,7 +73,7 @@ public class ToolController : MonoBehaviour
         {
             // 将碰撞点转换为网格坐标传递给采矿管理器
             Vector2 resolvedHitPoint = hitCollider.ClosestPoint(hitCenter);
-            miningController.TryMineAtPosition(resolvedHitPoint, toolLevel);
+            miningController.TryMineAtPosition(resolvedHitPoint, toolLevel, toolEfficiency);
         }
     }
 

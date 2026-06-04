@@ -4,10 +4,16 @@ public class Player : MonoBehaviour
 {
     public float speed = 5f;
 
+    [Header("Stamina Damage")]
+    [SerializeField] private int defaultMonsterHitStaminaDamage = 10;
+    [SerializeField] private float defaultMonsterHitCooldown = 1f;
+    [SerializeField] private string[] staminaDamageTags = { "Monster", "Enemy", "Hazard" };
+
     private Rigidbody2D rb2D;
     private Vector2 movementInput;
     private Animator animator;
     private ToolController toolController;
+    private float nextStaminaDamageTime;
     
     // 【核心修复】记忆最后一次有效的移动输入，默认朝下
     private Vector2 lastValidFacing = Vector2.down; 
@@ -86,5 +92,70 @@ public class Player : MonoBehaviour
         {
             toolController.CheckActionHit();
         }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        TryTakeStaminaDamage(collision.gameObject);
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        TryTakeStaminaDamage(collision.gameObject);
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        TryTakeStaminaDamage(other.gameObject);
+    }
+
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        TryTakeStaminaDamage(other.gameObject);
+    }
+
+    private void TryTakeStaminaDamage(GameObject damageSource)
+    {
+        int staminaDamage = ResolveStaminaDamage(damageSource, out float damageCooldown);
+        if (staminaDamage <= 0 || Time.time < nextStaminaDamageTime)
+        {
+            return;
+        }
+
+        nextStaminaDamageTime = Time.time + damageCooldown;
+        StaminaManager.Instance.ConsumeStamina(staminaDamage);
+    }
+
+    private int ResolveStaminaDamage(GameObject damageSource, out float damageCooldown)
+    {
+        StaminaDamageOnContact staminaDamageSource = damageSource.GetComponentInParent<StaminaDamageOnContact>();
+        if (staminaDamageSource != null)
+        {
+            damageCooldown = Mathf.Max(0f, staminaDamageSource.DamageCooldown);
+            return staminaDamageSource.StaminaDamage;
+        }
+
+        if (HasStaminaDamageTag(damageSource))
+        {
+            damageCooldown = Mathf.Max(0f, defaultMonsterHitCooldown);
+            return defaultMonsterHitStaminaDamage;
+        }
+
+        damageCooldown = 0f;
+        return 0;
+    }
+
+    private bool HasStaminaDamageTag(GameObject damageSource)
+    {
+        string damageSourceTag = damageSource.tag;
+        for (int i = 0; i < staminaDamageTags.Length; i++)
+        {
+            if (damageSourceTag == staminaDamageTags[i])
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
