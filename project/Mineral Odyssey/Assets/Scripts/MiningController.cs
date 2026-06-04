@@ -144,7 +144,7 @@ public class MiningController : MonoBehaviour
     /// </summary>
     /// <param name="worldHitPos">挥砍命中的世界坐标点</param>
     /// <param name="incomingToolLevel">当前玩家手持工具的级别</param>
-    public void TryMineAtPosition(Vector3 worldHitPos, int incomingToolLevel)
+    public void TryMineAtPosition(Vector3 worldHitPos, int incomingToolLevel, float toolEfficiency)
     {
         if (oreTilemap == null) return;
 
@@ -160,8 +160,22 @@ public class MiningController : MonoBehaviour
                 return;
             }
 
+            int staminaCost = CalculateStaminaCost(currentOre, toolEfficiency);
+            if (!StaminaManager.Instance.ConsumeStamina(staminaCost))
+            {
+                Debug.Log("[体力不足] 本次挖矿已中止，当前探索结束。");
+                return;
+            }
+
             HandleDamage(gridPos, currentOre);
         }
+    }
+
+    private int CalculateStaminaCost(MiningTile ore, float toolEfficiency)
+    {
+        int hardness = Mathf.Max(1, ore.hardness);
+        float efficiency = Mathf.Max(0.01f, toolEfficiency);
+        return Mathf.Max(1, Mathf.CeilToInt(hardness / efficiency));
     }
 
     private void HandleDamage(Vector3Int gridPos, MiningTile ore)

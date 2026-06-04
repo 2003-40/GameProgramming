@@ -8,3 +8,6 @@ By session 6, I will add a progression path UI that clearly shows the route from
 
 ## 2026-05-28
 By session 7, I will implement a simplified gold economy system and remove forging-based progression from the core loop, and I will show evidence by peer feedback recommending adding a coin/gold system and simplifying gameplay by not using the forging system.
+
+## 2026-06-04
+Implemented an action-based stamina budget for mining runs. Mining now consumes stamina based on ore hardness and tool efficiency, monster contact can reduce stamina, and reaching zero stamina ends the current run by returning to the menu/map hall scene.
