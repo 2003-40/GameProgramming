@@ -12,21 +12,30 @@ public class ToolController : MonoBehaviour
 
     private Player player;
     private Animator playerAnimator;
+    private SpriteRenderer playerRenderer;
     private MiningController miningController;
     private Collider2D playerCollider;
     private Camera mainCamera;
     private Vector2 queuedAttackDirection = Vector2.down;
 
+    private void OnEnable()
+    {
+        EnsureToolVisualVisible();
+    }
+
     void Start()
     {
         player = GetComponentInParent<Player>();
         playerAnimator = GetComponentInParent<Animator>();
+        playerRenderer = GetComponentInParent<SpriteRenderer>();
         miningController = FindFirstObjectByType<MiningController>();
         mainCamera = Camera.main;
         if (player != null)
         {
             playerCollider = player.GetComponent<Collider2D>();
         }
+
+        EnsureToolVisualVisible();
     }
 
     void Update()
@@ -81,6 +90,7 @@ public class ToolController : MonoBehaviour
     public void EquipTool(ToolData tool)
     {
         currentTool = tool;
+        EnsureToolVisualVisible();
     }
 
     public ToolData CurrentTool => currentTool;
@@ -160,5 +170,46 @@ public class ToolController : MonoBehaviour
         }
 
         return GetCardinalFacing(toMouse);
+    }
+
+    private void EnsureToolVisualVisible()
+    {
+        if (!gameObject.activeSelf)
+        {
+            gameObject.SetActive(true);
+        }
+
+        SpriteRenderer[] toolRenderers = GetComponentsInChildren<SpriteRenderer>(true);
+        if (toolRenderers.Length == 0)
+        {
+            return;
+        }
+
+        int sortingOrder = 2;
+        string sortingLayerName = string.Empty;
+
+        if (playerRenderer == null)
+        {
+            playerRenderer = GetComponentInParent<SpriteRenderer>();
+        }
+
+        if (playerRenderer != null)
+        {
+            sortingOrder = playerRenderer.sortingOrder + 1;
+            sortingLayerName = playerRenderer.sortingLayerName;
+        }
+
+        for (int i = 0; i < toolRenderers.Length; i++)
+        {
+            SpriteRenderer toolRenderer = toolRenderers[i];
+            toolRenderer.gameObject.SetActive(true);
+            toolRenderer.enabled = true;
+            toolRenderer.sortingOrder = sortingOrder;
+
+            if (!string.IsNullOrWhiteSpace(sortingLayerName))
+            {
+                toolRenderer.sortingLayerName = sortingLayerName;
+            }
+        }
     }
 }
