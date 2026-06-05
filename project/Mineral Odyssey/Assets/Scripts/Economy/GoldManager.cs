@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class GoldManager : MonoBehaviour
 {
+    private const string GoldSaveKey = "Gold";
+
     private static GoldManager instance;
 
     [Header("Currency")]
@@ -44,6 +46,7 @@ public class GoldManager : MonoBehaviour
 
         instance = this;
         DontDestroyOnLoad(gameObject);
+        LoadGold();
     }
 
     public int AddGold(int amount)
@@ -53,8 +56,7 @@ public class GoldManager : MonoBehaviour
             return gold;
         }
 
-        gold += amount;
-        GoldChanged?.Invoke(gold);
+        SetGold(gold + amount);
         return gold;
     }
 
@@ -75,8 +77,20 @@ public class GoldManager : MonoBehaviour
             return false;
         }
 
-        gold -= amount;
-        GoldChanged?.Invoke(gold);
+        SetGold(gold - amount);
         return true;
+    }
+
+    private void LoadGold()
+    {
+        gold = PlayerPrefs.GetInt(GoldSaveKey, gold);
+    }
+
+    private void SetGold(int value)
+    {
+        gold = value;
+        PlayerPrefs.SetInt(GoldSaveKey, gold);
+        PlayerPrefs.Save();
+        GoldChanged?.Invoke(gold);
     }
 }
