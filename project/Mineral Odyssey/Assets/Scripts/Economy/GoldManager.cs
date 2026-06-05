@@ -57,4 +57,26 @@ public class GoldManager : MonoBehaviour
         GoldChanged?.Invoke(gold);
         return gold;
     }
+
+    public bool CanAfford(int amount)
+    {
+        return amount <= 0 || gold >= amount;
+    }
+
+    public bool TrySpendGold(int amount)
+    {
+        if (amount <= 0)
+        {
+            return true;
+        }
+
+        if (gold < amount)
+        {
+            return false;
+        }
+
+        gold -= amount;
+        GoldChanged?.Invoke(gold);
+        return true;
+    }
 }

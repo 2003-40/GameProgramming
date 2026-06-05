@@ -1673,7 +1673,7 @@ GameObject:
   - component: {fileID: 454981544}
   - component: {fileID: 454981543}
   m_Layer: 0
-  m_Name: updated_mine_background_2
+  m_Name: mine_background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
