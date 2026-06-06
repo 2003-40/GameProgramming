@@ -6,82 +6,225 @@ using UnityEngine.UI;
 
 public class MiningReturnButtonBootstrap : MonoBehaviour
 {
-    private const string ButtonName = "Return To Map Button";
+    private const string LegacyButtonName = "Return To Map Button";
+    private const string EndButtonName = "EndTurn";
+    private const string RunEndPanelName = "RunEndPanel";
+    private const string ReturnButtonName = "ReturnToMapButton";
+    private const string GoldEarnedTextName = "GoldEarnedText";
+    private const string TotalGoldTextName = "TotalGoldText";
     private const string MapHallSceneName = "MapHall";
+
+    private static GameObject runEndPanel;
+    private static Button endTurnButton;
+    private static Button returnToMapButton;
+    private static TMP_Text goldEarnedText;
+    private static TMP_Text totalGoldText;
+    private static int startingGold;
+    private static bool hasRunContext;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     private static void Initialize()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
         SceneManager.sceneLoaded += OnSceneLoaded;
-        EnsureReturnButton();
+        StaminaManager.Instance.RunEnded -= ShowRunEndPanel;
+        StaminaManager.Instance.RunEnded += ShowRunEndPanel;
+        BindExistingRunEndUi();
     }
 
     private static void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        EnsureReturnButton();
+        Time.timeScale = 1f;
+        BindExistingRunEndUi();
     }
 
-    private static void EnsureReturnButton()
+    private static void BindExistingRunEndUi()
     {
         if (FindFirstObjectByType<MiningController>() == null)
         {
-            return;
-        }
-
-        if (GameObject.Find(ButtonName) != null)
-        {
+            ClearRunUiReferences();
             return;
         }
 
         EnsureEventSystem();
+        DisableLegacyReturnButton();
 
-        Canvas canvas = FindFirstObjectByType<Canvas>();
-        if (canvas == null)
+        if (!hasRunContext)
         {
-            GameObject canvasObject = new GameObject("Mining UI");
-            canvas = canvasObject.AddComponent<Canvas>();
-            canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-
-            CanvasScaler scaler = canvasObject.AddComponent<CanvasScaler>();
-            scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
-            scaler.referenceResolution = new Vector2(960f, 540f);
-
-            canvasObject.AddComponent<GraphicRaycaster>();
+            startingGold = GoldManager.Instance.Gold;
+            hasRunContext = true;
         }
 
-        GameObject buttonObject = new GameObject(ButtonName);
-        buttonObject.transform.SetParent(canvas.transform, false);
+        runEndPanel = FindSceneObject(RunEndPanelName);
+        endTurnButton = FindSceneButton(EndButtonName);
+        returnToMapButton = FindSceneButton(ReturnButtonName);
+        goldEarnedText = FindSceneText(GoldEarnedTextName);
+        totalGoldText = FindSceneText(TotalGoldTextName);
 
-        Image image = buttonObject.AddComponent<Image>();
-        image.color = new Color(0.48f, 0.29f, 0.14f, 0.92f);
+        if (runEndPanel != null)
+        {
+            runEndPanel.SetActive(false);
+        }
+        else
+        {
+            Debug.LogWarning("[MiningRunEnd] RunEndPanel was not found in the loaded mining scene. No runtime panel will be generated.");
+        }
 
-        Button button = buttonObject.AddComponent<Button>();
-        button.targetGraphic = image;
-        button.onClick.AddListener(ReturnToMapHall);
+        ConfigureButton(endTurnButton, EndCurrentRun);
+        ConfigureButton(returnToMapButton, ReturnToMapHall);
+    }
 
-        RectTransform buttonRect = buttonObject.GetComponent<RectTransform>();
-        buttonRect.anchorMin = new Vector2(1f, 1f);
-        buttonRect.anchorMax = new Vector2(1f, 1f);
-        buttonRect.pivot = new Vector2(1f, 1f);
-        buttonRect.anchoredPosition = new Vector2(-16f, -16f);
-        buttonRect.sizeDelta = new Vector2(150f, 42f);
+    private static void ClearRunUiReferences()
+    {
+        hasRunContext = false;
+        runEndPanel = null;
+        endTurnButton = null;
+        returnToMapButton = null;
+        goldEarnedText = null;
+        totalGoldText = null;
+    }
 
-        GameObject labelObject = new GameObject("Label");
-        labelObject.transform.SetParent(buttonObject.transform, false);
+    private static void ConfigureButton(Button button, UnityEngine.Events.UnityAction action)
+    {
+        if (button == null)
+        {
+            return;
+        }
 
-        TextMeshProUGUI label = labelObject.AddComponent<TextMeshProUGUI>();
-        label.text = "Return Map";
-        label.fontSize = 22f;
-        label.alignment = TextAlignmentOptions.Center;
-        label.color = Color.white;
-        label.raycastTarget = false;
+        button.interactable = true;
+        button.onClick.RemoveListener(action);
+        button.onClick.AddListener(action);
 
-        RectTransform labelRect = label.rectTransform;
-        labelRect.anchorMin = Vector2.zero;
-        labelRect.anchorMax = Vector2.one;
-        labelRect.offsetMin = Vector2.zero;
-        labelRect.offsetMax = Vector2.zero;
+        Graphic targetGraphic = button.targetGraphic != null ? button.targetGraphic : button.GetComponent<Graphic>();
+        if (targetGraphic != null)
+        {
+            targetGraphic.raycastTarget = true;
+            button.targetGraphic = targetGraphic;
+        }
+
+        TMP_Text[] labels = button.GetComponentsInChildren<TMP_Text>(true);
+        for (int i = 0; i < labels.Length; i++)
+        {
+            labels[i].raycastTarget = false;
+        }
+    }
+
+    private static void ShowRunEndPanel()
+    {
+        BindExistingRunEndUi();
+
+        if (runEndPanel == null)
+        {
+            return;
+        }
+
+        UpdateRunEndText();
+        runEndPanel.SetActive(true);
+
+        if (endTurnButton != null)
+        {
+            endTurnButton.interactable = false;
+        }
+
+        Time.timeScale = 0f;
+    }
+
+    private static void UpdateRunEndText()
+    {
+        int currentGold = GoldManager.Instance.Gold;
+        int earnedGold = Mathf.Max(0, currentGold - startingGold);
+
+        if (goldEarnedText != null)
+        {
+            goldEarnedText.text = $"Gold earned:\n{earnedGold}";
+        }
+
+        if (totalGoldText != null)
+        {
+            totalGoldText.text = $"Total gold:\n{currentGold}";
+        }
+    }
+
+    private static void EndCurrentRun()
+    {
+        StaminaManager.Instance.EndCurrentRun();
+    }
+
+    private static void ReturnToMapHall()
+    {
+        Time.timeScale = 1f;
+        hasRunContext = false;
+        SceneManager.LoadScene(MapHallSceneName);
+    }
+
+    private static void DisableLegacyReturnButton()
+    {
+        GameObject legacyButton = FindSceneObject(LegacyButtonName);
+        if (legacyButton != null)
+        {
+            legacyButton.SetActive(false);
+        }
+    }
+
+    private static Button FindSceneButton(string objectName)
+    {
+        GameObject target = FindSceneObject(objectName);
+        if (target == null)
+        {
+            return null;
+        }
+
+        Button button = target.GetComponent<Button>();
+        if (button != null)
+        {
+            return button;
+        }
+
+        button = target.GetComponentInChildren<Button>(true);
+        if (button != null)
+        {
+            return button;
+        }
+
+        return target.GetComponentInParent<Button>(true);
+    }
+
+    private static TMP_Text FindSceneText(string objectName)
+    {
+        GameObject target = FindSceneObject(objectName);
+        if (target == null)
+        {
+            return null;
+        }
+
+        TMP_Text text = target.GetComponent<TMP_Text>();
+        if (text != null)
+        {
+            return text;
+        }
+
+        return target.GetComponentInChildren<TMP_Text>(true);
+    }
+
+    private static GameObject FindSceneObject(string objectName)
+    {
+        GameObject[] objects = Resources.FindObjectsOfTypeAll<GameObject>();
+        for (int i = 0; i < objects.Length; i++)
+        {
+            GameObject candidate = objects[i];
+            if (candidate == null || candidate.name != objectName)
+            {
+                continue;
+            }
+
+            Scene scene = candidate.scene;
+            if (scene.IsValid() && scene.isLoaded)
+            {
+                return candidate;
+            }
+        }
+
+        return null;
     }
 
     private static void EnsureEventSystem()
@@ -91,13 +234,6 @@ public class MiningReturnButtonBootstrap : MonoBehaviour
             return;
         }
 
-        GameObject eventSystemObject = new GameObject("EventSystem");
-        eventSystemObject.AddComponent<EventSystem>();
-        eventSystemObject.AddComponent<StandaloneInputModule>();
-    }
-
-    private static void ReturnToMapHall()
-    {
-        SceneManager.LoadScene(MapHallSceneName);
+        Debug.LogWarning("[MiningRunEnd] No EventSystem was found in the loaded mining scene. Existing UI buttons will not receive clicks until an EventSystem is present.");
     }
 }

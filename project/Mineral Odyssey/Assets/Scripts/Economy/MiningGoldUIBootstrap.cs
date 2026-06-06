@@ -50,7 +50,7 @@ public class MiningGoldUIBootstrap : MonoBehaviour
         text.fontSize = 28f;
         text.alignment = TextAlignmentOptions.TopLeft;
         text.color = Color.white;
-        text.text = "Gold: 0";
+        text.text = "Gold:0";
 
         RectTransform rectTransform = text.rectTransform;
         rectTransform.anchorMin = new Vector2(0f, 1f);

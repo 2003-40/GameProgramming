@@ -16,10 +16,11 @@ public class MapHallController : MonoBehaviour
     private TMP_Text enterButtonText;
     private MapHallLevelOption selectedOption;
     private bool initialized;
+    private static readonly Vector2 MarkerOffset = new Vector2(0f, 64f);
+    private static readonly string[] StartNodeNames = { "StartNode", "Start Node" };
 
     public bool HasConfiguredView => marker != null
         && enterButton != null
-        && selectedLevelText != null
         && messageText != null
         && levelOptions != null
         && levelOptions.Count > 0;
@@ -40,6 +41,7 @@ public class MapHallController : MonoBehaviour
         TMP_Text entryMessageText)
     {
         marker = cartMarker;
+        DisableMarkerRaycasts();
         enterButton = selectedLevelButton;
         enterButtonText = enterButton.GetComponentInChildren<TMP_Text>();
         selectedLevelText = selectedText;
@@ -67,6 +69,7 @@ public class MapHallController : MonoBehaviour
         }
 
         enterButtonText = enterButton.GetComponentInChildren<TMP_Text>();
+        DisableMarkerRaycasts();
 
         foreach (MapHallLevelOption option in levelOptions)
         {
@@ -83,11 +86,14 @@ public class MapHallController : MonoBehaviour
         GoldManager.Instance.GoldChanged += OnGoldChanged;
         initialized = true;
 
-        MapHallLevelOption firstOption = FindFirstValidOption();
-        if (firstOption != null)
+        MapHallLevelOption startOption = FindStartOption();
+        if (startOption != null)
         {
-            SelectOption(firstOption);
+            SelectOption(startOption);
+            return;
         }
+
+        ClearSelection();
     }
 
     private void OnDestroy()
@@ -109,10 +115,57 @@ public class MapHallController : MonoBehaviour
 
         if (marker != null && option.NodeTransform != null)
         {
-            marker.anchoredPosition = option.NodeTransform.anchoredPosition + new Vector2(0f, 64f);
+            marker.anchoredPosition = option.NodeTransform.anchoredPosition + MarkerOffset;
         }
 
         UpdateSelectionState();
+    }
+
+    private void ClearSelection()
+    {
+        selectedOption = null;
+        MoveMarkerToStartFallback();
+
+        if (selectedLevelText != null)
+        {
+            selectedLevelText.text = "Selected: Start  |  Choose Level 1, 2, or 3";
+        }
+
+        if (enterButton != null)
+        {
+            enterButton.interactable = false;
+        }
+
+        if (enterButtonText != null)
+        {
+            enterButtonText.text = "Select a Mine Level";
+        }
+
+        SetMessage("Pick a level node on the S-route.", new Color(0.95f, 0.78f, 0.45f, 1f));
+    }
+
+    private void MoveMarkerToStartFallback()
+    {
+        if (marker == null)
+        {
+            return;
+        }
+
+        RectTransform startTransform = FindSceneRectTransform(StartNodeNames);
+        if (startTransform == null)
+        {
+            return;
+        }
+
+        if (startTransform.parent == marker.parent)
+        {
+            marker.anchoredPosition = startTransform.anchoredPosition + MarkerOffset;
+            return;
+        }
+
+        Vector3 startWorldPosition = startTransform.TransformPoint(startTransform.rect.center);
+        Vector3 markerParentPosition = marker.parent.InverseTransformPoint(startWorldPosition);
+        marker.anchoredPosition = new Vector2(markerParentPosition.x, markerParentPosition.y) + MarkerOffset;
     }
 
     private void EnterSelectedLevel()
@@ -194,13 +247,48 @@ public class MapHallController : MonoBehaviour
         return ticketCost <= 0 ? "Free" : $"{ticketCost} Gold";
     }
 
-    private MapHallLevelOption FindFirstValidOption()
+    private MapHallLevelOption FindStartOption()
     {
         for (int i = 0; i < levelOptions.Count; i++)
         {
-            if (levelOptions[i] != null)
+            MapHallLevelOption option = levelOptions[i];
+            if (option != null && !option.CanEnter)
             {
-                return levelOptions[i];
+                return option;
+            }
+        }
+
+        return null;
+    }
+
+    private void DisableMarkerRaycasts()
+    {
+        if (marker == null)
+        {
+            return;
+        }
+
+        Graphic[] graphics = marker.GetComponentsInChildren<Graphic>(true);
+        for (int i = 0; i < graphics.Length; i++)
+        {
+            graphics[i].raycastTarget = false;
+        }
+    }
+
+    private static RectTransform FindSceneRectTransform(params string[] names)
+    {
+        for (int i = 0; i < names.Length; i++)
+        {
+            GameObject target = GameObject.Find(names[i]);
+            if (target == null)
+            {
+                continue;
+            }
+
+            RectTransform rectTransform = target.GetComponent<RectTransform>();
+            if (rectTransform != null)
+            {
+                return rectTransform;
             }
         }
 

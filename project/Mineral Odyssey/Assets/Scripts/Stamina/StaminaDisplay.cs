@@ -43,7 +43,7 @@ public class StaminaDisplay : MonoBehaviour
 
         if (staminaText != null)
         {
-            staminaText.text = $"{label}: {current}/{max}";
+            staminaText.text = $"{current}/{max}";
         }
 
         if (staminaFill != null)

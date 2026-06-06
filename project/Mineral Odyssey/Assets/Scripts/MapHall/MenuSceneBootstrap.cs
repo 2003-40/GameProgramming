@@ -27,14 +27,14 @@ public class MenuSceneBootstrap : MonoBehaviour
             return;
         }
 
-        Button startButton = FindButton("Start_Button");
+        Button startButton = FindButton("Start_Button", "StartButton", "Start", "PlayButton");
         if (startButton != null)
         {
             startButton.onClick.RemoveListener(OpenMapHall);
             startButton.onClick.AddListener(OpenMapHall);
         }
 
-        Button exitButton = FindButton("Exit_Button");
+        Button exitButton = FindButton("Exit_Button", "ExitButton", "Exit", "QuitButton");
         if (exitButton != null)
         {
             exitButton.onClick.RemoveListener(QuitGame);
@@ -42,10 +42,36 @@ public class MenuSceneBootstrap : MonoBehaviour
         }
     }
 
-    private static Button FindButton(string objectName)
+    private static Button FindButton(params string[] objectNames)
     {
-        GameObject buttonObject = GameObject.Find(objectName);
-        return buttonObject == null ? null : buttonObject.GetComponent<Button>();
+        for (int i = 0; i < objectNames.Length; i++)
+        {
+            GameObject buttonObject = GameObject.Find(objectNames[i]);
+            if (buttonObject == null)
+            {
+                continue;
+            }
+
+            Button button = buttonObject.GetComponent<Button>();
+            if (button != null)
+            {
+                return button;
+            }
+
+            button = buttonObject.GetComponentInParent<Button>();
+            if (button != null)
+            {
+                return button;
+            }
+
+            button = buttonObject.GetComponentInChildren<Button>();
+            if (button != null)
+            {
+                return button;
+            }
+        }
+
+        return null;
     }
 
     private static void OpenMapHall()
