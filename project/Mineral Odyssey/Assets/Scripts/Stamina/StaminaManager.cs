@@ -12,7 +12,6 @@ public class StaminaManager : MonoBehaviour
     [SerializeField] private int currentStamina = 100;
 
     [Header("Run End")]
-    [SerializeField] private string endRunSceneName = "_Menu";
     [SerializeField] private bool resetWhenEnteringMiningScene = true;
 
     private bool isEndingRun;
@@ -46,6 +45,7 @@ public class StaminaManager : MonoBehaviour
 
     public event Action<int, int> StaminaChanged;
     public event Action StaminaDepleted;
+    public event Action RunEnded;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     private static void Initialize()
@@ -117,6 +117,11 @@ public class StaminaManager : MonoBehaviour
         return true;
     }
 
+    public void EndCurrentRun()
+    {
+        ScheduleEndCurrentRun();
+    }
+
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         ResetForCurrentSceneIfNeeded();
@@ -143,7 +148,11 @@ public class StaminaManager : MonoBehaviour
         }
 
         isEndingRun = true;
-        StaminaDepleted?.Invoke();
+        if (currentStamina <= 0)
+        {
+            StaminaDepleted?.Invoke();
+        }
+
         endRunCoroutine = StartCoroutine(EndCurrentRunAfterFrame());
     }
 
@@ -151,11 +160,7 @@ public class StaminaManager : MonoBehaviour
     {
         yield return null;
 
-        if (!string.IsNullOrWhiteSpace(endRunSceneName) && SceneManager.GetActiveScene().name != endRunSceneName)
-        {
-            SceneManager.LoadScene(endRunSceneName);
-        }
-
+        RunEnded?.Invoke();
         endRunCoroutine = null;
     }
 }

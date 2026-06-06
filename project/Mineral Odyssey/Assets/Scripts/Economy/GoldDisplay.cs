@@ -35,6 +35,6 @@ public class GoldDisplay : MonoBehaviour
             return;
         }
 
-        goldText.text = $"{label}: {currentGold}";
+        goldText.text = $"{label}:{currentGold}";
     }
 }
