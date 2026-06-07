@@ -39,6 +39,7 @@ public class MapHallBootstrap : MonoBehaviour
 
         EnsureEventSystem();
         RepairManualMapHallInteraction();
+        EnsureShopController();
 
         MapHallController existingController = FindFirstObjectByType<MapHallController>();
         if (existingController != null && existingController.HasConfiguredView)
@@ -283,6 +284,33 @@ public class MapHallBootstrap : MonoBehaviour
         if (goldText != null)
         {
             goldText.gameObject.AddComponent<GoldDisplay>();
+        }
+    }
+
+    private static void EnsureShopController()
+    {
+        if (FindFirstObjectByType<ShopUIController>() != null)
+        {
+            return;
+        }
+
+        GameObject shopButton = ShopUIController.FindSceneObject("ShopButton");
+        GameObject shopPanelRoot = ShopUIController.FindSceneObject("ShopPanelRoot");
+        if (shopButton == null || shopPanelRoot == null)
+        {
+            return;
+        }
+
+        GameObject controllerObject = GameObject.Find("ShopUIController");
+        if (controllerObject == null)
+        {
+            GameObject manualCanvas = GameObject.Find(ManualCanvasName);
+            controllerObject = manualCanvas != null ? manualCanvas : new GameObject("ShopUIController");
+        }
+
+        if (controllerObject.GetComponent<ShopUIController>() == null)
+        {
+            controllerObject.AddComponent<ShopUIController>();
         }
     }
 

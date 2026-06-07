@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ToolController : MonoBehaviour
@@ -6,9 +7,10 @@ public class ToolController : MonoBehaviour
     [SerializeField] private ToolData currentTool;
     [SerializeField] private int toolLevel = 1;
     [SerializeField] private float toolEfficiency = 1f;
-    [SerializeField] private float attackRadius = 1f;   // 挥砍检测半径
-    [SerializeField] private float attackOffset = 0.75f;   // 检测圈在角色前方的偏移量
-    [SerializeField] private LayerMask tilemapLayer;      // 矿石网格所在的图层
+    [SerializeField] private float attackRadius = 1f;
+    [SerializeField] private float attackOffset = 0.75f;
+    [SerializeField] private LayerMask tilemapLayer;
+    [SerializeField] private string[] monsterTargetTags = { "Monster", "Enemy" };
 
     private Player player;
     private Animator playerAnimator;
@@ -17,13 +19,14 @@ public class ToolController : MonoBehaviour
     private Collider2D playerCollider;
     private Camera mainCamera;
     private Vector2 queuedAttackDirection = Vector2.down;
+    private readonly List<MonsterHealth> damagedMonsters = new List<MonsterHealth>();
 
     private void OnEnable()
     {
         EnsureToolVisualVisible();
     }
 
-    void Start()
+    private void Start()
     {
         player = GetComponentInParent<Player>();
         playerAnimator = GetComponentInParent<Animator>();
@@ -38,9 +41,8 @@ public class ToolController : MonoBehaviour
         EnsureToolVisualVisible();
     }
 
-    void Update()
+    private void Update()
     {
-        // 改为按键挥舞工具，不再全屏盲点
         if (Input.GetMouseButtonDown(0))
         {
             TriggerAttack();
@@ -57,34 +59,36 @@ public class ToolController : MonoBehaviour
 
         if (playerAnimator != null)
         {
-            // 触发玩家的挥镐动画状态（请确保动画机里有对应的 "Mine" Trigger）
             playerAnimator.SetTrigger("Mine");
         }
-        
-        // 注意：推荐在动画的“落镐关键帧”通过 Animation Event 调用以下检测逻辑。
-        // 如果想省事直接点击生效，也可以留在这里。下面以点击即触发为例：
     }
 
-    /// <summary>
-    /// 【物理判定框取代鼠标全屏点】
-    /// 供动画事件（Animation Event）调用，实现手落石开的节奏感
-    /// </summary>
     public void CheckActionHit()
     {
-        if (player == null || miningController == null) return;
+        if (player == null)
+        {
+            player = GetComponentInParent<Player>();
+        }
 
-        // 根据玩家绝对锁定的面朝向，计算前方的物理检测圆心
         Vector2 facingDir = queuedAttackDirection;
         Vector3 hitCenter = GetAttackOrigin() + new Vector3(facingDir.x, facingDir.y, 0f) * attackOffset;
 
-        // 检测前方区域内是否存在矿石
-        Collider2D hitCollider = Physics2D.OverlapCircle(hitCenter, attackRadius, tilemapLayer);
-        if (hitCollider != null)
+        if (miningController == null)
         {
-            // 将碰撞点转换为网格坐标传递给采矿管理器
-            Vector2 resolvedHitPoint = hitCollider.ClosestPoint(hitCenter);
-            miningController.TryMineAtPosition(resolvedHitPoint, CurrentToolLevel, CurrentToolEfficiency);
+            miningController = FindFirstObjectByType<MiningController>();
         }
+
+        if (miningController != null)
+        {
+            Collider2D hitCollider = Physics2D.OverlapCircle(hitCenter, attackRadius, tilemapLayer);
+            if (hitCollider != null)
+            {
+                Vector2 resolvedHitPoint = hitCollider.ClosestPoint(hitCenter);
+                miningController.TryMineAtPosition(resolvedHitPoint, CurrentToolLevel, CurrentToolEfficiency);
+            }
+        }
+
+        CheckMonsterHit(hitCenter);
     }
 
     public void EquipTool(ToolData tool)
@@ -95,13 +99,71 @@ public class ToolController : MonoBehaviour
 
     public ToolData CurrentTool => currentTool;
 
-    public int CurrentToolLevel => currentTool != null ? currentTool.MiningPower : Mathf.Max(1, toolLevel);
+    public int CurrentToolLevel => Mathf.Max(currentTool != null ? currentTool.MiningPower : toolLevel, PlayerUpgradeState.ToolMiningPower);
 
-    public float CurrentToolEfficiency => currentTool != null ? currentTool.StaminaEfficiency : Mathf.Max(0.01f, toolEfficiency);
+    public float CurrentToolEfficiency => Mathf.Max(0.01f, currentTool != null ? currentTool.StaminaEfficiency : toolEfficiency) * PlayerUpgradeState.ToolStaminaMultiplier;
+
+    private void CheckMonsterHit(Vector3 hitCenter)
+    {
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(hitCenter, attackRadius);
+        if (hitColliders == null || hitColliders.Length == 0)
+        {
+            return;
+        }
+
+        damagedMonsters.Clear();
+        for (int i = 0; i < hitColliders.Length; i++)
+        {
+            Collider2D hit = hitColliders[i];
+            if (hit == null || (player != null && hit.gameObject == player.gameObject))
+            {
+                continue;
+            }
+
+            GameObject monsterRoot = FindMonsterRoot(hit.gameObject);
+            MonsterHealth monsterHealth = hit.GetComponentInParent<MonsterHealth>();
+            if (monsterHealth == null && monsterRoot != null)
+            {
+                monsterHealth = monsterRoot.AddComponent<MonsterHealth>();
+            }
+
+            if (monsterHealth == null || damagedMonsters.Contains(monsterHealth))
+            {
+                continue;
+            }
+
+            damagedMonsters.Add(monsterHealth);
+            monsterHealth.TakeDamage(PlayerUpgradeState.WeaponDamage);
+        }
+    }
+
+    private GameObject FindMonsterRoot(GameObject target)
+    {
+        if (target == null || monsterTargetTags == null)
+        {
+            return null;
+        }
+
+        Transform current = target.transform;
+        while (current != null)
+        {
+            string targetTag = current.gameObject.tag;
+            for (int i = 0; i < monsterTargetTags.Length; i++)
+            {
+                if (targetTag == monsterTargetTags[i])
+                {
+                    return current.gameObject;
+                }
+            }
+
+            current = current.parent;
+        }
+
+        return null;
+    }
 
     private void OnDrawGizmosSelected()
     {
-        // 方便在编辑器里可视化挥砍距离
         if (player != null)
         {
             Vector2 facingDir = queuedAttackDirection.sqrMagnitude > 0.0001f
