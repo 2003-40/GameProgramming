@@ -2881,6 +2881,9 @@ MonoBehaviour:
   tilemapLayer:
     serializedVersion: 2
     m_Bits: 256
+  monsterTargetTags:
+  - Monster
+  - Enemy
 --- !u!1 &1880338899
 GameObject:
   m_ObjectHideFlags: 0

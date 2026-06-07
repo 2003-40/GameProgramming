@@ -160,11 +160,23 @@ public class MiningController : MonoBehaviour
                 return;
             }
 
-            int staminaCost = CalculateStaminaCost(currentOre, incomingToolLevel, toolEfficiency);
+            bool shouldConsumeStamina = RunCardManager.Instance.ShouldConsumeStaminaForMiningHit();
+            int staminaCost = shouldConsumeStamina
+                ? RunCardManager.Instance.ModifyStaminaCost(CalculateStaminaCost(currentOre, incomingToolLevel, toolEfficiency))
+                : 0;
             Debug.Log($"[Mining] ToolLevel={incomingToolLevel}, Ore={currentOre.gemstoneName}, RequiredToolLevel={currentOre.requiredToolLevel}, OreHardness={currentOre.hardness}, OreStaminaMultiplier={currentOre.staminaCostMultiplier}, ToolEfficiency={toolEfficiency}, StaminaCost={staminaCost}");
-            if (!StaminaManager.Instance.ConsumeStamina(staminaCost))
+            if (shouldConsumeStamina && !StaminaManager.Instance.ConsumeStamina(staminaCost))
             {
                 Debug.Log("[Insufficient Stamina] Mining stopped; the current exploration is over.");
+                return;
+            }
+
+            RunCardManager.Instance.RegisterSuccessfulMiningAction();
+            if (RunCardManager.Instance.ShouldMiningHitFail())
+            {
+                Vector3 failedHitWorldPos = oreTilemap.GetCellCenterWorld(gridPos);
+                PlayHitFeedback(failedHitWorldPos, currentOre);
+                Debug.Log("[Run Card] Mining hit failed to damage the tile.");
                 return;
             }
 
@@ -246,16 +258,25 @@ public class MiningController : MonoBehaviour
 
         if (ore.dropPrefab != null)
         {
-            GameObject droppedItem = Instantiate(ore.dropPrefab, spawnPosition, Quaternion.identity);
-            Rigidbody2D rb = droppedItem.GetComponent<Rigidbody2D>();
-            if (rb != null)
+            int dropCount = RunCardManager.Instance.GetOreDropCount();
+            for (int i = 0; i < dropCount; i++)
             {
-                Vector2 randomDirection = Random.insideUnitCircle.normalized;
-                rb.AddForce(randomDirection * bounceForce, ForceMode2D.Impulse);
+                SpawnDrop(ore.dropPrefab, spawnPosition);
             }
         }
 
         oreHealthTracker.Remove(gridPos);
+    }
+
+    private void SpawnDrop(GameObject dropPrefab, Vector3 spawnPosition)
+    {
+        GameObject droppedItem = Instantiate(dropPrefab, spawnPosition, Quaternion.identity);
+        Rigidbody2D rb = droppedItem.GetComponent<Rigidbody2D>();
+        if (rb != null)
+        {
+            Vector2 randomDirection = Random.insideUnitCircle.normalized;
+            rb.AddForce(randomDirection * bounceForce, ForceMode2D.Impulse);
+        }
     }
 
     private void PlayHitFeedback(Vector3 position, MiningTile ore)

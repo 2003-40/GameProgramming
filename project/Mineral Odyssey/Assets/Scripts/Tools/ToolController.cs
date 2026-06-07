@@ -51,6 +51,8 @@ public class ToolController : MonoBehaviour
 
     private void TriggerAttack()
     {
+        RunCardManager.Instance.RegisterCardTimerStartAction();
+
         queuedAttackDirection = ResolveAimDirection();
         if (player != null)
         {
