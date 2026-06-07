@@ -9,14 +9,14 @@ public class OreGeneratorEditor : Editor
     {
         OreGenerator generator = (OreGenerator)target;
 
-        // 获取当前代码中的边界值
-        // 注意：如果按方案二改了变量名，这里对应的获取方式也要变
+        // Read the current generation bounds from the serialized fields.
+        // Keep these property names in sync if the generator field names change.
         int minX = serializedObject.FindProperty("minX").intValue;
         int maxX = serializedObject.FindProperty("maxX").intValue;
         int minY = serializedObject.FindProperty("minY").intValue;
         int maxY = serializedObject.FindProperty("maxY").intValue;
 
-        // 绘制一个绿色的方框来可视化当前的生成范围
+        // Draw a green outline to visualize the current generation area.
         Handles.color = Color.green;
         Vector3 topLeft = new Vector3(minX, maxY + 1, 0);
         Vector3 topRight = new Vector3(maxX + 1, maxY + 1, 0);
@@ -28,7 +28,7 @@ public class OreGeneratorEditor : Editor
         Handles.DrawLine(bottomRight, bottomLeft);
         Handles.DrawLine(bottomLeft, topLeft);
         
-        // 可以在这里结合 Handles.Slider 制作拖拽手柄，直接在视口里拉伸范围
+        // Handles.Slider can be added here later for direct viewport resizing.
     }
 }
 #endif

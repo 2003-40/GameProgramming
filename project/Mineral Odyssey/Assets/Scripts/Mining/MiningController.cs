@@ -41,7 +41,7 @@ public class MiningController : MonoBehaviour
 
         SetupFeedbackPools();
 
-        // --------- 【优化修复 Bug 2：出生/刷新时单次排查卡死】 ---------
+        // Resolve one-time spawn overlap after the ore map is generated or refreshed.
         ResolveInitialStuckPlayers();
     }
 
@@ -104,7 +104,7 @@ public class MiningController : MonoBehaviour
     }
 
     /// <summary>
-    /// 一次性检测，防止游戏刚加载或者矿石生成时把玩家卡在里面
+    /// Runs a one-time check to prevent the player from starting inside generated ore.
     /// </summary>
     private void ResolveInitialStuckPlayers()
     {
@@ -114,10 +114,10 @@ public class MiningController : MonoBehaviour
         Collider2D playerCol = player.GetComponent<Collider2D>();
         if (playerCol == null) return;
 
-        // 获取玩家当前的中心坐标
+        // Get the player's current center cell.
         Vector3Int startGrid = oreTilemap.WorldToCell(player.transform.position);
         
-        // 检索周围 3x3 范围的格子
+        // Check nearby cells in a 3x3 range.
         for (int x = -1; x <= 1; x++)
         {
             for (int y = -1; y <= 1; y++)
@@ -128,11 +128,11 @@ public class MiningController : MonoBehaviour
                     Vector3 cellCenter = oreTilemap.GetCellCenterWorld(checkPos);
                     Bounds tileBounds = new Bounds(cellCenter, oreTilemap.cellSize);
 
-                    // 如果出生时重叠了
+                    // Clear any ore tile overlapping the player at spawn.
                     if (playerCol.bounds.Intersects(tileBounds))
                     {
-                        Debug.LogWarning($"[安全启动] 玩家出生在矿石 {checkPos} 内部！执行单次清开处理。");
-                        oreTilemap.SetTile(checkPos, null); // 移除该危险矿石
+                        Debug.LogWarning($"[Safe Startup] Player spawned inside ore at {checkPos}; clearing the tile once.");
+                        oreTilemap.SetTile(checkPos, null); // Remove the hazardous ore tile.
                     }
                 }
             }
@@ -140,10 +140,10 @@ public class MiningController : MonoBehaviour
     }
 
     /// <summary>
-    /// 【纯净化重构】供工具脚本检测到碰撞后直接调用
+    /// Called directly by tool scripts after they detect a hit.
     /// </summary>
-    /// <param name="worldHitPos">挥砍命中的世界坐标点</param>
-    /// <param name="incomingToolLevel">当前玩家手持工具的级别</param>
+    /// <param name="worldHitPos">World-space point hit by the swing.</param>
+    /// <param name="incomingToolLevel">Current level of the equipped player tool.</param>
     public void TryMineAtPosition(Vector3 worldHitPos, int incomingToolLevel, float toolEfficiency)
     {
         if (oreTilemap == null) return;
@@ -153,7 +153,7 @@ public class MiningController : MonoBehaviour
 
         if (clickedTile is MiningTile currentOre)
         {
-            // 验证工具等级
+            // Validate tool level.
             if (incomingToolLevel < currentOre.requiredToolLevel)
             {
                 Debug.Log($"[Mining Blocked] ToolLevel={incomingToolLevel}, RequiredToolLevel={currentOre.requiredToolLevel}, Ore={currentOre.gemstoneName}, OreHardness={currentOre.hardness}");
@@ -164,7 +164,7 @@ public class MiningController : MonoBehaviour
             Debug.Log($"[Mining] ToolLevel={incomingToolLevel}, Ore={currentOre.gemstoneName}, RequiredToolLevel={currentOre.requiredToolLevel}, OreHardness={currentOre.hardness}, OreStaminaMultiplier={currentOre.staminaCostMultiplier}, ToolEfficiency={toolEfficiency}, StaminaCost={staminaCost}");
             if (!StaminaManager.Instance.ConsumeStamina(staminaCost))
             {
-                Debug.Log("[体力不足] 本次挖矿已中止，当前探索结束。");
+                Debug.Log("[Insufficient Stamina] Mining stopped; the current exploration is over.");
                 return;
             }
 
@@ -193,13 +193,13 @@ public class MiningController : MonoBehaviour
 
         PlayHitFeedback(cellWorldPos, ore);
 
-        // 矿石受击震动
+        // Shake the ore tilemap when an ore tile is hit.
         if (!isWobbling)
         {
             StartCoroutine(WobbleTilemapVisual());
         }
 
-        // 多阶段视觉碎裂/褪色变化
+        // Multi-stage damage tinting.
         float healthPercent = (float)oreHealthTracker[gridPos] / ore.maxHealth;
         Color damageColor = Color.Lerp(Color.gray, Color.white, healthPercent); 
         

@@ -7,26 +7,26 @@ public class OreGenerator : MonoBehaviour
     [System.Serializable]
     public class OreSpawnData
     {
-        public string oreName;       // 矿石名称
-        public TileBase oreTile;     // 对应的 Tile 资源
+        public string oreName;       // Ore name
+        public TileBase oreTile;     // Tile asset for this ore
         [Range(0, 100)]
-        public float spawnWeight;    // 在“已决定生成矿石”的格子中，该矿石占多少权重
+        public float spawnWeight;    // Relative weight after a cell has been selected for ore spawning
     }
 
-    [Header("组件引用")]
+    [Header("References")]
     [SerializeField] private Tilemap oreTilemap;
 
-    [Header("地图生成范围 (网格坐标)")]
+    [Header("Generation Bounds (Grid Coordinates)")]
     [SerializeField] private int minX = -19;
     [SerializeField] private int maxX = 9;
     [SerializeField] private int minY = -2;
     [SerializeField] private int maxY = 4;
 
-    [Header("整体生成密度 (0-100%)")]
-    [Tooltip("每个格子有多少概率会生成矿石。剩下的格子会保持空白，露出背景。")]
+    [Header("Global Spawn Density (0-100%)")]
+    [Tooltip("Chance for each cell to spawn ore. Empty cells stay blank so the background remains visible.")]
     [Range(0f, 100f)] [SerializeField] private float globalSpawnChance = 15f;
 
-    [Header("矿石种类及权重配置")]
+    [Header("Ore Types And Weights")]
     [SerializeField] private List<OreSpawnData> orePool = new List<OreSpawnData>();
 
     void Start()
@@ -34,7 +34,7 @@ public class OreGenerator : MonoBehaviour
         GenerateMine();
     }
 
-    [ContextMenu("重新生成矿井")]
+    [ContextMenu("Regenerate Mine")]
     public void GenerateMine()
     {
         oreTilemap.ClearAllTiles();
@@ -43,12 +43,12 @@ public class OreGenerator : MonoBehaviour
         {
             for (int y = minY; y <= maxY; y++)
             {
-                // 1. 首先独立判定：这个格子要不要长矿石？
+                // First decide whether this cell should spawn ore.
                 if (Random.Range(0f, 100f) <= globalSpawnChance)
                 {
                     Vector3Int currentPos = new Vector3Int(x, y, 0);
                     
-                    // 2. 如果要长，再决定长哪一种矿石
+                    // Then choose which ore type to place.
                     TileBase tileToPlace = GetRandomOreFromPool();
 
                     if (tileToPlace != null)
@@ -56,35 +56,33 @@ public class OreGenerator : MonoBehaviour
                         oreTilemap.SetTile(currentPos, tileToPlace);
                     }
                 }
-                // 如果没抽中，就什么都不做，这个位置在 Tilemap 上就是空的（透明的）
+                // If the roll misses, leave this Tilemap cell empty.
             }
         }
 
-        // ==================== 【新加的物理刷新逻辑】 ====================
-        // 1. 强制刷新 Tilemap 的网格数据和渲染
+        // Refresh Tilemap rendering and physics after generation.
         oreTilemap.RefreshAllTiles();
 
-        // 2. 如果你挂载了 CompositeCollider2D，强制让它在运行时重新烘焙出新的物理边缘
+        // Rebuild CompositeCollider2D geometry at runtime if it is attached.
         if (oreTilemap.TryGetComponent<CompositeCollider2D>(out var compositeCollider))
         {
             compositeCollider.GenerateGeometry();
-            Debug.Log("OreGenerator: 物理网格重构完毕，矿石墙体已生效！");
+            Debug.Log("OreGenerator: Physics geometry rebuilt; ore walls are active.");
         }
-        // ===============================================================
     }
 
     private TileBase GetRandomOreFromPool()
     {
         if (orePool == null || orePool.Count == 0) return null;
 
-        // 计算总权重
+        // Calculate total weight.
         float totalWeight = 0f;
         foreach (var ore in orePool)
         {
             totalWeight += ore.spawnWeight;
         }
 
-        // 投骰子
+        // Roll against the weighted ore pool.
         float roll = Random.Range(0f, totalWeight);
         float cumulativeWeight = 0f;
 
