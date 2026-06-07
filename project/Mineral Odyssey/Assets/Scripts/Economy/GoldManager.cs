@@ -60,6 +60,17 @@ public class GoldManager : MonoBehaviour
         return gold;
     }
 
+    public int RemoveGold(int amount)
+    {
+        if (amount <= 0)
+        {
+            return gold;
+        }
+
+        SetGold(Mathf.Max(0, gold - amount));
+        return gold;
+    }
+
     public bool CanAfford(int amount)
     {
         return amount <= 0 || gold >= amount;

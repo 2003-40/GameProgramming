@@ -117,6 +117,18 @@ public class StaminaManager : MonoBehaviour
         return true;
     }
 
+    public int RestoreStamina(int amount)
+    {
+        if (amount <= 0)
+        {
+            return currentStamina;
+        }
+
+        currentStamina = Mathf.Min(maxStamina, currentStamina + amount);
+        StaminaChanged?.Invoke(currentStamina, maxStamina);
+        return currentStamina;
+    }
+
     public void EndCurrentRun()
     {
         ScheduleEndCurrentRun();

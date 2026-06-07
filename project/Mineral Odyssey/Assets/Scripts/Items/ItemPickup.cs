@@ -21,6 +21,11 @@ public class ItemPickup : MonoBehaviour
             return false;
         }
 
+        if (itemData.Type == ItemType.Ore)
+        {
+            RunCardManager.Instance.RegisterCardTimerStartAction();
+        }
+
         Destroy(gameObject);
         return true;
     }

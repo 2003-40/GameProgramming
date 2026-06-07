@@ -15,7 +15,7 @@ public class Player : MonoBehaviour
     private ToolController toolController;
     private float nextStaminaDamageTime;
     
-    // 【核心修复】记忆最后一次有效的移动输入，默认朝下
+    // Remember the last valid movement input; default to facing down.
     private Vector2 lastValidFacing = Vector2.down; 
 
     void Start()
@@ -24,7 +24,7 @@ public class Player : MonoBehaviour
         rb2D = GetComponent<Rigidbody2D>();
         toolController = GetComponentInChildren<ToolController>();
         
-        // 初始同步一次动画机参数
+        // Sync animator parameters once on startup.
         UpdateAnimatorParams(lastValidFacing, 0f);
     }
 
@@ -35,15 +35,15 @@ public class Player : MonoBehaviour
 
         if (movementInput.magnitude > 0.01f)
         {
-            // 归一化防止斜向走变快
+            // Normalize to prevent diagonal movement from being faster.
             lastValidFacing = movementInput.normalized;
             
-            // 移动时同步更新动画机
+            // Update the animator while moving.
             UpdateAnimatorParams(lastValidFacing, movementInput.magnitude);
         }
         else
         {
-            // 【核心修复】停止移动时，速度传 0 切换到 Idle，但方向参数强制锁死
+            // Switch to idle while preserving the last facing direction.
             UpdateAnimatorParams(lastValidFacing, 0f);
         }
     }
@@ -63,7 +63,7 @@ public class Player : MonoBehaviour
     }
 
     /// <summary>
-    /// 供采矿、攻击等外部脚本调用的绝对同步朝向
+    /// Returns the facing direction used by mining, attacks, and other external scripts.
     /// </summary>
     public Vector2 GetFacingDirection()
     {
