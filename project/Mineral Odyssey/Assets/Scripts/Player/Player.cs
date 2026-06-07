@@ -132,13 +132,16 @@ public class Player : MonoBehaviour
         if (staminaDamageSource != null)
         {
             damageCooldown = Mathf.Max(0f, staminaDamageSource.DamageCooldown);
-            return staminaDamageSource.StaminaDamage;
+            int staminaDamage = staminaDamageSource.StaminaDamage;
+            return IsMonsterDamageSource(damageSource) ? PlayerUpgradeState.ReduceMonsterStaminaDamage(staminaDamage) : staminaDamage;
         }
 
         if (HasStaminaDamageTag(damageSource))
         {
             damageCooldown = Mathf.Max(0f, defaultMonsterHitCooldown);
-            return defaultMonsterHitStaminaDamage;
+            return IsMonsterDamageSource(damageSource)
+                ? PlayerUpgradeState.ReduceMonsterStaminaDamage(defaultMonsterHitStaminaDamage)
+                : defaultMonsterHitStaminaDamage;
         }
 
         damageCooldown = 0f;
@@ -154,6 +157,23 @@ public class Player : MonoBehaviour
             {
                 return true;
             }
+        }
+
+        return false;
+    }
+
+    private static bool IsMonsterDamageSource(GameObject damageSource)
+    {
+        Transform current = damageSource.transform;
+        while (current != null)
+        {
+            string damageSourceTag = current.gameObject.tag;
+            if (damageSourceTag == "Monster" || damageSourceTag == "Enemy")
+            {
+                return true;
+            }
+
+            current = current.parent;
         }
 
         return false;
