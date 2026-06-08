@@ -124,6 +124,8 @@ public class Player : MonoBehaviour
 
         nextStaminaDamageTime = Time.time + damageCooldown;
         StaminaManager.Instance.ConsumeStamina(staminaDamage);
+        string logLabel = IsMonsterDamageSource(damageSource) ? "Monster Damage" : "Stamina Damage";
+        Debug.Log($"[{logLabel}] {damageSource.name} dealt {staminaDamage} stamina damage. Stamina={StaminaManager.Instance.CurrentStamina}/{StaminaManager.Instance.MaxStamina}");
     }
 
     private int ResolveStaminaDamage(GameObject damageSource, out float damageCooldown)

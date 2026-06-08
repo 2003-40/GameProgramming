@@ -3,6 +3,16 @@ using UnityEngine;
 
 public class ToolController : MonoBehaviour
 {
+    private const int MiningMouseButton = 0;
+    private const int WeaponMouseButton = 1;
+
+    private enum ToolActionMode
+    {
+        None,
+        Weapon,
+        Mining
+    }
+
     [Header("Tool Settings")]
     [SerializeField] private ToolData currentTool;
     [SerializeField] private int toolLevel = 1;
@@ -19,6 +29,8 @@ public class ToolController : MonoBehaviour
     private Collider2D playerCollider;
     private Camera mainCamera;
     private Vector2 queuedAttackDirection = Vector2.down;
+    private bool hasPendingActionHit;
+    private ToolActionMode pendingActionMode = ToolActionMode.None;
     private readonly List<MonsterHealth> damagedMonsters = new List<MonsterHealth>();
 
     private void OnEnable()
@@ -43,17 +55,23 @@ public class ToolController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(WeaponMouseButton))
         {
-            TriggerAttack();
+            TriggerAttack(ToolActionMode.Weapon);
+        }
+        else if (Input.GetMouseButtonDown(MiningMouseButton))
+        {
+            TriggerAttack(ToolActionMode.Mining);
         }
     }
 
-    private void TriggerAttack()
+    private void TriggerAttack(ToolActionMode actionMode)
     {
         RunCardManager.Instance.RegisterCardTimerStartAction();
 
         queuedAttackDirection = ResolveAimDirection();
+        hasPendingActionHit = true;
+        pendingActionMode = actionMode;
         if (player != null)
         {
             player.SetFacingDirection(queuedAttackDirection);
@@ -63,9 +81,24 @@ public class ToolController : MonoBehaviour
         {
             playerAnimator.SetTrigger("Mine");
         }
+
+        CheckActionHit();
     }
 
     public void CheckActionHit()
+    {
+        if (!hasPendingActionHit)
+        {
+            return;
+        }
+
+        ToolActionMode actionMode = pendingActionMode;
+        hasPendingActionHit = false;
+        pendingActionMode = ToolActionMode.None;
+        PerformActionHit(actionMode);
+    }
+
+    private void PerformActionHit(ToolActionMode actionMode)
     {
         if (player == null)
         {
@@ -74,23 +107,30 @@ public class ToolController : MonoBehaviour
 
         Vector2 facingDir = queuedAttackDirection;
         Vector3 hitCenter = GetAttackOrigin() + new Vector3(facingDir.x, facingDir.y, 0f) * attackOffset;
+        Debug.Log($"[Tool Action] Mode={actionMode}, Direction={facingDir}, HitCenter={hitCenter}");
 
-        if (miningController == null)
+        if (actionMode == ToolActionMode.Mining)
         {
-            miningController = FindFirstObjectByType<MiningController>();
-        }
-
-        if (miningController != null)
-        {
-            Collider2D hitCollider = Physics2D.OverlapCircle(hitCenter, attackRadius, tilemapLayer);
-            if (hitCollider != null)
+            if (miningController == null)
             {
-                Vector2 resolvedHitPoint = hitCollider.ClosestPoint(hitCenter);
-                miningController.TryMineAtPosition(resolvedHitPoint, CurrentToolLevel, CurrentToolEfficiency);
+                miningController = FindFirstObjectByType<MiningController>();
+            }
+
+            if (miningController != null)
+            {
+                Collider2D hitCollider = Physics2D.OverlapCircle(hitCenter, attackRadius, tilemapLayer);
+                if (hitCollider != null)
+                {
+                    Vector2 resolvedHitPoint = hitCollider.ClosestPoint(hitCenter);
+                    miningController.TryMineAtPosition(resolvedHitPoint, CurrentToolLevel, CurrentToolEfficiency);
+                }
             }
         }
 
-        CheckMonsterHit(hitCenter);
+        if (actionMode == ToolActionMode.Weapon)
+        {
+            CheckMonsterHit(hitCenter);
+        }
     }
 
     public void EquipTool(ToolData tool)
