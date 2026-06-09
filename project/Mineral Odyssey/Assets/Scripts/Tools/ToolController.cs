@@ -22,6 +22,12 @@ public class ToolController : MonoBehaviour
     [SerializeField] private LayerMask tilemapLayer;
     [SerializeField] private string[] monsterTargetTags = { "Monster", "Enemy" };
 
+    [Header("Weapon Visual")]
+    [SerializeField] private Transform weaponAnchor;
+    [SerializeField] private float weaponThrustDistance = 0.45f;
+    [SerializeField] private float weaponThrustOutDuration = 0.08f;
+    [SerializeField] private float weaponThrustReturnDuration = 0.1f;
+
     private Player player;
     private Animator playerAnimator;
     private SpriteRenderer playerRenderer;
@@ -31,6 +37,8 @@ public class ToolController : MonoBehaviour
     private Vector2 queuedAttackDirection = Vector2.down;
     private bool hasPendingActionHit;
     private ToolActionMode pendingActionMode = ToolActionMode.None;
+    private Vector3 weaponAnchorRestLocalPosition;
+    private Coroutine weaponThrustRoutine;
     private readonly List<MonsterHealth> damagedMonsters = new List<MonsterHealth>();
 
     private void OnEnable()
@@ -51,6 +59,7 @@ public class ToolController : MonoBehaviour
         }
 
         EnsureToolVisualVisible();
+        CacheWeaponVisual();
     }
 
     private void Update()
@@ -67,6 +76,11 @@ public class ToolController : MonoBehaviour
 
     private void TriggerAttack(ToolActionMode actionMode)
     {
+        if (actionMode == ToolActionMode.Weapon && !IsWeaponAvailable())
+        {
+            return;
+        }
+
         RunCardManager.Instance.RegisterCardTimerStartAction();
 
         queuedAttackDirection = ResolveAimDirection();
@@ -77,9 +91,13 @@ public class ToolController : MonoBehaviour
             player.SetFacingDirection(queuedAttackDirection);
         }
 
-        if (playerAnimator != null)
+        if (actionMode == ToolActionMode.Mining && playerAnimator != null)
         {
             playerAnimator.SetTrigger("Mine");
+        }
+        else if (actionMode == ToolActionMode.Weapon)
+        {
+            PlayWeaponThrust();
         }
 
         CheckActionHit();
@@ -274,6 +292,79 @@ public class ToolController : MonoBehaviour
         }
 
         return GetCardinalFacing(toMouse);
+    }
+
+    private void CacheWeaponVisual()
+    {
+        if (weaponAnchor == null && player != null)
+        {
+            Transform playerTransform = player.transform;
+            weaponAnchor = playerTransform.Find("WeaponAnchor");
+        }
+
+        if (weaponAnchor != null)
+        {
+            weaponAnchorRestLocalPosition = weaponAnchor.localPosition;
+        }
+    }
+
+    private void PlayWeaponThrust()
+    {
+        if (!IsWeaponAvailable())
+        {
+            return;
+        }
+
+        if (weaponThrustRoutine != null)
+        {
+            StopCoroutine(weaponThrustRoutine);
+            weaponAnchor.localPosition = weaponAnchorRestLocalPosition;
+        }
+
+        weaponThrustRoutine = StartCoroutine(AnimateWeaponThrust(queuedAttackDirection));
+    }
+
+    private bool IsWeaponAvailable()
+    {
+        if (weaponAnchor == null)
+        {
+            CacheWeaponVisual();
+        }
+
+        return weaponAnchor != null && weaponAnchor.gameObject.activeInHierarchy;
+    }
+
+    private System.Collections.IEnumerator AnimateWeaponThrust(Vector2 direction)
+    {
+        Vector2 facing = GetCardinalFacing(direction);
+        Vector3 thrustOffset = new Vector3(facing.x, facing.y, 0f) * Mathf.Max(0f, weaponThrustDistance);
+        Vector3 thrustPosition = weaponAnchorRestLocalPosition + thrustOffset;
+
+        yield return MoveWeaponAnchor(weaponAnchorRestLocalPosition, thrustPosition, weaponThrustOutDuration);
+        yield return MoveWeaponAnchor(thrustPosition, weaponAnchorRestLocalPosition, weaponThrustReturnDuration);
+
+        weaponAnchor.localPosition = weaponAnchorRestLocalPosition;
+        weaponThrustRoutine = null;
+    }
+
+    private System.Collections.IEnumerator MoveWeaponAnchor(Vector3 startPosition, Vector3 endPosition, float duration)
+    {
+        if (duration <= 0f)
+        {
+            weaponAnchor.localPosition = endPosition;
+            yield break;
+        }
+
+        float elapsed = 0f;
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsed / duration);
+            weaponAnchor.localPosition = Vector3.Lerp(startPosition, endPosition, t);
+            yield return null;
+        }
+
+        weaponAnchor.localPosition = endPosition;
     }
 
     private void EnsureToolVisualVisible()
