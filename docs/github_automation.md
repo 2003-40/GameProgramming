@@ -16,7 +16,9 @@ It automatically adds newly opened or reopened Issues/PRs to your GitHub Project
 3. Create a Personal Access Token (classic) with `project` scope.
 4. In repo secrets, add:
    - Name: `KANBAN_PROJECT_TOKEN`
-   - Value: `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`
+   - Value: `TODO: add your GitHub token in repository secrets only`
+
+Do not commit a real GitHub token into the repository. Keep the token only in GitHub Secrets and rotate it immediately if it was ever exposed in a committed file.
 
 After this, opening/reopening an Issue or PR will automatically push the item into the board.
 

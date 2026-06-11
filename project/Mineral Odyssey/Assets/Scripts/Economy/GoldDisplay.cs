@@ -1,6 +1,9 @@
 using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// UI component that mirrors the current saved gold value whenever it changes.
+/// </summary>
 public class GoldDisplay : MonoBehaviour
 {
     [SerializeField] private TMP_Text goldText;

@@ -2,6 +2,9 @@ using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Manages one temporary run-card opportunity, selected card effects, and per-run card state.
+/// </summary>
 public class RunCardManager : MonoBehaviour
 {
     private const float RequiredTimerSeconds = 20f;
@@ -117,6 +120,7 @@ public class RunCardManager : MonoBehaviour
 
     private void Update()
     {
+        // Card time only advances after the player starts mining or collecting during a mining run.
         if (!isMiningRun || !hasStartedCardTimer || cardOpportunityResolved || drawOfferAvailable || choiceAvailable)
         {
             return;
@@ -133,6 +137,7 @@ public class RunCardManager : MonoBehaviour
 
     public void RegisterCardTimerStartAction()
     {
+        // This can be called by mining, attacking, or collecting so any real run action starts the timer.
         if (!isMiningRun)
         {
             if (FindFirstObjectByType<MiningController>() == null)
@@ -196,6 +201,7 @@ public class RunCardManager : MonoBehaviour
 
     public bool AcceptDrawOffer()
     {
+        // Drawing is risky by design: the offer can become either a reward set or a curse set.
         if (!drawOfferAvailable)
         {
             return false;
@@ -278,6 +284,7 @@ public class RunCardManager : MonoBehaviour
 
     private void ClearRunState()
     {
+        // Every mining scene starts with neutral card modifiers.
         hasStartedCardTimer = false;
         cardOpportunityResolved = false;
         drawOfferAvailable = false;
@@ -304,6 +311,7 @@ public class RunCardManager : MonoBehaviour
 
     private void ApplyCard(RunCardData card)
     {
+        // Card effects intentionally modify small numeric hooks already used by mining and rewards.
         switch (card.EffectType)
         {
             case RunCardEffectType.StaminaCostReduction:
@@ -350,6 +358,7 @@ public class RunCardManager : MonoBehaviour
 
     private static RunCardData[] PickCards(RunCardPolarity polarity)
     {
+        // Pick without replacement so the three offered cards are distinct.
         RunCardData[] source = polarity == RunCardPolarity.Bad
             ? badCards ?? (badCards = CreateBadCards())
             : goodCards ?? (goodCards = CreateGoodCards());

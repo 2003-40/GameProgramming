@@ -1,6 +1,9 @@
 using System;
 using UnityEngine;
 
+/// <summary>
+/// Stores permanent tool and weapon upgrade progression using PlayerPrefs.
+/// </summary>
 public static class PlayerUpgradeState
 {
     private const string ToolLevelKey = "ToolUpgradeLevel";
@@ -32,6 +35,7 @@ public static class PlayerUpgradeState
 
     public static bool TryUpgradeTool(out int cost)
     {
+        // Tool progression is intentionally short so the vertical slice reaches harder ore quickly.
         return TryUpgrade(ToolLevelKey, ToolLevel, MaxToolLevel, ToolUpgradeCosts, out cost);
     }
 
@@ -42,6 +46,7 @@ public static class PlayerUpgradeState
 
     public static int ReduceMonsterStaminaDamage(int baseDamage)
     {
+        // Weapon upgrades reduce contact punishment but always leave at least one stamina damage.
         if (baseDamage <= 0)
         {
             return 0;

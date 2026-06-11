@@ -1,6 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Serializable map-hall level entry containing button, node position, target scene, and ticket cost.
+/// </summary>
 [System.Serializable]
 public class MapHallLevelOption
 {

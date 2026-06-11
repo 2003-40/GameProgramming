@@ -2,11 +2,15 @@
 using UnityEditor;
 using UnityEngine;
 
+/// <summary>
+/// Editor-only visualization for the ore generator bounds in the Unity Scene view.
+/// </summary>
 [CustomEditor(typeof(OreGenerator))]
 public class OreGeneratorEditor : Editor
 {
     private void OnSceneGUI()
     {
+        // The cast is safe because this editor is only registered for OreGenerator components.
         OreGenerator generator = (OreGenerator)target;
 
         // Read the current generation bounds from the serialized fields.

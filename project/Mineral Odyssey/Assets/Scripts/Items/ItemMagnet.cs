@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Pulls nearby pickups toward the player after a short delay so ore drops feel responsive.
+/// </summary>
 public class ItemMagnet : MonoBehaviour
 {
     [Header("Magnet Settings")]
@@ -27,6 +30,7 @@ public class ItemMagnet : MonoBehaviour
 
     private void Update()
     {
+        // The delay lets physics bounce finish before the magnet starts pulling the pickup.
         if (playerTransform == null)
         {
             return;

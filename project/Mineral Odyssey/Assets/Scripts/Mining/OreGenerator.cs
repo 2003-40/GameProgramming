@@ -2,6 +2,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
+/// <summary>
+/// Randomly fills a bounded tilemap area with weighted ore tiles for the mining scene.
+/// </summary>
 public class OreGenerator : MonoBehaviour
 {
     [System.Serializable]
@@ -37,6 +40,7 @@ public class OreGenerator : MonoBehaviour
     [ContextMenu("Regenerate Mine")]
     public void GenerateMine()
     {
+        // Regeneration starts from a clean map so editor testing does not stack old ore layouts.
         oreTilemap.ClearAllTiles();
 
         for (int x = minX; x <= maxX; x++)

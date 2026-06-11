@@ -3,6 +3,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+/// <summary>
+/// Controls the hub shop UI, including opening/closing panels, upgrade purchases, and runtime layout repair.
+/// </summary>
 public class ShopUIController : MonoBehaviour
 {
     [Header("References")]
@@ -40,6 +43,7 @@ public class ShopUIController : MonoBehaviour
 
     private void OnEnable()
     {
+        // Re-bind every time because the hub UI can be created manually or repaired at runtime.
         BindSceneReferences();
 
         if (shopButton != null)
@@ -124,6 +128,7 @@ public class ShopUIController : MonoBehaviour
 
     private void BuyToolUpgrade()
     {
+        // Tool upgrades improve ore access and mining stamina efficiency.
         if (PlayerUpgradeState.IsToolMaxed)
         {
             SetMessage("Mining tool is already max level.", WarningColor);
@@ -146,6 +151,7 @@ public class ShopUIController : MonoBehaviour
 
     private void BuyWeaponUpgrade()
     {
+        // Weapon upgrades make monster pressure more manageable without adding complex combat.
         if (PlayerUpgradeState.IsWeaponMaxed)
         {
             SetMessage("Weapon is already max level.", WarningColor);
@@ -220,6 +226,7 @@ public class ShopUIController : MonoBehaviour
 
     private void BindSceneReferences()
     {
+        // Name-based binding keeps the UI functional when scene references are lost during iteration.
         if (shopPanelRoot == null)
         {
             shopPanelRoot = FindSceneObject("ShopPanelRoot");
@@ -288,6 +295,7 @@ public class ShopUIController : MonoBehaviour
 
     private void ConfigureUpgradeScrollList()
     {
+        // The shop list is repaired in code so upgrade entries stay readable in the submitted scene.
         if (upgradeScrollRect == null)
         {
             return;
@@ -399,6 +407,7 @@ public class ShopUIController : MonoBehaviour
 
     private static void HideEmptyDuplicateUpgradeItems(RectTransform content)
     {
+        // Some UI iterations left placeholder duplicates; hide only entries without usable shop fields.
         for (int i = 0; i < content.childCount; i++)
         {
             Transform child = content.GetChild(i);
@@ -490,6 +499,7 @@ public class ShopUIController : MonoBehaviour
 
     private static GameObject FindBestUpgradeItem(string objectName)
     {
+        // Prefer the candidate that has the expected child labels/buttons, not just the matching name.
         Transform[] transforms = Resources.FindObjectsOfTypeAll<Transform>();
         GameObject fallback = null;
         for (int i = 0; i < transforms.Length; i++)

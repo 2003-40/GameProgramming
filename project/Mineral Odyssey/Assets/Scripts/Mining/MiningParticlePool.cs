@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Reuses particle systems for repeated mining feedback without allocating new objects every hit.
+/// </summary>
 public class MiningParticlePool : MonoBehaviour
 {
     [Header("Pool Config")]
@@ -32,6 +35,7 @@ public class MiningParticlePool : MonoBehaviour
 
     public void Configure(ParticleSystem prefab, int initialSize, int maximumSize)
     {
+        // Bootstrap scripts can configure pools after creating them at runtime.
         particlePrefab = prefab;
         initialPoolSize = Mathf.Max(0, initialSize);
         maxPoolSize = maximumSize;
@@ -52,6 +56,7 @@ public class MiningParticlePool : MonoBehaviour
 
     public ParticleSystem Play(Vector3 position, Quaternion rotation)
     {
+        // A missing prefab disables the effect cleanly instead of breaking mining logic.
         if (particlePrefab == null)
         {
             return null;
@@ -108,6 +113,7 @@ public class MiningParticlePool : MonoBehaviour
 
     private IEnumerator ReturnAfterPlayback(ParticleSystem particle)
     {
+        // Wait for child particles too so bursts are not recycled before they finish.
         yield return new WaitWhile(() => particle != null && particle.IsAlive(true));
 
         if (particle == null)

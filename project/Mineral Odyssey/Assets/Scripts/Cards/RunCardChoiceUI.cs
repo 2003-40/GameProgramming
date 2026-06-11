@@ -2,6 +2,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Displays the run-card timer, draw prompt, and three-card choice panel during a mining run.
+/// </summary>
 public class RunCardChoiceUI : MonoBehaviour
 {
     [Header("Prompt")]
@@ -86,6 +89,7 @@ public class RunCardChoiceUI : MonoBehaviour
 
     public void BindSceneHierarchy()
     {
+        // Support both generated UI names and manually authored scene hierarchy names.
         if (statusText == null)
         {
             statusText = FindChildComponent<TMP_Text>("RuntimeStatusText");
@@ -155,6 +159,7 @@ public class RunCardChoiceUI : MonoBehaviour
 
     private void Subscribe()
     {
+        // Remove before adding to avoid duplicate event calls after scene reloads or re-enables.
         RunCardManager manager = RunCardManager.Instance;
         manager.DrawOfferBecameAvailable -= ShowDrawPrompt;
         manager.DrawOfferBecameAvailable += ShowDrawPrompt;
@@ -233,6 +238,7 @@ public class RunCardChoiceUI : MonoBehaviour
 
     private void ShowDrawPrompt()
     {
+        // Pause gameplay while the player decides whether to take the random card offer.
         if (drawPromptPanel != null)
         {
             drawPromptPanel.SetActive(true);
@@ -251,6 +257,7 @@ public class RunCardChoiceUI : MonoBehaviour
 
     private void ShowChoicePanel()
     {
+        // The player must choose one card after accepting the draw offer.
         ConfigureCards();
         HideDrawPrompt(false);
         if (choicePanel != null)
@@ -332,6 +339,7 @@ public class RunCardChoiceUI : MonoBehaviour
 
     private void RefreshStatus()
     {
+        // The status text gives feedback without requiring the card panel to stay visible.
         if (statusText == null || !RunCardManager.HasInstance)
         {
             return;
