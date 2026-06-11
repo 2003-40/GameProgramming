@@ -4,6 +4,9 @@ using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+/// <summary>
+/// Connects mining-scene end-run UI, shows run rewards, and returns the player to the map hall.
+/// </summary>
 public class MiningReturnButtonBootstrap : MonoBehaviour
 {
     private const string LegacyButtonName = "Return To Map Button";
@@ -40,6 +43,7 @@ public class MiningReturnButtonBootstrap : MonoBehaviour
 
     private static void BindExistingRunEndUi()
     {
+        // Bind only in mining scenes and clear static references when leaving them.
         if (FindFirstObjectByType<MiningController>() == null)
         {
             ClearRunUiReferences();
@@ -111,6 +115,7 @@ public class MiningReturnButtonBootstrap : MonoBehaviour
 
     private static void ShowRunEndPanel()
     {
+        // The run-end panel pauses the game so the summary remains readable.
         BindExistingRunEndUi();
 
         if (runEndPanel == null)
@@ -131,6 +136,7 @@ public class MiningReturnButtonBootstrap : MonoBehaviour
 
     private static void UpdateRunEndText()
     {
+        // Gold earned is measured from the amount saved when the mining scene was entered.
         int currentGold = GoldManager.Instance.Gold;
         int earnedGold = Mathf.Max(0, currentGold - startingGold);
 

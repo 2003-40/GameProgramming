@@ -1,6 +1,9 @@
 using System;
 using UnityEngine;
 
+/// <summary>
+/// Persistent currency manager for mining rewards, shop purchases, and level ticket costs.
+/// </summary>
 public class GoldManager : MonoBehaviour
 {
     private const string GoldSaveKey = "Gold";
@@ -14,6 +17,7 @@ public class GoldManager : MonoBehaviour
     {
         get
         {
+            // Lazy creation allows UI bootstraps and pickups to work in scenes without a placed manager.
             if (instance != null)
             {
                 return instance;
@@ -99,6 +103,7 @@ public class GoldManager : MonoBehaviour
 
     private void SetGold(int value)
     {
+        // Save immediately because gold is the main permanent progression currency.
         gold = value;
         PlayerPrefs.SetInt(GoldSaveKey, gold);
         PlayerPrefs.Save();

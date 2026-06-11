@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Handles player movement, facing direction, animation parameters, and stamina damage from enemies or hazards.
+/// </summary>
 public class Player : MonoBehaviour
 {
     public float speed = 5f;
@@ -30,6 +33,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        // Read raw axes so keyboard movement stays immediate and grid-friendly.
         movementInput.x = Input.GetAxisRaw("Horizontal");
         movementInput.y = Input.GetAxisRaw("Vertical");
 
@@ -50,6 +54,7 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
+        // Physics movement is kept in FixedUpdate to avoid jitter with Rigidbody2D.
         rb2D.velocity = movementInput.normalized * speed;
     }
 
@@ -72,6 +77,7 @@ public class Player : MonoBehaviour
 
     public void SetFacingDirection(Vector2 facing)
     {
+        // Ignore zero-length vectors so attacks do not erase the previous useful facing direction.
         if (facing.sqrMagnitude < 0.0001f)
         {
             return;
@@ -83,6 +89,7 @@ public class Player : MonoBehaviour
 
     public void CheckActionHit()
     {
+        // This method is called by the mining animation event at the actual impact frame.
         if (toolController == null)
         {
             toolController = GetComponentInChildren<ToolController>();
@@ -116,6 +123,7 @@ public class Player : MonoBehaviour
 
     private void TryTakeStaminaDamage(GameObject damageSource)
     {
+        // Shared collision/trigger damage path keeps monsters and hazards consistent.
         int staminaDamage = ResolveStaminaDamage(damageSource, out float damageCooldown);
         if (staminaDamage <= 0 || Time.time < nextStaminaDamageTime)
         {
@@ -128,6 +136,7 @@ public class Player : MonoBehaviour
 
     private int ResolveStaminaDamage(GameObject damageSource, out float damageCooldown)
     {
+        // Prefer explicit damage components, then fall back to tags for simple prototype enemies.
         StaminaDamageOnContact staminaDamageSource = damageSource.GetComponentInParent<StaminaDamageOnContact>();
         if (staminaDamageSource != null)
         {

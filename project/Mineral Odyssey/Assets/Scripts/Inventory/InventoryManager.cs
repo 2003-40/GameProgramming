@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using UnityEngine;
 
+/// <summary>
+/// Persistent inventory service for item stacks that are not immediately converted into gold.
+/// </summary>
 public class InventoryManager : MonoBehaviour
 {
     private static InventoryManager instance;
@@ -17,6 +20,7 @@ public class InventoryManager : MonoBehaviour
     {
         get
         {
+            // Lazily create the manager so pickup code can work even if the scene forgot to place one.
             if (instance != null)
             {
                 return instance;
@@ -56,6 +60,7 @@ public class InventoryManager : MonoBehaviour
 
     public bool AddItem(ItemData item)
     {
+        // Stack matching items first; only consume a slot when this is a new item type.
         if (item == null)
         {
             return false;
@@ -84,6 +89,7 @@ public class InventoryManager : MonoBehaviour
 
     public bool RemoveItem(ItemData item)
     {
+        // Removal always takes one unit, which is enough for prototype quest/shop exchanges.
         if (item == null)
         {
             return false;

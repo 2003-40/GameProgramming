@@ -1,9 +1,13 @@
 using UnityEngine;
 
+/// <summary>
+/// Converts collected item pickups into the selected reward path: gold or inventory storage.
+/// </summary>
 public static class ItemRewardService
 {
     public static bool Grant(ItemData itemData, ItemRewardMode rewardMode)
     {
+        // Centralizing reward logic keeps pickups independent from gold/inventory implementation details.
         if (itemData == null)
         {
             return false;

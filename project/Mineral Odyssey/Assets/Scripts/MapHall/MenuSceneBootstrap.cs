@@ -2,6 +2,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+/// <summary>
+/// Wires the main menu buttons to the map hall and quit actions after scene load.
+/// </summary>
 public class MenuSceneBootstrap : MonoBehaviour
 {
     private const string MenuSceneName = "_Menu";
@@ -22,6 +25,7 @@ public class MenuSceneBootstrap : MonoBehaviour
 
     private static void WireMenuButtons()
     {
+        // Name alternatives make the bootstrap tolerant of small UI naming changes.
         if (SceneManager.GetActiveScene().name != MenuSceneName)
         {
             return;

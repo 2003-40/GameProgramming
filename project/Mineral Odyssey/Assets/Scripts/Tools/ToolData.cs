@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Readable tier names for mining tools; values also map to basic mining progression.
+/// </summary>
 public enum ToolTier
 {
     Copper = 1,
@@ -7,6 +10,9 @@ public enum ToolTier
     Steel = 3
 }
 
+/// <summary>
+/// ScriptableObject data for a tool's mining power and stamina efficiency.
+/// </summary>
 [CreateAssetMenu(fileName = "New Tool Data", menuName = "Tools/Tool Data")]
 public class ToolData : ScriptableObject
 {

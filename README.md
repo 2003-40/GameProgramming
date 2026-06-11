@@ -41,7 +41,7 @@ Mineral Odyssey is a 2D top-down pixel-art mining roguelite built in Unity. The 
 
 ## Development Roadmap & Project Progress
 
-The project scope is now reduced for a solo two-week delivery. The priority is a stable, playable vertical slice rather than a complete roguelite system.
+The project scope is now focused on a stable solo vertical slice rather than a complete roguelite system. The current implementation emphasizes the playable mining loop, stamina economy, map hall, shop upgrades, temporary run cards, and clear UI feedback.
 
 ### Phase 1: Core Loop, Mining Mechanics & Economy
 
@@ -60,13 +60,13 @@ The project scope is now reduced for a solo two-week delivery. The priority is a
 
 *Goal: Deliver a playable loop that can be demonstrated confidently.*
 
-- [ ] **Stamina Budget:** Add a right-corner stamina UI, spend stamina on mining and enemy damage, and end the run when stamina reaches zero.
-- [ ] **Static Map Hall:** Create a simple hub screen with Start/Level 1/Level 2/Level 3 nodes, ticket costs, and level entry buttons. The mine cart can use simple position jumps instead of full path animation.
-- [ ] **Basic Shop:** Add a text/menu-based shop for tool upgrades and weapon upgrades.
-- [ ] **Tool & Ore Gating:** Use tool level and ore hardness to decide whether an ore can be mined and how much stamina it costs.
-- [ ] **Three Temporary Cards:** Add three run-only cards: slower stamina loss, +20 gold, and chance for double ore fragments.
-- [ ] **Minimal Monster Pressure:** Add one simple monster type in Level 2 and reuse/variant it in Level 3 if time is limited.
-- [ ] **Essential UI Feedback:** Show stamina, gold gain, ticket cost, shop purchase result, and run-end feedback.
+- [x] **Stamina Budget:** Right-corner stamina UI, stamina spending on mining, monster/hazard stamina damage, and run-end handling when stamina reaches zero.
+- [x] **Static Map Hall:** Hub screen with Start/Level 1/Level 2/Level 3 nodes, ticket costs, level entry buttons, and a cart marker.
+- [x] **Basic Shop:** UI-based shop for tool and weapon upgrades using saved gold.
+- [x] **Tool & Ore Gating:** Tool level and ore hardness determine whether an ore can be mined and how much stamina it costs.
+- [x] **Temporary Cards:** Run-only card choices include positive and negative effects such as stamina reduction, instant gold, double drops, stamina restoration, and curse-style tradeoffs.
+- [x] **Minimal Monster Pressure:** Simple monster health and stamina contact damage support Level 2/Level 3 pressure.
+- [x] **Essential UI Feedback:** Stamina, gold, ticket cost, shop purchase result, selected run card, and run-end gold summary are shown through UI.
 
 ### Optional Features After Must-Have
 
@@ -111,8 +111,25 @@ The project scope is now reduced for a solo two-week delivery. The priority is a
 
 ## Acknowledgements & Resources
 
-- Art Assets: [Kenney.nl](https://kenney.nl/) / Itch.io free assets
-- Sound Effects: Bfxr / Freesound assets where credited
+Reference links are intentionally left as placeholders so final source URLs, licences, and credit notes can be filled in before submission.
+
+| Category | Resource / Tool | Link | Licence / Permission | Used For | Notes |
+| --- | --- | --- | --- | --- | --- |
+| Art Asset | Pixel character / environment assets | TODO: add link | TODO | Player, mine background, tiles, UI art | TODO |
+| Art Asset | Mine tile / ore asset pack | TODO: add link | TODO | Mine tilemap, ore tiles, decorations | TODO |
+| UI Asset | UI panels / generated UI elements | TODO: add link or "self-created" | TODO | Map hall, shop, stamina, card UI | TODO |
+| Audio | Pickaxe hit sound | TODO: add link | TODO | Mining hit feedback | TODO |
+| Audio | Stone / ore destruction sound | TODO: add link | TODO | Ore break feedback | TODO |
+| Audio | Additional UI or feedback sounds | TODO: add link | TODO | Button or reward feedback | TODO |
+| Tutorial / Reference | Unity Tilemap documentation or tutorial | TODO: add link | TODO | Tilemap setup and mining scene workflow | TODO |
+| Tutorial / Reference | Unity UI / TextMeshPro reference | TODO: add link | TODO | UI construction and polish | TODO |
+| AI Coding Assistance | ChatGPT / Codex | TODO: add conversation or declaration note | AI assistance declared; final code reviewed and integrated by author | Coding suggestions, debugging ideas, documentation structure, comments | TODO |
+| AI Design Assistance | ChatGPT / Codex | TODO: add conversation or declaration note | AI assistance declared; final decisions by author | Scope planning, feature prioritization, report/contribution outline | TODO |
+
+See also:
+
+- `docs/ContributionList.md`
+- `docs/SubmissionChecklist.md`
 
 ---
 

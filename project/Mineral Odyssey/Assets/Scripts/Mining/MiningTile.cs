@@ -1,6 +1,9 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
+/// <summary>
+/// Tile asset data for mineable ore, including durability, stamina cost, tool gate, and drops.
+/// </summary>
 [CreateAssetMenu(fileName = "New Mining Tile", menuName = "Tiles/Mining Tile")]
 public class MiningTile : Tile
 {

@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Collectable world item that grants its configured reward and removes itself after collection.
+/// </summary>
 public class ItemPickup : MonoBehaviour
 {
     [SerializeField] private ItemData itemData;
@@ -10,6 +13,7 @@ public class ItemPickup : MonoBehaviour
 
     public bool TryCollect()
     {
+        // Missing ItemData is treated as a setup error instead of silently deleting the pickup.
         if (itemData == null)
         {
             Debug.LogWarning($"ItemPickup on {name} is missing ItemData.");
@@ -23,6 +27,7 @@ public class ItemPickup : MonoBehaviour
 
         if (itemData.Type == ItemType.Ore)
         {
+            // Ore collection counts as active run progress for the card timer.
             RunCardManager.Instance.RegisterCardTimerStartAction();
         }
 

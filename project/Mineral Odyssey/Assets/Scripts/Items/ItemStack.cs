@@ -1,6 +1,9 @@
 using System;
 using UnityEngine;
 
+/// <summary>
+/// Serializable inventory entry that stores one item definition and its stack quantity.
+/// </summary>
 [Serializable]
 public class ItemStack
 {
@@ -18,6 +21,7 @@ public class ItemStack
 
     public bool Matches(ItemData other)
     {
+        // Compare by object reference first, then by stable item id for copied ScriptableObjects.
         if (item == null || other == null)
         {
             return false;

@@ -6,12 +6,16 @@ using UnityEngine;
 
 namespace Unity.UOS.Encrypt
 {
+    /// <summary>
+    /// Utility wrapper for encrypting and decrypting UOS launcher strings with AES.
+    /// </summary>
     public class EncryptManager
     {
         private static string m_EncryptKey => EncryptKey.Value;
 
         public static string Encrypt(string plainText)
         {
+            // Use a deterministic IV to match the launcher helper's expected output format.
             byte[] plainTextBytes = Encoding.UTF8.GetBytes(plainText);
             using (Aes aes = Aes.Create())
             {
@@ -33,6 +37,7 @@ namespace Unity.UOS.Encrypt
 
         public static string Decrypt(string cipherText)
         {
+            // Invalid cipher text is logged and converted to an empty string for caller safety.
             byte[] cipherTextBytes = Convert.FromBase64String(cipherText);
             try
             {
@@ -62,6 +67,7 @@ namespace Unity.UOS.Encrypt
 
         private static byte[] DeriveKeyFromPassword(string password)
         {
+            // PBKDF2 converts the configured string key into the 128-bit AES key used above.
             var salt = "202401121404";
             var iterations = 1000;
             var desiredKeyLength = 16; // 16 bytes equal 128 bits.
