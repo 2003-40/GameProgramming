@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+/// <summary>
+/// Handles map-hall node selection, cart marker movement, ticket checks, and level loading.
+/// </summary>
 public class MapHallController : MonoBehaviour
 {
     [Header("Scene View")]
@@ -58,6 +61,7 @@ public class MapHallController : MonoBehaviour
 
     private void BindLevelOptions()
     {
+        // Bind buttons once so repeated bootstrap calls do not duplicate listeners.
         if (initialized)
         {
             return;
@@ -170,6 +174,7 @@ public class MapHallController : MonoBehaviour
 
     private void EnterSelectedLevel()
     {
+        // Level tickets spend saved gold before loading the selected mining scene.
         if (selectedOption == null || !selectedOption.CanEnter)
         {
             SetMessage("Select a mine level first.", new Color(0.95f, 0.78f, 0.45f, 1f));
@@ -263,6 +268,7 @@ public class MapHallController : MonoBehaviour
 
     private void DisableMarkerRaycasts()
     {
+        // The cart marker is decorative and must not block clicks on level nodes.
         if (marker == null)
         {
             return;

@@ -1,6 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Handles player tool input, aim direction, mining hit detection, and simple monster attacks.
+/// </summary>
 public class ToolController : MonoBehaviour
 {
     private const int MiningMouseButton = 0;
@@ -81,6 +84,7 @@ public class ToolController : MonoBehaviour
             return;
         }
 
+        // Starting an attack also starts the run-card timer because the player has acted.
         RunCardManager.Instance.RegisterCardTimerStartAction();
 
         queuedAttackDirection = ResolveAimDirection();
@@ -118,6 +122,7 @@ public class ToolController : MonoBehaviour
 
     private void PerformActionHit(ToolActionMode actionMode)
     {
+        // Called from the player animation so the hit lands when the swing visually connects.
         if (player == null)
         {
             player = GetComponentInParent<Player>();
@@ -165,6 +170,7 @@ public class ToolController : MonoBehaviour
 
     private void CheckMonsterHit(Vector3 hitCenter)
     {
+        // Track damaged monsters so one swing cannot hit the same enemy through multiple colliders.
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(hitCenter, attackRadius);
         if (hitColliders == null || hitColliders.Length == 0)
         {
@@ -267,6 +273,7 @@ public class ToolController : MonoBehaviour
 
     private Vector2 ResolveAimDirection()
     {
+        // Mouse aim is converted to cardinal facing to match the four-direction animation set.
         if (player == null)
         {
             return Vector2.down;
@@ -369,6 +376,7 @@ public class ToolController : MonoBehaviour
 
     private void EnsureToolVisualVisible()
     {
+        // Keep tool sprites visible above the player even when prefabs are enabled dynamically.
         if (!gameObject.activeSelf)
         {
             gameObject.SetActive(true);

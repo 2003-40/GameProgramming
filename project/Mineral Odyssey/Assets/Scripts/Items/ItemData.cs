@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// ScriptableObject definition for items, including display data and gold conversion value.
+/// </summary>
 [CreateAssetMenu(fileName = "NewItemData", menuName = "Inventory/Item Data")]
 public class ItemData : ScriptableObject
 {

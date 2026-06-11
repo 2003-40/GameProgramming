@@ -4,6 +4,9 @@ using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+/// <summary>
+/// Builds the run-card prompt and selection UI at runtime when the mining scene has no manual version.
+/// </summary>
 public class RunCardChoiceUIBootstrap : MonoBehaviour
 {
     private const string CanvasName = "Mining UI";
@@ -27,6 +30,7 @@ public class RunCardChoiceUIBootstrap : MonoBehaviour
 
     private static void EnsureCardChoiceUi()
     {
+        // The card UI is only relevant inside mining scenes.
         if (FindFirstObjectByType<MiningController>() == null)
         {
             return;
@@ -136,6 +140,7 @@ public class RunCardChoiceUIBootstrap : MonoBehaviour
 
     private static Canvas EnsureCanvas()
     {
+        // Reuse an existing canvas so generated overlays share the same screen-space setup.
         Canvas canvas = FindFirstObjectByType<Canvas>();
         if (canvas != null)
         {
@@ -195,6 +200,7 @@ public class RunCardChoiceUIBootstrap : MonoBehaviour
 
     private static Button CreateCardButton(Transform parent, string objectName, Vector2 anchoredPosition, out Image backgroundImage, out TMP_Text title, out TMP_Text description)
     {
+        // Cards are fixed-size so different descriptions do not shift the panel layout.
         GameObject buttonObject = CreatePanel(objectName, parent, new Color(1f, 1f, 1f, 0f));
         RectTransform buttonRect = buttonObject.GetComponent<RectTransform>();
         buttonRect.anchorMin = new Vector2(0.5f, 0.5f);

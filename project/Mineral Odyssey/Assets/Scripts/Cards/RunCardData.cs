@@ -1,5 +1,8 @@
 using System;
 
+/// <summary>
+/// Supported temporary effects that can be applied to a single mining run.
+/// </summary>
 public enum RunCardEffectType
 {
     StaminaCostReduction,
@@ -14,12 +17,18 @@ public enum RunCardEffectType
     MiningHitFailChance
 }
 
+/// <summary>
+/// Indicates whether a card set is beneficial or harmful.
+/// </summary>
 public enum RunCardPolarity
 {
     Good,
     Bad
 }
 
+/// <summary>
+/// Plain data model for a run card shown in the card-choice UI.
+/// </summary>
 [Serializable]
 public class RunCardData
 {

@@ -2,6 +2,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Updates stamina text and fill visuals in response to StaminaManager events.
+/// </summary>
 public class StaminaDisplay : MonoBehaviour
 {
     [SerializeField] private TMP_Text staminaText;
@@ -39,6 +42,7 @@ public class StaminaDisplay : MonoBehaviour
 
     private void UpdateStamina(int current, int max)
     {
+        // Color shifts from red to green to make low stamina visible at a glance.
         float staminaPercent = max > 0 ? Mathf.Clamp01((float)current / max) : 0f;
 
         if (staminaText != null)

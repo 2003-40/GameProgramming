@@ -3,6 +3,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+/// <summary>
+/// Creates a simple gold display in mining scenes when no scene-authored display exists.
+/// </summary>
 public class MiningGoldUIBootstrap : MonoBehaviour
 {
     private const string CanvasName = "Mining UI";
@@ -23,6 +26,7 @@ public class MiningGoldUIBootstrap : MonoBehaviour
 
     private static void EnsureMiningGoldDisplay()
     {
+        // Only mining scenes need this overlay; hub scenes have their own gold display.
         if (FindFirstObjectByType<MiningController>() == null)
         {
             return;

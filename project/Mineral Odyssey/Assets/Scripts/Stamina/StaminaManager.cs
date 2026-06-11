@@ -3,6 +3,9 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Persistent run-budget manager that tracks stamina, notifies UI, and ends runs when depleted.
+/// </summary>
 public class StaminaManager : MonoBehaviour
 {
     private static StaminaManager instance;
@@ -83,6 +86,7 @@ public class StaminaManager : MonoBehaviour
 
     public void ResetRunStamina()
     {
+        // Entering a mining scene starts a fresh run budget.
         if (endRunCoroutine != null)
         {
             StopCoroutine(endRunCoroutine);
@@ -96,6 +100,7 @@ public class StaminaManager : MonoBehaviour
 
     public bool ConsumeStamina(int amount)
     {
+        // Mining and monster damage both use this path so run-ending behavior is consistent.
         if (amount <= 0)
         {
             return currentStamina > 0;
@@ -154,6 +159,7 @@ public class StaminaManager : MonoBehaviour
 
     private void ScheduleEndCurrentRun()
     {
+        // Defer run end by one frame so the current hit/collection can finish cleanly.
         if (isEndingRun)
         {
             return;

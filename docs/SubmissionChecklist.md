@@ -41,6 +41,7 @@ These are required for a stable playable vertical slice.
 - [ ] **Three temporary cards:** Slower stamina loss, +20 gold, chance for double ore fragments.
 - [ ] **Minimal monsters:** No monster in Level 1, one simple monster in Level 2, reused or slightly stronger monster in Level 3.
 - [ ] **Essential UI feedback:** Stamina, gold, ticket cost, shop purchase result, and run-end summary.
+- [x] **Implemented vertical-slice systems:** Current scripts include stamina, tool/ore gating, map hall entry, shop upgrades, temporary cards, monster stamina pressure, gold UI, stamina UI, and run-end feedback. Keep the unchecked items above as final playtest verification tasks.
 
 ### Should-Have
 
@@ -109,7 +110,7 @@ Prepare answers for:
 - [ ] **Main game objective:** Mine efficiently, manage stamina, survive deeper levels, earn gold, and upgrade.
 - [ ] **Win / lose / completion condition:** Run ends when stamina reaches zero; vertical slice completion is reaching and playing Level 3.
 - [ ] **Main systems/scripts created:** Mining, gold, stamina, tool/ore data, cards, shop, level entry, monster pressure, UI.
-- [ ] **External assets/templates/tutorials/AI used:** List assets and AI assistance honestly.
+- [ ] **External assets/templates/tutorials/AI used:** Fill `README.md` reference placeholders and use `docs/ContributionList.md` for AI assistance wording.
 - [ ] **Known issues:** Add final limitations, such as simple monster AI or limited card variety.
 
 ## 5. Final Report Outline
@@ -123,6 +124,7 @@ The report should explain:
 - [ ] **Reflection:** How the project changed from gather-process-trade-upgrade into a focused mining roguelite.
 - [ ] **Personal contribution:** Clarify which systems and documentation were created personally.
 - [ ] **External support:** Declare assets, tutorials, code snippets, and AI assistance.
+- [ ] **Contribution source notes:** Use `docs/ContributionList.md` as the source for personal contribution, Unity operations, testing/debugging, improvements after feedback, and AI-assisted support.
 
 ## 6. Demo / Presentation Preparation
 

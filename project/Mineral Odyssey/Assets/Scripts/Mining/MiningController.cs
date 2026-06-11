@@ -3,6 +3,9 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
+/// <summary>
+/// Central mining system that validates tool gates, spends stamina, damages ore tiles, and spawns rewards.
+/// </summary>
 public class MiningController : MonoBehaviour
 {
     [Header("References")]
@@ -47,6 +50,7 @@ public class MiningController : MonoBehaviour
 
     private void SetupFeedbackPools()
     {
+        // Feedback is pooled so rapid mining does not repeatedly instantiate particles.
         ParticleSystem hitPrefab = fallbackHitParticlePrefab;
         if (hitPrefab == null)
         {
@@ -146,6 +150,7 @@ public class MiningController : MonoBehaviour
     /// <param name="incomingToolLevel">Current level of the equipped player tool.</param>
     public void TryMineAtPosition(Vector3 worldHitPos, int incomingToolLevel, float toolEfficiency)
     {
+        // Convert the animation/tool hit point into the matching tilemap cell.
         if (oreTilemap == null) return;
 
         Vector3Int gridPos = oreTilemap.WorldToCell(worldHitPos);
@@ -186,6 +191,7 @@ public class MiningController : MonoBehaviour
 
     private int CalculateStaminaCost(MiningTile ore, int toolLevel, float toolEfficiency)
     {
+        // Harder ores cost more stamina, while better tools reduce the cost.
         int hardness = Mathf.Max(1, ore.hardness);
         float oreMultiplier = Mathf.Max(0.01f, ore.staminaCostMultiplier);
         int miningPower = Mathf.Max(1, toolLevel);
@@ -195,6 +201,7 @@ public class MiningController : MonoBehaviour
 
     private void HandleDamage(Vector3Int gridPos, MiningTile ore)
     {
+        // Ore health is tracked per cell because the same Tile asset can appear many times.
         if (!oreHealthTracker.ContainsKey(gridPos))
         {
             oreHealthTracker.Add(gridPos, ore.maxHealth);
@@ -248,6 +255,7 @@ public class MiningController : MonoBehaviour
 
     private void ExecuteDestruction(Vector3Int gridPos, MiningTile ore)
     {
+        // Reset tile visual state before removing it so regenerated or reused cells are clean.
         Vector3 spawnPosition = oreTilemap.GetCellCenterWorld(gridPos);
 
         PlayDestroyFeedback(spawnPosition);

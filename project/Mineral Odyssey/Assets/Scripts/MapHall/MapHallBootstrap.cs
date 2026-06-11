@@ -5,6 +5,9 @@ using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+/// <summary>
+/// Repairs or generates the map-hall UI so the hub scene remains playable during rapid Unity iteration.
+/// </summary>
 public class MapHallBootstrap : MonoBehaviour
 {
     private const string MapHallSceneName = "MapHall";
@@ -32,6 +35,7 @@ public class MapHallBootstrap : MonoBehaviour
 
     private static void EnsureMapHall()
     {
+        // Only run this bootstrap inside the map hall scene.
         if (SceneManager.GetActiveScene().name != MapHallSceneName)
         {
             return;
@@ -138,6 +142,7 @@ public class MapHallBootstrap : MonoBehaviour
 
     private static bool TryConfigureManualMapHall(MapHallController existingController, GameObject manualCanvas)
     {
+        // Prefer the hand-built scene UI, then bind controller logic to it by known object names.
         Button levelOneButton = FindButton("Level1Node", "Level 1 Node", "Level 1");
         Button levelTwoButton = FindButton("Level2Node", "Level 2 Node", "Level 2");
         Button levelThreeButton = FindButton("Level3Node", "Level 3 Node", "Level 3");
@@ -202,6 +207,7 @@ public class MapHallBootstrap : MonoBehaviour
 
     private static void RepairManualMapHallInteraction()
     {
+        // Decorative graphics can accidentally block clicks; repair common button/raycast issues.
         ConfigureManualButton(FindButton("Level1Node", "Level 1 Node", "Level 1"));
         ConfigureManualButton(FindButton("Level2Node", "Level 2 Node", "Level 2"));
         ConfigureManualButton(FindButton("Level3Node", "Level 3 Node", "Level 3"));
@@ -289,6 +295,7 @@ public class MapHallBootstrap : MonoBehaviour
 
     private static void EnsureShopController()
     {
+        // The shop controller is attached at runtime if the manual hub UI already contains shop objects.
         if (FindFirstObjectByType<ShopUIController>() != null)
         {
             return;
@@ -462,6 +469,7 @@ public class MapHallBootstrap : MonoBehaviour
 
     private static void CreateRouteSegment(Transform parent, Vector2 start, Vector2 end)
     {
+        // Route segments are simple rotated UI images connecting each mine node.
         GameObject segment = CreatePanel("Route Segment", parent, RouteColor);
         RectTransform rectTransform = segment.GetComponent<RectTransform>();
 

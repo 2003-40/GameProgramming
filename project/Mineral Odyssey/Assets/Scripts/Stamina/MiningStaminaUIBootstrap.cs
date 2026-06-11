@@ -3,6 +3,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+/// <summary>
+/// Creates a bottom-right stamina display in mining scenes when no manual UI display exists.
+/// </summary>
 public class MiningStaminaUIBootstrap : MonoBehaviour
 {
     private const string CanvasName = "Mining UI";
@@ -23,6 +26,7 @@ public class MiningStaminaUIBootstrap : MonoBehaviour
 
     private static void EnsureMiningStaminaDisplay()
     {
+        // Avoid adding stamina UI to menu or map scenes.
         if (FindFirstObjectByType<MiningController>() == null)
         {
             return;
