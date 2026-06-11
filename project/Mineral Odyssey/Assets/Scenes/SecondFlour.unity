@@ -1504,11 +1504,6 @@ Transform:
   - {fileID: 1519382559}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &183692359 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7124054749712371715, guid: b633d7e38f7801649a8376c5104ba60e, type: 3}
-  m_PrefabInstance: {fileID: 7086292209984623118}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &184915320
 GameObject:
   m_ObjectHideFlags: 0
@@ -2711,10 +2706,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6896910475311222172, guid: b633d7e38f7801649a8376c5104ba60e, type: 3}
-      propertyPath: weaponAnchor
-      value: 
-      objectReference: {fileID: 183692359}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
