@@ -24,11 +24,13 @@ public class MonsterHealth : MonoBehaviour
         }
 
         currentHealth -= amount;
+        Debug.Log($"[Monster Hit] {name} took {amount} damage. HP={Mathf.Max(0, currentHealth)}/{maxHealth}");
         if (currentHealth > 0)
         {
             return;
         }
 
+        Debug.Log($"[Monster Defeated] {name}");
         if (destroyOnDeath)
         {
             Destroy(gameObject);

@@ -6,6 +6,16 @@ using UnityEngine;
 /// </summary>
 public class ToolController : MonoBehaviour
 {
+    private const int MiningMouseButton = 0;
+    private const int WeaponMouseButton = 1;
+
+    private enum ToolActionMode
+    {
+        None,
+        Weapon,
+        Mining
+    }
+
     [Header("Tool Settings")]
     [SerializeField] private ToolData currentTool;
     [SerializeField] private int toolLevel = 1;
@@ -15,6 +25,12 @@ public class ToolController : MonoBehaviour
     [SerializeField] private LayerMask tilemapLayer;
     [SerializeField] private string[] monsterTargetTags = { "Monster", "Enemy" };
 
+    [Header("Weapon Visual")]
+    [SerializeField] private Transform weaponAnchor;
+    [SerializeField] private float weaponThrustDistance = 0.45f;
+    [SerializeField] private float weaponThrustOutDuration = 0.08f;
+    [SerializeField] private float weaponThrustReturnDuration = 0.1f;
+
     private Player player;
     private Animator playerAnimator;
     private SpriteRenderer playerRenderer;
@@ -22,6 +38,10 @@ public class ToolController : MonoBehaviour
     private Collider2D playerCollider;
     private Camera mainCamera;
     private Vector2 queuedAttackDirection = Vector2.down;
+    private bool hasPendingActionHit;
+    private ToolActionMode pendingActionMode = ToolActionMode.None;
+    private Vector3 weaponAnchorRestLocalPosition;
+    private Coroutine weaponThrustRoutine;
     private readonly List<MonsterHealth> damagedMonsters = new List<MonsterHealth>();
 
     private void OnEnable()
@@ -42,34 +62,65 @@ public class ToolController : MonoBehaviour
         }
 
         EnsureToolVisualVisible();
+        CacheWeaponVisual();
     }
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(WeaponMouseButton))
         {
-            TriggerAttack();
+            TriggerAttack(ToolActionMode.Weapon);
+        }
+        else if (Input.GetMouseButtonDown(MiningMouseButton))
+        {
+            TriggerAttack(ToolActionMode.Mining);
         }
     }
 
-    private void TriggerAttack()
+    private void TriggerAttack(ToolActionMode actionMode)
     {
+        if (actionMode == ToolActionMode.Weapon && !IsWeaponAvailable())
+        {
+            return;
+        }
+
         // Starting an attack also starts the run-card timer because the player has acted.
         RunCardManager.Instance.RegisterCardTimerStartAction();
 
         queuedAttackDirection = ResolveAimDirection();
+        hasPendingActionHit = true;
+        pendingActionMode = actionMode;
         if (player != null)
         {
             player.SetFacingDirection(queuedAttackDirection);
         }
 
-        if (playerAnimator != null)
+        if (actionMode == ToolActionMode.Mining && playerAnimator != null)
         {
             playerAnimator.SetTrigger("Mine");
         }
+        else if (actionMode == ToolActionMode.Weapon)
+        {
+            PlayWeaponThrust();
+        }
+
+        CheckActionHit();
     }
 
     public void CheckActionHit()
+    {
+        if (!hasPendingActionHit)
+        {
+            return;
+        }
+
+        ToolActionMode actionMode = pendingActionMode;
+        hasPendingActionHit = false;
+        pendingActionMode = ToolActionMode.None;
+        PerformActionHit(actionMode);
+    }
+
+    private void PerformActionHit(ToolActionMode actionMode)
     {
         // Called from the player animation so the hit lands when the swing visually connects.
         if (player == null)
@@ -79,23 +130,30 @@ public class ToolController : MonoBehaviour
 
         Vector2 facingDir = queuedAttackDirection;
         Vector3 hitCenter = GetAttackOrigin() + new Vector3(facingDir.x, facingDir.y, 0f) * attackOffset;
+        Debug.Log($"[Tool Action] Mode={actionMode}, Direction={facingDir}, HitCenter={hitCenter}");
 
-        if (miningController == null)
+        if (actionMode == ToolActionMode.Mining)
         {
-            miningController = FindFirstObjectByType<MiningController>();
-        }
-
-        if (miningController != null)
-        {
-            Collider2D hitCollider = Physics2D.OverlapCircle(hitCenter, attackRadius, tilemapLayer);
-            if (hitCollider != null)
+            if (miningController == null)
             {
-                Vector2 resolvedHitPoint = hitCollider.ClosestPoint(hitCenter);
-                miningController.TryMineAtPosition(resolvedHitPoint, CurrentToolLevel, CurrentToolEfficiency);
+                miningController = FindFirstObjectByType<MiningController>();
+            }
+
+            if (miningController != null)
+            {
+                Collider2D hitCollider = Physics2D.OverlapCircle(hitCenter, attackRadius, tilemapLayer);
+                if (hitCollider != null)
+                {
+                    Vector2 resolvedHitPoint = hitCollider.ClosestPoint(hitCenter);
+                    miningController.TryMineAtPosition(resolvedHitPoint, CurrentToolLevel, CurrentToolEfficiency);
+                }
             }
         }
 
-        CheckMonsterHit(hitCenter);
+        if (actionMode == ToolActionMode.Weapon)
+        {
+            CheckMonsterHit(hitCenter);
+        }
     }
 
     public void EquipTool(ToolData tool)
@@ -241,6 +299,79 @@ public class ToolController : MonoBehaviour
         }
 
         return GetCardinalFacing(toMouse);
+    }
+
+    private void CacheWeaponVisual()
+    {
+        if (weaponAnchor == null && player != null)
+        {
+            Transform playerTransform = player.transform;
+            weaponAnchor = playerTransform.Find("WeaponAnchor");
+        }
+
+        if (weaponAnchor != null)
+        {
+            weaponAnchorRestLocalPosition = weaponAnchor.localPosition;
+        }
+    }
+
+    private void PlayWeaponThrust()
+    {
+        if (!IsWeaponAvailable())
+        {
+            return;
+        }
+
+        if (weaponThrustRoutine != null)
+        {
+            StopCoroutine(weaponThrustRoutine);
+            weaponAnchor.localPosition = weaponAnchorRestLocalPosition;
+        }
+
+        weaponThrustRoutine = StartCoroutine(AnimateWeaponThrust(queuedAttackDirection));
+    }
+
+    private bool IsWeaponAvailable()
+    {
+        if (weaponAnchor == null)
+        {
+            CacheWeaponVisual();
+        }
+
+        return weaponAnchor != null && weaponAnchor.gameObject.activeInHierarchy;
+    }
+
+    private System.Collections.IEnumerator AnimateWeaponThrust(Vector2 direction)
+    {
+        Vector2 facing = GetCardinalFacing(direction);
+        Vector3 thrustOffset = new Vector3(facing.x, facing.y, 0f) * Mathf.Max(0f, weaponThrustDistance);
+        Vector3 thrustPosition = weaponAnchorRestLocalPosition + thrustOffset;
+
+        yield return MoveWeaponAnchor(weaponAnchorRestLocalPosition, thrustPosition, weaponThrustOutDuration);
+        yield return MoveWeaponAnchor(thrustPosition, weaponAnchorRestLocalPosition, weaponThrustReturnDuration);
+
+        weaponAnchor.localPosition = weaponAnchorRestLocalPosition;
+        weaponThrustRoutine = null;
+    }
+
+    private System.Collections.IEnumerator MoveWeaponAnchor(Vector3 startPosition, Vector3 endPosition, float duration)
+    {
+        if (duration <= 0f)
+        {
+            weaponAnchor.localPosition = endPosition;
+            yield break;
+        }
+
+        float elapsed = 0f;
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsed / duration);
+            weaponAnchor.localPosition = Vector3.Lerp(startPosition, endPosition, t);
+            yield return null;
+        }
+
+        weaponAnchor.localPosition = endPosition;
     }
 
     private void EnsureToolVisualVisible()
