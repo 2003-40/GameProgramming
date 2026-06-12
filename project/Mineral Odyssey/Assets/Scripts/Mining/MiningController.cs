@@ -31,6 +31,10 @@ public class MiningController : MonoBehaviour
     [Header("Juice Config")]
     [SerializeField] private float bounceForce = 4f; 
 
+    [Header("Hazard Config")]
+    [SerializeField] private int explosiveStaminaDamage = 10;
+    [SerializeField] private int explosiveRadius = 1;
+
     private Dictionary<Vector3Int, int> oreHealthTracker = new Dictionary<Vector3Int, int>();
     private Dictionary<ParticleSystem, MiningParticlePool> runtimeParticlePools = new Dictionary<ParticleSystem, MiningParticlePool>();
     private bool isWobbling = false; 
@@ -154,6 +158,52 @@ public class MiningController : MonoBehaviour
         if (oreTilemap == null) return;
 
         Vector3Int gridPos = oreTilemap.WorldToCell(worldHitPos);
+        TryMineAtGridPosition(gridPos, incomingToolLevel, toolEfficiency);
+    }
+
+    public void TryMineNearPosition(Vector3 worldCenter, float radius, int incomingToolLevel, float toolEfficiency)
+    {
+        if (oreTilemap == null) return;
+
+        Vector3Int bestGridPos = new Vector3Int();
+        float bestDistanceSqr = float.MaxValue;
+        bool foundTile = false;
+        float clampedRadius = Mathf.Max(0.01f, radius);
+        float radiusSqr = clampedRadius * clampedRadius;
+        Vector3Int minCell = oreTilemap.WorldToCell(worldCenter - new Vector3(clampedRadius, clampedRadius, 0f));
+        Vector3Int maxCell = oreTilemap.WorldToCell(worldCenter + new Vector3(clampedRadius, clampedRadius, 0f));
+
+        for (int x = minCell.x - 1; x <= maxCell.x + 1; x++)
+        {
+            for (int y = minCell.y - 1; y <= maxCell.y + 1; y++)
+            {
+                Vector3Int checkPos = new Vector3Int(x, y, 0);
+                if (!(oreTilemap.GetTile(checkPos) is MiningTile))
+                {
+                    continue;
+                }
+
+                Vector3 cellCenter = oreTilemap.GetCellCenterWorld(checkPos);
+                Bounds tileBounds = new Bounds(cellCenter, oreTilemap.cellSize);
+                Vector3 closestPoint = tileBounds.ClosestPoint(worldCenter);
+                float distanceSqr = (closestPoint - worldCenter).sqrMagnitude;
+                if (distanceSqr <= radiusSqr && distanceSqr < bestDistanceSqr)
+                {
+                    bestGridPos = checkPos;
+                    bestDistanceSqr = distanceSqr;
+                    foundTile = true;
+                }
+            }
+        }
+
+        if (foundTile)
+        {
+            TryMineAtGridPosition(bestGridPos, incomingToolLevel, toolEfficiency);
+        }
+    }
+
+    private void TryMineAtGridPosition(Vector3Int gridPos, int incomingToolLevel, float toolEfficiency)
+    {
         TileBase clickedTile = oreTilemap.GetTile(gridPos);
 
         if (clickedTile is MiningTile currentOre)
@@ -260,6 +310,14 @@ public class MiningController : MonoBehaviour
 
         PlayDestroyFeedback(spawnPosition);
 
+        if (ore.tileKind == MiningTileKind.ExplosiveHazard)
+        {
+            TriggerExplosion(gridPos);
+            oreHealthTracker.Remove(gridPos);
+            RefreshTilemapPhysics();
+            return;
+        }
+
         oreTilemap.SetColor(gridPos, Color.white);
         oreTilemap.SetTileFlags(gridPos, TileFlags.LockColor);
         oreTilemap.SetTile(gridPos, null);
@@ -274,6 +332,34 @@ public class MiningController : MonoBehaviour
         }
 
         oreHealthTracker.Remove(gridPos);
+    }
+
+    private void TriggerExplosion(Vector3Int centerGridPos)
+    {
+        if (explosiveStaminaDamage > 0)
+        {
+            StaminaManager.Instance.ConsumeStamina(explosiveStaminaDamage);
+        }
+
+        int radius = Mathf.Max(0, explosiveRadius);
+        for (int x = -radius; x <= radius; x++)
+        {
+            for (int y = -radius; y <= radius; y++)
+            {
+                Vector3Int targetPos = centerGridPos + new Vector3Int(x, y, 0);
+                if (!oreTilemap.HasTile(targetPos))
+                {
+                    continue;
+                }
+
+                oreTilemap.SetColor(targetPos, Color.white);
+                oreTilemap.SetTileFlags(targetPos, TileFlags.LockColor);
+                oreTilemap.SetTile(targetPos, null);
+                oreHealthTracker.Remove(targetPos);
+            }
+        }
+
+        Debug.Log($"[Hazard] Explosive block detonated at {centerGridPos}, dealt {explosiveStaminaDamage} stamina damage, cleared radius {radius}.");
     }
 
     private void SpawnDrop(GameObject dropPrefab, Vector3 spawnPosition)
@@ -308,6 +394,20 @@ public class MiningController : MonoBehaviour
         }
 
         PlayOneShot(destroyClip, destroyVolume);
+    }
+
+    private void RefreshTilemapPhysics()
+    {
+        if (oreTilemap == null)
+        {
+            return;
+        }
+
+        oreTilemap.RefreshAllTiles();
+        if (oreTilemap.TryGetComponent<CompositeCollider2D>(out var compositeCollider))
+        {
+            compositeCollider.GenerateGeometry();
+        }
     }
 
     private void PlayOneShot(AudioClip clip, float volume)

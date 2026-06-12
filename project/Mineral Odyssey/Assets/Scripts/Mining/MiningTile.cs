@@ -1,6 +1,12 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
+public enum MiningTileKind
+{
+    NormalOre,
+    ExplosiveHazard
+}
+
 /// <summary>
 /// Tile asset data for mineable ore, including durability, stamina cost, tool gate, and drops.
 /// </summary>
@@ -12,6 +18,7 @@ public class MiningTile : Tile
     public int maxHealth = 3;         // Number of mining hits required
     public int hardness = 1;          // Base stamina cost hardness for each mining hit
     public GameObject dropPrefab;    // Physical item prefab dropped after successful mining
+    public MiningTileKind tileKind = MiningTileKind.NormalOre;
 
     public float staminaCostMultiplier = 1f;
     [Header("UX And Mechanics")]

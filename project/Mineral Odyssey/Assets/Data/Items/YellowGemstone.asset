@@ -16,4 +16,4 @@ MonoBehaviour:
   displayName: Yellow Gemstone
   icon: {fileID: -1552197438, guid: 0c2f611e73ed6234e8f06c043e6209df, type: 3}
   itemType: 0
-  value: 10
+  value: 5

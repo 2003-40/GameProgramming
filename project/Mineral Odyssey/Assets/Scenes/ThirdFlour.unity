@@ -2456,15 +2456,33 @@ MonoBehaviour:
   - oreName: Yellow Gemstone
     oreTile: {fileID: 11400000, guid: bff9c543ed3aa0d4d9bf971b18bc9dd5, type: 2}
     spawnWeight: 5
+    spawnKind: 0
+    maxSpawns: 0
   - oreName: White Gemstone
     oreTile: {fileID: 11400000, guid: 931d99415aa54424c9bf3a7d5fe75c10, type: 2}
     spawnWeight: 2
+    spawnKind: 0
+    maxSpawns: 0
   - oreName: Blue Gemstone
     oreTile: {fileID: 11400000, guid: 8c298367b43851c41a258f1ab5d49dca, type: 2}
     spawnWeight: 2
+    spawnKind: 0
+    maxSpawns: 0
   - oreName: Red Gemstone
     oreTile: {fileID: 11400000, guid: 97d0f279e5a55f14aad6b4b0f26fba93, type: 2}
     spawnWeight: 1
+    spawnKind: 0
+    maxSpawns: 0
+  - oreName: Purple Gemstone
+    oreTile: {fileID: 11400000, guid: da2a0c253c5909545a75cbe5efaab8a7, type: 2}
+    spawnWeight: 1.2
+    spawnKind: 1
+    maxSpawns: 2
+  - oreName: Explosive Block
+    oreTile: {fileID: 11400000, guid: 3ba660d5783420f4fa0e7b8c47c66160, type: 2}
+    spawnWeight: 1
+    spawnKind: 2
+    maxSpawns: 2
 --- !u!1001 &1232293695
 PrefabInstance:
   m_ObjectHideFlags: 0

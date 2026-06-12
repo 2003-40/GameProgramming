@@ -7,6 +7,13 @@ using UnityEngine.Tilemaps;
 /// </summary>
 public class OreGenerator : MonoBehaviour
 {
+    private enum OreSpawnKind
+    {
+        Normal,
+        Rare,
+        Hazard
+    }
+
     [System.Serializable]
     public class OreSpawnData
     {
@@ -14,6 +21,21 @@ public class OreGenerator : MonoBehaviour
         public TileBase oreTile;     // Tile asset for this ore
         [Range(0, 100)]
         public float spawnWeight;    // Relative weight after a cell has been selected for ore spawning
+        [SerializeField] private OreSpawnKind spawnKind = OreSpawnKind.Normal;
+        [Min(0)] public int maxSpawns;
+
+        public bool IsAvailable(Dictionary<OreSpawnData, int> spawnCounts, bool allowSpecialSpawn)
+        {
+            if (!allowSpecialSpawn && spawnKind != OreSpawnKind.Normal)
+            {
+                return false;
+            }
+
+            int effectiveMaxSpawns = spawnKind == OreSpawnKind.Normal ? maxSpawns : Mathf.Max(0, maxSpawns);
+            return oreTile != null
+                && spawnWeight > 0f
+                && (effectiveMaxSpawns <= 0 || !spawnCounts.TryGetValue(this, out int count) || count < effectiveMaxSpawns);
+        }
     }
 
     [Header("References")]
@@ -42,6 +64,7 @@ public class OreGenerator : MonoBehaviour
     {
         // Regeneration starts from a clean map so editor testing does not stack old ore layouts.
         oreTilemap.ClearAllTiles();
+        Dictionary<OreSpawnData, int> spawnCounts = new Dictionary<OreSpawnData, int>();
 
         for (int x = minX; x <= maxX; x++)
         {
@@ -51,13 +74,16 @@ public class OreGenerator : MonoBehaviour
                 if (Random.Range(0f, 100f) <= globalSpawnChance)
                 {
                     Vector3Int currentPos = new Vector3Int(x, y, 0);
+                    bool allowSpecialSpawn = !IsEdgeCell(x, y);
                     
                     // Then choose which ore type to place.
-                    TileBase tileToPlace = GetRandomOreFromPool();
+                    OreSpawnData spawnData = GetRandomOreFromPool(spawnCounts, allowSpecialSpawn);
 
-                    if (tileToPlace != null)
+                    if (spawnData?.oreTile != null)
                     {
-                        oreTilemap.SetTile(currentPos, tileToPlace);
+                        oreTilemap.SetTile(currentPos, spawnData.oreTile);
+                        spawnCounts.TryGetValue(spawnData, out int count);
+                        spawnCounts[spawnData] = count + 1;
                     }
                 }
                 // If the roll misses, leave this Tilemap cell empty.
@@ -75,7 +101,12 @@ public class OreGenerator : MonoBehaviour
         }
     }
 
-    private TileBase GetRandomOreFromPool()
+    private bool IsEdgeCell(int x, int y)
+    {
+        return x == minX || x == maxX || y == minY || y == maxY;
+    }
+
+    private OreSpawnData GetRandomOreFromPool(Dictionary<OreSpawnData, int> spawnCounts, bool allowSpecialSpawn)
     {
         if (orePool == null || orePool.Count == 0) return null;
 
@@ -83,8 +114,13 @@ public class OreGenerator : MonoBehaviour
         float totalWeight = 0f;
         foreach (var ore in orePool)
         {
-            totalWeight += ore.spawnWeight;
+            if (ore != null && ore.IsAvailable(spawnCounts, allowSpecialSpawn))
+            {
+                totalWeight += ore.spawnWeight;
+            }
         }
+
+        if (totalWeight <= 0f) return null;
 
         // Roll against the weighted ore pool.
         float roll = Random.Range(0f, totalWeight);
@@ -92,10 +128,15 @@ public class OreGenerator : MonoBehaviour
 
         foreach (var ore in orePool)
         {
+            if (ore == null || !ore.IsAvailable(spawnCounts, allowSpecialSpawn))
+            {
+                continue;
+            }
+
             cumulativeWeight += ore.spawnWeight;
             if (roll <= cumulativeWeight)
             {
-                return ore.oreTile;
+                return ore;
             }
         }
 
