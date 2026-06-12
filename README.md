@@ -117,7 +117,7 @@ Reference links are intentionally left as placeholders so final source URLs, lic
 | --- | --- | --- | --- | --- | --- |
 | Art Asset | Pixel character / environment assets | TODO: add link | TODO | Player, mine background, tiles, UI art | TODO |
 | Art Asset | Mine tile / ore asset pack | TODO: add link | TODO | Mine tilemap, ore tiles, decorations | TODO |
-| UI Asset | UI panels / generated UI elements | TODO: add link or "self-created" | TODO | Map hall, shop, stamina, card UI | TODO |
+| UI Asset | Generated UI elements | self-created | TODO | Map hall, shop, stamina, card UI | TODO |
 | Audio | Pickaxe hit sound | TODO: add link | TODO | Mining hit feedback | TODO |
 | Audio | Stone / ore destruction sound | TODO: add link | TODO | Ore break feedback | TODO |
 | Audio | Additional UI or feedback sounds | TODO: add link | TODO | Button or reward feedback | TODO |
@@ -140,8 +140,3 @@ See also:
 - **Contact:** 2617378@dundee.ac.uk
 
 ---
-
-## Workflow Automation
-
-- GitHub Kanban auto-management and commit message automation guide:
-  - docs/github_automation.md

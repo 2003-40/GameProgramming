@@ -91,7 +91,7 @@ Build checklist:
 - [ ] Build includes the playable vertical slice.
 - [ ] Do not upload `Library`, `Temp`, `Obj`, `Logs`, or large build-cache folders.
 - [ ] Final commit hash is recorded before submission.
-- [ ] Known issues are written honestly.
+- [x] Known issues are written honestly in `docs/FinalGameplayTesting.md`.
 
 ## 4. Final Submission Form Fields
 
@@ -111,7 +111,7 @@ Prepare answers for:
 - [ ] **Win / lose / completion condition:** Run ends when stamina reaches zero; vertical slice completion is reaching and playing Level 3.
 - [ ] **Main systems/scripts created:** Mining, gold, stamina, tool/ore data, cards, shop, level entry, monster pressure, UI.
 - [ ] **External assets/templates/tutorials/AI used:** Fill `README.md` reference placeholders and use `docs/ContributionList.md` for AI assistance wording.
-- [ ] **Known issues:** Add final limitations, such as simple monster AI or limited card variety.
+- [x] **Known issues:** Final limitations such as simple monster AI, limited card variety, and required Play Mode sign-off are recorded in `docs/FinalGameplayTesting.md`.
 
 ## 5. Final Report Outline
 
@@ -120,7 +120,7 @@ The report should explain:
 - [ ] **Design choices:** Why stamina is action-based, why the game uses short runs, why shop upgrades are menu-based.
 - [ ] **Technical decisions:** Tilemap mining, ScriptableObject data, manager-based gold/stamina state, event-driven UI where used.
 - [ ] **Problems and limitations:** Solo time constraint, reduced feature scope, simple monster AI, limited level count.
-- [ ] **Testing and changes:** What was tested, bugs found, balance changes to stamina/tickets/ore values.
+- [x] **Testing and changes:** Final stabilization notes, bugs found, and current balance values are recorded in `docs/FinalGameplayTesting.md`.
 - [ ] **Reflection:** How the project changed from gather-process-trade-upgrade into a focused mining roguelite.
 - [ ] **Personal contribution:** Clarify which systems and documentation were created personally.
 - [ ] **External support:** Declare assets, tutorials, code snippets, and AI assistance.
@@ -158,7 +158,7 @@ Include:
 - [ ] Summary of important commits.
 - [ ] Evidence of planning and task management, such as GitHub issues.
 - [ ] Evidence of response to feedback, including the scope change to stamina/card/shop systems.
-- [ ] Testing log and bug-fixing evidence.
+- [x] Testing log and bug-fixing evidence in `docs/Devlog&Testing.md` and `docs/FinalGameplayTesting.md`.
 - [ ] Screenshots or short evidence of progress over time.
 - [ ] Explanation of how the project changed during development.
 - [ ] External assets/templates/tutorials/AI declaration.
@@ -228,7 +228,7 @@ This schedule assumes one developer who also needs time for classes, reports, an
 
 - [ ] Add minimal monster pressure.
 - [ ] Add essential UI feedback.
-- [ ] Test Level 1, Level 2, and Level 3 loop.
+- [ ] Test Level 1, Level 2, and Level 3 loop in Unity Play Mode using `docs/FinalGameplayTesting.md`.
 
 ### Days 13-14
 

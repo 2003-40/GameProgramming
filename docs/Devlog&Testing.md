@@ -31,3 +31,14 @@ Documentation update:
 - Added English code comments across the Mineral Odyssey scripts.
 - Added README reference placeholders for art assets, audio, tutorials, and AI coding assistance.
 - Added `docs/ContributionList.md` as a working list of personal contribution and AI-assisted support.
+
+## 2026-06-12
+Completed a final stabilization review for the Mineral Odyssey vertical slice and recorded the results in `docs/FinalGameplayTesting.md`.
+
+Key outcome:
+
+- Verified the main MapHall -> mine -> stamina/gold -> run-end -> MapHall -> shop progression paths by code and scene configuration inspection.
+- Checked that all target scenes are included in Build Settings.
+- Checked that all three mining scenes reference the shared mining UI prefab with the run-end panel.
+- Fixed the Level 2 ticket cost mismatch by changing the serialized `MapHall.unity` value from 20 Gold to 25 Gold, matching the runtime bootstrap configuration.
+- Recorded the remaining manual Play Mode checklist, balance values, and known limitations for final demo preparation.

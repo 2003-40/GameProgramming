@@ -10,6 +10,7 @@ using UnityEngine.UI;
 /// </summary>
 public class MapHallBootstrap : MonoBehaviour
 {
+    private const string MenuSceneName = "_Menu";
     private const string MapHallSceneName = "MapHall";
     private const string CanvasName = "Map Hall UI";
     private const string ManualCanvasName = "MapHallUI";
@@ -44,6 +45,7 @@ public class MapHallBootstrap : MonoBehaviour
         EnsureEventSystem();
         RepairManualMapHallInteraction();
         EnsureShopController();
+        EnsureBackToMenuButton();
 
         MapHallController existingController = FindFirstObjectByType<MapHallController>();
         if (existingController != null && existingController.HasConfiguredView)
@@ -212,6 +214,7 @@ public class MapHallBootstrap : MonoBehaviour
         ConfigureManualButton(FindButton("Level2Node", "Level 2 Node", "Level 2"));
         ConfigureManualButton(FindButton("Level3Node", "Level 3 Node", "Level 3"));
         ConfigureManualButton(FindButton("EntryButton", "EnterButton", "Enter Level Button"));
+        ConfigureManualButton(FindButton("ReturnToMenuButton", "BackToMenuButton", "Back To Menu Button", "MenuButton", "BackButton"));
         DisableNonInteractiveRaycasts();
     }
 
@@ -319,6 +322,25 @@ public class MapHallBootstrap : MonoBehaviour
         {
             controllerObject.AddComponent<ShopUIController>();
         }
+    }
+
+    private static void EnsureBackToMenuButton()
+    {
+        Button backToMenuButton = FindButton("ReturnToMenuButton", "BackToMenuButton", "Back To Menu Button", "MenuButton", "BackButton");
+        if (backToMenuButton == null)
+        {
+            return;
+        }
+
+        ConfigureManualButton(backToMenuButton);
+        backToMenuButton.onClick.RemoveListener(ReturnToMenu);
+        backToMenuButton.onClick.AddListener(ReturnToMenu);
+    }
+
+    private static void ReturnToMenu()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(MenuSceneName);
     }
 
     private static Button FindButton(params string[] names)
