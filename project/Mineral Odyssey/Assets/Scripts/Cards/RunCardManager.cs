@@ -8,21 +8,15 @@ using UnityEngine.SceneManagement;
 public class RunCardManager : MonoBehaviour
 {
     private const float RequiredTimerSeconds = 20f;
-    private const float StaminaReductionMultiplier = 0.75f;
-    private const float StaminaIncreaseMultiplier = 1.2f;
-    private const float DoubleOreDropChance = 0.35f;
-    private const float FreeMiningHitChance = 0.2f;
-    private const float NoOreDropChance = 0.25f;
-    private const float MiningHitFailChance = 0.15f;
-    private const int ImmediateGoldAmount = 20;
-    private const int RestoreStaminaAmount = 20;
-    private const int ImmediateGoldLossAmount = 15;
-    private const int FlatStaminaCostPenalty = 1;
     private const int CardsPerChoice = 3;
+    private const string GoodCardsResourcePath = "Cards/Good";
+    private const string BadCardsResourcePath = "Cards/Bad";
 
     private static RunCardManager instance;
-    private static RunCardData[] goodCards;
-    private static RunCardData[] badCards;
+
+    [Header("Card Pools")]
+    [SerializeField] private RunCardData[] goodCardPool;
+    [SerializeField] private RunCardData[] badCardPool;
 
     private bool isMiningRun;
     private bool hasStartedCardTimer;
@@ -39,6 +33,8 @@ public class RunCardManager : MonoBehaviour
     private float noOreDropChance;
     private float freeMiningHitChance;
     private float miningHitFailChance;
+    private RunCardData[] loadedGoodCards;
+    private RunCardData[] loadedBadCards;
 
     public static RunCardManager Instance
     {
@@ -211,8 +207,19 @@ public class RunCardManager : MonoBehaviour
         choiceAvailable = true;
         currentChoicePolarity = UnityEngine.Random.value < 0.5f ? RunCardPolarity.Good : RunCardPolarity.Bad;
         currentChoiceCards = PickCards(currentChoicePolarity);
+        if (currentChoiceCards.Length == 0)
+        {
+            choiceAvailable = false;
+            cardOpportunityResolved = true;
+            Debug.LogWarning($"[Run Card] No {currentChoicePolarity} run cards are configured.");
+        }
+
         RunStateChanged?.Invoke();
-        CardChoiceBecameAvailable?.Invoke();
+        if (choiceAvailable)
+        {
+            CardChoiceBecameAvailable?.Invoke();
+        }
+
         return true;
     }
 
@@ -356,12 +363,14 @@ public class RunCardManager : MonoBehaviour
         }
     }
 
-    private static RunCardData[] PickCards(RunCardPolarity polarity)
+    private RunCardData[] PickCards(RunCardPolarity polarity)
     {
         // Pick without replacement so the three offered cards are distinct.
-        RunCardData[] source = polarity == RunCardPolarity.Bad
-            ? badCards ?? (badCards = CreateBadCards())
-            : goodCards ?? (goodCards = CreateGoodCards());
+        RunCardData[] source = GetCardPool(polarity);
+        if (source.Length == 0)
+        {
+            return Array.Empty<RunCardData>();
+        }
 
         RunCardData[] pickedCards = new RunCardData[Mathf.Min(CardsPerChoice, source.Length)];
         bool[] used = new bool[source.Length];
@@ -380,97 +389,62 @@ public class RunCardManager : MonoBehaviour
         return pickedCards;
     }
 
-    private static RunCardData[] CreateGoodCards()
+    private RunCardData[] GetCardPool(RunCardPolarity polarity)
     {
-        return new[]
+        RunCardData[] configuredCards = polarity == RunCardPolarity.Bad ? badCardPool : goodCardPool;
+        RunCardData[] configuredValidCards = FilterCards(configuredCards, polarity);
+        if (configuredValidCards.Length > 0)
         {
-            new RunCardData(
-                "steady_breath",
-                "Steady Breath",
-                "Stamina costs are reduced by 25% for this run.",
-                RunCardPolarity.Good,
-                RunCardEffectType.StaminaCostReduction,
-                StaminaReductionMultiplier,
-                0),
-            new RunCardData(
-                "gold_cache",
-                "Gold Cache",
-                "Gain 20 gold immediately.",
-                RunCardPolarity.Good,
-                RunCardEffectType.GainGoldImmediately,
-                0f,
-                ImmediateGoldAmount),
-            new RunCardData(
-                "rich_vein",
-                "Rich Vein",
-                "Ore drops have a 35% chance to drop two fragments this run.",
-                RunCardPolarity.Good,
-                RunCardEffectType.DoubleOreDropChance,
-                DoubleOreDropChance,
-                0),
-            new RunCardData(
-                "second_wind",
-                "Second Wind",
-                "Restore 20 stamina immediately.",
-                RunCardPolarity.Good,
-                RunCardEffectType.RestoreStamina,
-                0f,
-                RestoreStaminaAmount),
-            new RunCardData(
-                "light_swing",
-                "Light Swing",
-                "Mining hits have a 20% chance to cost no stamina this run.",
-                RunCardPolarity.Good,
-                RunCardEffectType.FreeMiningHitChance,
-                FreeMiningHitChance,
-                0)
-        };
+            return configuredValidCards;
+        }
+
+        if (polarity == RunCardPolarity.Bad)
+        {
+            if (loadedBadCards == null)
+            {
+                loadedBadCards = FilterCards(Resources.LoadAll<RunCardData>(BadCardsResourcePath), polarity);
+            }
+
+            return loadedBadCards;
+        }
+
+        if (loadedGoodCards == null)
+        {
+            loadedGoodCards = FilterCards(Resources.LoadAll<RunCardData>(GoodCardsResourcePath), polarity);
+        }
+
+        return loadedGoodCards;
     }
 
-    private static RunCardData[] CreateBadCards()
+    private static RunCardData[] FilterCards(RunCardData[] cards, RunCardPolarity polarity)
     {
-        return new[]
+        if (cards == null || cards.Length == 0)
         {
-            new RunCardData(
-                "heavy_arms",
-                "Heavy Arms",
-                "Stamina costs are increased by 20% for this run.",
-                RunCardPolarity.Bad,
-                RunCardEffectType.StaminaCostIncrease,
-                StaminaIncreaseMultiplier,
-                0),
-            new RunCardData(
-                "gold_tax",
-                "Gold Tax",
-                "Lose 15 gold immediately.",
-                RunCardPolarity.Bad,
-                RunCardEffectType.LoseGoldImmediately,
-                0f,
-                ImmediateGoldLossAmount),
-            new RunCardData(
-                "poor_vein",
-                "Poor Vein",
-                "Ore drops have a 25% chance to produce nothing this run.",
-                RunCardPolarity.Bad,
-                RunCardEffectType.NoOreDropChance,
-                NoOreDropChance,
-                0),
-            new RunCardData(
-                "dull_edge",
-                "Dull Edge",
-                "Each mining hit costs 1 extra stamina this run.",
-                RunCardPolarity.Bad,
-                RunCardEffectType.FlatStaminaCostIncrease,
-                0f,
-                FlatStaminaCostPenalty),
-            new RunCardData(
-                "shaky_hands",
-                "Shaky Hands",
-                "Mining hits have a 15% chance to deal no tile damage this run.",
-                RunCardPolarity.Bad,
-                RunCardEffectType.MiningHitFailChance,
-                MiningHitFailChance,
-                0)
-        };
+            return Array.Empty<RunCardData>();
+        }
+
+        int validCount = 0;
+        for (int i = 0; i < cards.Length; i++)
+        {
+            if (cards[i] != null && cards[i].Polarity == polarity)
+            {
+                validCount++;
+            }
+        }
+
+        RunCardData[] filteredCards = new RunCardData[validCount];
+        int filteredIndex = 0;
+        for (int i = 0; i < cards.Length; i++)
+        {
+            if (cards[i] == null || cards[i].Polarity != polarity)
+            {
+                continue;
+            }
+
+            filteredCards[filteredIndex] = cards[i];
+            filteredIndex++;
+        }
+
+        return filteredCards;
     }
 }

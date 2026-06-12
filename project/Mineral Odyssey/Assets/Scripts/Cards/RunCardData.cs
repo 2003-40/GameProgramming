@@ -1,4 +1,4 @@
-using System;
+using UnityEngine;
 
 /// <summary>
 /// Supported temporary effects that can be applied to a single mining run.
@@ -27,35 +27,29 @@ public enum RunCardPolarity
 }
 
 /// <summary>
-/// Plain data model for a run card shown in the card-choice UI.
+/// ScriptableObject data for a temporary run card shown in the card-choice UI.
 /// </summary>
-[Serializable]
-public class RunCardData
+[CreateAssetMenu(fileName = "New Run Card", menuName = "Cards/Run Card")]
+public class RunCardData : ScriptableObject
 {
-    public RunCardData(
-        string id,
-        string displayName,
-        string description,
-        RunCardPolarity polarity,
-        RunCardEffectType effectType,
-        float effectValue,
-        int effectAmount)
-    {
-        Id = id;
-        DisplayName = displayName;
-        Description = description;
-        Polarity = polarity;
-        EffectType = effectType;
-        EffectValue = effectValue;
-        EffectAmount = effectAmount;
-    }
+    [Header("Identity")]
+    [SerializeField] private string cardId;
+    [SerializeField] private string displayName;
+    [TextArea(2, 4)]
+    [SerializeField] private string description;
 
-    public string Id { get; private set; }
-    public string DisplayName { get; private set; }
-    public string Description { get; private set; }
-    public RunCardPolarity Polarity { get; private set; }
-    public RunCardEffectType EffectType { get; private set; }
-    public float EffectValue { get; private set; }
-    public int EffectAmount { get; private set; }
+    [Header("Effect")]
+    [SerializeField] private RunCardPolarity polarity = RunCardPolarity.Good;
+    [SerializeField] private RunCardEffectType effectType;
+    [SerializeField] private float effectValue;
+    [SerializeField] private int effectAmount;
+
+    public string Id => cardId;
+    public string DisplayName => displayName;
+    public string Description => description;
+    public RunCardPolarity Polarity => polarity;
+    public RunCardEffectType EffectType => effectType;
+    public float EffectValue => effectValue;
+    public int EffectAmount => effectAmount;
     public bool IsBad => Polarity == RunCardPolarity.Bad;
 }
