@@ -31,6 +31,10 @@ public class MiningController : MonoBehaviour
     [Header("Juice Config")]
     [SerializeField] private float bounceForce = 4f; 
 
+    [Header("Hazard Config")]
+    [SerializeField] private int explosiveStaminaDamage = 10;
+    [SerializeField] private int explosiveRadius = 1;
+
     private Dictionary<Vector3Int, int> oreHealthTracker = new Dictionary<Vector3Int, int>();
     private Dictionary<ParticleSystem, MiningParticlePool> runtimeParticlePools = new Dictionary<ParticleSystem, MiningParticlePool>();
     private bool isWobbling = false; 
@@ -260,6 +264,14 @@ public class MiningController : MonoBehaviour
 
         PlayDestroyFeedback(spawnPosition);
 
+        if (ore.tileKind == MiningTileKind.ExplosiveHazard)
+        {
+            TriggerExplosion(gridPos);
+            oreHealthTracker.Remove(gridPos);
+            RefreshTilemapPhysics();
+            return;
+        }
+
         oreTilemap.SetColor(gridPos, Color.white);
         oreTilemap.SetTileFlags(gridPos, TileFlags.LockColor);
         oreTilemap.SetTile(gridPos, null);
@@ -274,6 +286,34 @@ public class MiningController : MonoBehaviour
         }
 
         oreHealthTracker.Remove(gridPos);
+    }
+
+    private void TriggerExplosion(Vector3Int centerGridPos)
+    {
+        if (explosiveStaminaDamage > 0)
+        {
+            StaminaManager.Instance.ConsumeStamina(explosiveStaminaDamage);
+        }
+
+        int radius = Mathf.Max(0, explosiveRadius);
+        for (int x = -radius; x <= radius; x++)
+        {
+            for (int y = -radius; y <= radius; y++)
+            {
+                Vector3Int targetPos = centerGridPos + new Vector3Int(x, y, 0);
+                if (!oreTilemap.HasTile(targetPos))
+                {
+                    continue;
+                }
+
+                oreTilemap.SetColor(targetPos, Color.white);
+                oreTilemap.SetTileFlags(targetPos, TileFlags.LockColor);
+                oreTilemap.SetTile(targetPos, null);
+                oreHealthTracker.Remove(targetPos);
+            }
+        }
+
+        Debug.Log($"[Hazard] Explosive block detonated at {centerGridPos}, dealt {explosiveStaminaDamage} stamina damage, cleared radius {radius}.");
     }
 
     private void SpawnDrop(GameObject dropPrefab, Vector3 spawnPosition)
@@ -308,6 +348,20 @@ public class MiningController : MonoBehaviour
         }
 
         PlayOneShot(destroyClip, destroyVolume);
+    }
+
+    private void RefreshTilemapPhysics()
+    {
+        if (oreTilemap == null)
+        {
+            return;
+        }
+
+        oreTilemap.RefreshAllTiles();
+        if (oreTilemap.TryGetComponent<CompositeCollider2D>(out var compositeCollider))
+        {
+            compositeCollider.GenerateGeometry();
+        }
     }
 
     private void PlayOneShot(AudioClip clip, float volume)
