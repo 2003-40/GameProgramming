@@ -77,6 +77,11 @@ public class ToolController : MonoBehaviour
         }
     }
 
+    private void LateUpdate()
+    {
+        EnsureToolVisualVisible();
+    }
+
     private void TriggerAttack(ToolActionMode actionMode)
     {
         if (actionMode == ToolActionMode.Weapon && !IsWeaponAvailable())
@@ -144,8 +149,7 @@ public class ToolController : MonoBehaviour
                 Collider2D hitCollider = Physics2D.OverlapCircle(hitCenter, attackRadius, tilemapLayer);
                 if (hitCollider != null)
                 {
-                    Vector2 resolvedHitPoint = hitCollider.ClosestPoint(hitCenter);
-                    miningController.TryMineAtPosition(resolvedHitPoint, CurrentToolLevel, CurrentToolEfficiency);
+                    miningController.TryMineNearPosition(hitCenter, attackRadius, CurrentToolLevel, CurrentToolEfficiency);
                 }
             }
         }
@@ -382,12 +386,6 @@ public class ToolController : MonoBehaviour
             gameObject.SetActive(true);
         }
 
-        SpriteRenderer[] toolRenderers = GetComponentsInChildren<SpriteRenderer>(true);
-        if (toolRenderers.Length == 0)
-        {
-            return;
-        }
-
         int sortingOrder = 2;
         string sortingLayerName = string.Empty;
 
@@ -402,6 +400,32 @@ public class ToolController : MonoBehaviour
             sortingLayerName = playerRenderer.sortingLayerName;
         }
 
+        ApplyToolVisualState(transform, sortingOrder, sortingLayerName);
+
+        if (weaponAnchor == null)
+        {
+            CacheWeaponVisual();
+        }
+
+        if (weaponAnchor != null)
+        {
+            ApplyToolVisualState(weaponAnchor, sortingOrder, sortingLayerName);
+        }
+    }
+
+    private static void ApplyToolVisualState(Transform visualRoot, int sortingOrder, string sortingLayerName)
+    {
+        if (visualRoot == null)
+        {
+            return;
+        }
+
+        if (!visualRoot.gameObject.activeSelf)
+        {
+            visualRoot.gameObject.SetActive(true);
+        }
+
+        SpriteRenderer[] toolRenderers = visualRoot.GetComponentsInChildren<SpriteRenderer>(true);
         for (int i = 0; i < toolRenderers.Length; i++)
         {
             SpriteRenderer toolRenderer = toolRenderers[i];

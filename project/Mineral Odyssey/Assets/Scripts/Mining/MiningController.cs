@@ -158,6 +158,52 @@ public class MiningController : MonoBehaviour
         if (oreTilemap == null) return;
 
         Vector3Int gridPos = oreTilemap.WorldToCell(worldHitPos);
+        TryMineAtGridPosition(gridPos, incomingToolLevel, toolEfficiency);
+    }
+
+    public void TryMineNearPosition(Vector3 worldCenter, float radius, int incomingToolLevel, float toolEfficiency)
+    {
+        if (oreTilemap == null) return;
+
+        Vector3Int bestGridPos = new Vector3Int();
+        float bestDistanceSqr = float.MaxValue;
+        bool foundTile = false;
+        float clampedRadius = Mathf.Max(0.01f, radius);
+        float radiusSqr = clampedRadius * clampedRadius;
+        Vector3Int minCell = oreTilemap.WorldToCell(worldCenter - new Vector3(clampedRadius, clampedRadius, 0f));
+        Vector3Int maxCell = oreTilemap.WorldToCell(worldCenter + new Vector3(clampedRadius, clampedRadius, 0f));
+
+        for (int x = minCell.x - 1; x <= maxCell.x + 1; x++)
+        {
+            for (int y = minCell.y - 1; y <= maxCell.y + 1; y++)
+            {
+                Vector3Int checkPos = new Vector3Int(x, y, 0);
+                if (!(oreTilemap.GetTile(checkPos) is MiningTile))
+                {
+                    continue;
+                }
+
+                Vector3 cellCenter = oreTilemap.GetCellCenterWorld(checkPos);
+                Bounds tileBounds = new Bounds(cellCenter, oreTilemap.cellSize);
+                Vector3 closestPoint = tileBounds.ClosestPoint(worldCenter);
+                float distanceSqr = (closestPoint - worldCenter).sqrMagnitude;
+                if (distanceSqr <= radiusSqr && distanceSqr < bestDistanceSqr)
+                {
+                    bestGridPos = checkPos;
+                    bestDistanceSqr = distanceSqr;
+                    foundTile = true;
+                }
+            }
+        }
+
+        if (foundTile)
+        {
+            TryMineAtGridPosition(bestGridPos, incomingToolLevel, toolEfficiency);
+        }
+    }
+
+    private void TryMineAtGridPosition(Vector3Int gridPos, int incomingToolLevel, float toolEfficiency)
+    {
         TileBase clickedTile = oreTilemap.GetTile(gridPos);
 
         if (clickedTile is MiningTile currentOre)

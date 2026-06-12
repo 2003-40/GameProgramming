@@ -24,8 +24,13 @@ public class OreGenerator : MonoBehaviour
         [SerializeField] private OreSpawnKind spawnKind = OreSpawnKind.Normal;
         [Min(0)] public int maxSpawns;
 
-        public bool IsAvailable(Dictionary<OreSpawnData, int> spawnCounts)
+        public bool IsAvailable(Dictionary<OreSpawnData, int> spawnCounts, bool allowSpecialSpawn)
         {
+            if (!allowSpecialSpawn && spawnKind != OreSpawnKind.Normal)
+            {
+                return false;
+            }
+
             int effectiveMaxSpawns = spawnKind == OreSpawnKind.Normal ? maxSpawns : Mathf.Max(0, maxSpawns);
             return oreTile != null
                 && spawnWeight > 0f
@@ -69,9 +74,10 @@ public class OreGenerator : MonoBehaviour
                 if (Random.Range(0f, 100f) <= globalSpawnChance)
                 {
                     Vector3Int currentPos = new Vector3Int(x, y, 0);
+                    bool allowSpecialSpawn = !IsEdgeCell(x, y);
                     
                     // Then choose which ore type to place.
-                    OreSpawnData spawnData = GetRandomOreFromPool(spawnCounts);
+                    OreSpawnData spawnData = GetRandomOreFromPool(spawnCounts, allowSpecialSpawn);
 
                     if (spawnData?.oreTile != null)
                     {
@@ -95,7 +101,12 @@ public class OreGenerator : MonoBehaviour
         }
     }
 
-    private OreSpawnData GetRandomOreFromPool(Dictionary<OreSpawnData, int> spawnCounts)
+    private bool IsEdgeCell(int x, int y)
+    {
+        return x == minX || x == maxX || y == minY || y == maxY;
+    }
+
+    private OreSpawnData GetRandomOreFromPool(Dictionary<OreSpawnData, int> spawnCounts, bool allowSpecialSpawn)
     {
         if (orePool == null || orePool.Count == 0) return null;
 
@@ -103,7 +114,7 @@ public class OreGenerator : MonoBehaviour
         float totalWeight = 0f;
         foreach (var ore in orePool)
         {
-            if (ore != null && ore.IsAvailable(spawnCounts))
+            if (ore != null && ore.IsAvailable(spawnCounts, allowSpecialSpawn))
             {
                 totalWeight += ore.spawnWeight;
             }
@@ -117,7 +128,7 @@ public class OreGenerator : MonoBehaviour
 
         foreach (var ore in orePool)
         {
-            if (ore == null || !ore.IsAvailable(spawnCounts))
+            if (ore == null || !ore.IsAvailable(spawnCounts, allowSpecialSpawn))
             {
                 continue;
             }
