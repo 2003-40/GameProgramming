@@ -2670,10 +2670,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: MiningUI
       objectReference: {fileID: 0}
-    - target: {fileID: 6910211156405824589, guid: 9f717a4caf1aa314481b36bcb886ea4e, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 350
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

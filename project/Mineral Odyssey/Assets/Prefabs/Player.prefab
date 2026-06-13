@@ -265,11 +265,13 @@ MonoBehaviour:
   destroyParticleInitialPoolSize: 3
   destroyParticleMaxPoolSize: 8
   audioSource: {fileID: 0}
-  hitClip: {fileID: 8300000, guid: e9333c3cc7e2d0b449cde102e69a1b8b, type: 3}
+  hitClip: {fileID: 8300000, guid: f10416dac8490384ba1ce4b3b204d7ae, type: 3}
   destroyClip: {fileID: 8300000, guid: 4ffbcb74c67c2204f8e7ff6857990e00, type: 3}
   hitVolume: 0.97
   destroyVolume: 1
   bounceForce: 4
+  explosiveStaminaDamage: 10
+  explosiveRadius: 1
 --- !u!70 &976806667572978690
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
