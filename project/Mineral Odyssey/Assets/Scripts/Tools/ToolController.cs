@@ -27,6 +27,10 @@ public class ToolController : MonoBehaviour
 
     [Header("Weapon Visual")]
     [SerializeField] private Transform weaponAnchor;
+    [SerializeField] private SpriteRenderer weaponSpriteRenderer;
+    [SerializeField] private Sprite copperWeaponSprite;
+    [SerializeField] private Sprite ironWeaponSprite;
+    [SerializeField] private Sprite crystalWeaponSprite;
     [SerializeField] private float weaponThrustDistance = 0.45f;
     [SerializeField] private float weaponThrustOutDuration = 0.08f;
     [SerializeField] private float weaponThrustReturnDuration = 0.1f;
@@ -46,7 +50,14 @@ public class ToolController : MonoBehaviour
 
     private void OnEnable()
     {
+        PlayerUpgradeState.UpgradesChanged += ApplyWeaponTierSprite;
         EnsureToolVisualVisible();
+        ApplyWeaponTierSprite();
+    }
+
+    private void OnDisable()
+    {
+        PlayerUpgradeState.UpgradesChanged -= ApplyWeaponTierSprite;
     }
 
     private void Start()
@@ -63,6 +74,7 @@ public class ToolController : MonoBehaviour
 
         EnsureToolVisualVisible();
         CacheWeaponVisual();
+        ApplyWeaponTierSprite();
     }
 
     private void Update()
@@ -316,6 +328,51 @@ public class ToolController : MonoBehaviour
         if (weaponAnchor != null)
         {
             weaponAnchorRestLocalPosition = weaponAnchor.localPosition;
+        }
+
+        if (weaponSpriteRenderer == null && weaponAnchor != null)
+        {
+            Transform weaponSpriteTransform = weaponAnchor.Find("WeaponSprite");
+            if (weaponSpriteTransform != null)
+            {
+                weaponSpriteRenderer = weaponSpriteTransform.GetComponent<SpriteRenderer>();
+            }
+
+            if (weaponSpriteRenderer == null)
+            {
+                weaponSpriteRenderer = weaponAnchor.GetComponentInChildren<SpriteRenderer>(true);
+            }
+        }
+    }
+
+    private void ApplyWeaponTierSprite()
+    {
+        CacheWeaponVisual();
+
+        if (weaponSpriteRenderer == null)
+        {
+            return;
+        }
+
+        Sprite tierSprite = GetWeaponTierSprite(PlayerUpgradeState.WeaponLevel);
+        if (tierSprite != null)
+        {
+            weaponSpriteRenderer.sprite = tierSprite;
+        }
+    }
+
+    private Sprite GetWeaponTierSprite(int weaponLevel)
+    {
+        switch (Mathf.Clamp(weaponLevel, PlayerUpgradeState.MinWeaponLevel, PlayerUpgradeState.MaxWeaponLevel))
+        {
+            case 1:
+                return copperWeaponSprite;
+            case 2:
+                return ironWeaponSprite;
+            case 3:
+                return crystalWeaponSprite;
+            default:
+                return copperWeaponSprite;
         }
     }
 

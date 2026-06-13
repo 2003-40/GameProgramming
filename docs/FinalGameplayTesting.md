@@ -79,7 +79,7 @@ Use a fresh PlayerPrefs state before this pass if possible.
   - Red Gemstone: 17 Gold
   - Purple Gemstone: 25 Gold
 - Tool upgrade costs: 75, 150.
-- Weapon upgrade costs: 50, 100, 175, 275.
+- Weapon upgrade costs: 50, 100.
 - Default monster contact stamina damage: 10.
 - Explosive hazard stamina damage: 10.
 

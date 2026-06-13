@@ -545,6 +545,10 @@ MonoBehaviour:
   - Monster
   - Enemy
   weaponAnchor: {fileID: 7124054749712371715}
+  weaponSpriteRenderer: {fileID: 1931190554521257583}
+  copperWeaponSprite: {fileID: 21300000, guid: 34d29a07151d03c47a503564651c8eeb, type: 3}
+  ironWeaponSprite: {fileID: 21300000, guid: 05817378e027a394fbaa6a42960069aa, type: 3}
+  crystalWeaponSprite: {fileID: 21300000, guid: 53f9360ff09e7c146a47f1988ca5f8ff, type: 3}
   weaponThrustDistance: 0.45
   weaponThrustOutDuration: 0.08
   weaponThrustReturnDuration: 0.1
