@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardId: dull_edge
   displayName: Dull Edge
-  description: Each mining hit costs 1 extra stamina this run.
+  description: Each hit costs 1 extra stamina this run.
   polarity: 1
   effectType: 8
   effectValue: 0

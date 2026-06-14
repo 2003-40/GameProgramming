@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardId: heavy_arms
   displayName: Heavy Arms
-  description: Stamina costs are increased by 20% for this run.
+  description: Stamina costs increased by 20% this run.
   polarity: 1
   effectType: 5
   effectValue: 1.2
