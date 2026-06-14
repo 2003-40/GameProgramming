@@ -152,18 +152,18 @@ public class MiningController : MonoBehaviour
     /// </summary>
     /// <param name="worldHitPos">World-space point hit by the swing.</param>
     /// <param name="incomingToolLevel">Current level of the equipped player tool.</param>
-    public void TryMineAtPosition(Vector3 worldHitPos, int incomingToolLevel, float toolEfficiency)
+    public bool TryMineAtPosition(Vector3 worldHitPos, int incomingToolLevel, float toolEfficiency)
     {
         // Convert the animation/tool hit point into the matching tilemap cell.
-        if (oreTilemap == null) return;
+        if (oreTilemap == null) return false;
 
         Vector3Int gridPos = oreTilemap.WorldToCell(worldHitPos);
-        TryMineAtGridPosition(gridPos, incomingToolLevel, toolEfficiency);
+        return TryMineAtGridPosition(gridPos, incomingToolLevel, toolEfficiency);
     }
 
-    public void TryMineNearPosition(Vector3 worldCenter, float radius, int incomingToolLevel, float toolEfficiency)
+    public bool TryMineNearPosition(Vector3 worldCenter, float radius, int incomingToolLevel, float toolEfficiency)
     {
-        if (oreTilemap == null) return;
+        if (oreTilemap == null) return false;
 
         Vector3Int bestGridPos = new Vector3Int();
         float bestDistanceSqr = float.MaxValue;
@@ -198,11 +198,13 @@ public class MiningController : MonoBehaviour
 
         if (foundTile)
         {
-            TryMineAtGridPosition(bestGridPos, incomingToolLevel, toolEfficiency);
+            return TryMineAtGridPosition(bestGridPos, incomingToolLevel, toolEfficiency);
         }
+
+        return false;
     }
 
-    private void TryMineAtGridPosition(Vector3Int gridPos, int incomingToolLevel, float toolEfficiency)
+    private bool TryMineAtGridPosition(Vector3Int gridPos, int incomingToolLevel, float toolEfficiency)
     {
         TileBase clickedTile = oreTilemap.GetTile(gridPos);
 
@@ -212,7 +214,7 @@ public class MiningController : MonoBehaviour
             if (incomingToolLevel < currentOre.requiredToolLevel)
             {
                 Debug.Log($"[Mining Blocked] ToolLevel={incomingToolLevel}, RequiredToolLevel={currentOre.requiredToolLevel}, Ore={currentOre.gemstoneName}, OreHardness={currentOre.hardness}");
-                return;
+                return true;
             }
 
             bool shouldConsumeStamina = RunCardManager.Instance.ShouldConsumeStaminaForMiningHit();
@@ -223,7 +225,7 @@ public class MiningController : MonoBehaviour
             if (shouldConsumeStamina && !StaminaManager.Instance.ConsumeStamina(staminaCost))
             {
                 Debug.Log("[Insufficient Stamina] Mining stopped; the current exploration is over.");
-                return;
+                return true;
             }
 
             RunCardManager.Instance.RegisterSuccessfulMiningAction();
@@ -232,11 +234,14 @@ public class MiningController : MonoBehaviour
                 Vector3 failedHitWorldPos = oreTilemap.GetCellCenterWorld(gridPos);
                 PlayHitFeedback(failedHitWorldPos, currentOre);
                 Debug.Log("[Run Card] Mining hit failed to damage the tile.");
-                return;
+                return true;
             }
 
             HandleDamage(gridPos, currentOre);
+            return true;
         }
+
+        return false;
     }
 
     private int CalculateStaminaCost(MiningTile ore, int toolLevel, float toolEfficiency)
