@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1171985276978016671
 Transform:
   m_ObjectHideFlags: 0
@@ -26,8 +26,8 @@ Transform:
   m_GameObject: {fileID: 1155089395706169412}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.38, y: 0.28, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0.42, z: 0}
+  m_LocalScale: {x: 0.08, y: 0.08, z: 0.08}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3837840560416151516}
@@ -39,7 +39,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1155089395706169412}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 93025033, guid: 8377fe957962ff448bcd6050172d2895, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c997165c2e6d5ab448d1870456f99518, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -216,6 +216,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
+  levelTwoSpeedMultiplier: 0.85
+  levelThreeIdleStaminaDelay: 2.5
+  levelThreeIdleStaminaInterval: 4
+  levelThreeIdleStaminaCost: 1
   defaultMonsterHitStaminaDamage: 10
   defaultMonsterHitCooldown: 1
   staminaDamageTags:
@@ -513,7 +517,7 @@ Transform:
   m_GameObject: {fileID: 4463586832684523675}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.22, y: 0.08, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -538,12 +542,25 @@ MonoBehaviour:
   toolEfficiency: 2
   attackRadius: 0.8
   attackOffset: 0.6
-  tilemapLayer:
-    serializedVersion: 2
-    m_Bits: 256
   monsterTargetTags:
   - Monster
   - Enemy
+  closeMiningFallbackRadiusMultiplier: 0.75
+  minimumToolSortingOrder: 3
+  miningToolVisibleDuration: 0.42
+  toolSpriteRenderer: {fileID: 5329003500988263457}
+  copperToolSprite: {fileID: 21300000, guid: c997165c2e6d5ab448d1870456f99518, type: 3}
+  ironToolSprite: {fileID: 21300000, guid: 5e55dd22350499348bc7169b69b33fc4, type: 3}
+  crystalToolSprite: {fileID: 21300000, guid: e9306391a04f1104c82b70fb2301d53a, type: 3}
+  miningToolBodyOffset: {x: -0.22, y: 0.08}
+  miningToolScale: 0.08
+  miningToolPivotToCenterDistance: 0.42
+  miningToolSwingDistance: 0.08
+  miningToolWindupAngle: -90
+  miningToolStrikeAngle: 0
+  miningToolWindupDuration: 0.06
+  miningToolStrikeDuration: 0.09
+  miningToolReturnDuration: 0.12
   weaponAnchor: {fileID: 7124054749712371715}
   weaponSpriteRenderer: {fileID: 1931190554521257583}
   copperWeaponSprite: {fileID: 21300000, guid: 34d29a07151d03c47a503564651c8eeb, type: 3}
@@ -552,6 +569,8 @@ MonoBehaviour:
   weaponThrustDistance: 0.45
   weaponThrustOutDuration: 0.08
   weaponThrustReturnDuration: 0.1
+  weaponHiddenSceneNames:
+  - FirstFlour
 --- !u!1 &5022310674142195123
 GameObject:
   m_ObjectHideFlags: 0

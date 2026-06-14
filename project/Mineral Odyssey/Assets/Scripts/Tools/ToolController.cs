@@ -30,6 +30,21 @@ public class ToolController : MonoBehaviour
     [SerializeField] private int minimumToolSortingOrder = 3;
     [SerializeField] private float miningToolVisibleDuration = 0.42f;
 
+    [Header("Mining Tool Visual")]
+    [SerializeField] private SpriteRenderer toolSpriteRenderer;
+    [SerializeField] private Sprite copperToolSprite;
+    [SerializeField] private Sprite ironToolSprite;
+    [SerializeField] private Sprite crystalToolSprite;
+    [SerializeField] private Vector2 miningToolBodyOffset = new Vector2(-0.22f, 0.08f);
+    [SerializeField] private float miningToolScale = 0.08f;
+    [SerializeField] private float miningToolPivotToCenterDistance = 0.42f;
+    [SerializeField] private float miningToolSwingDistance = 0.08f;
+    [SerializeField] private float miningToolWindupAngle = -90f;
+    [SerializeField] private float miningToolStrikeAngle = 0f;
+    [SerializeField] private float miningToolWindupDuration = 0.06f;
+    [SerializeField] private float miningToolStrikeDuration = 0.09f;
+    [SerializeField] private float miningToolReturnDuration = 0.12f;
+
     [Header("Weapon Visual")]
     [SerializeField] private Transform weaponAnchor;
     [SerializeField] private SpriteRenderer weaponSpriteRenderer;
@@ -42,16 +57,17 @@ public class ToolController : MonoBehaviour
     [SerializeField] private string[] weaponHiddenSceneNames = { LevelOneSceneName };
 
     private Player player;
-    private Animator playerAnimator;
     private SpriteRenderer playerRenderer;
     private MiningController miningController;
     private Collider2D playerCollider;
     private Camera mainCamera;
     private Vector2 queuedAttackDirection = Vector2.down;
     private Vector2 queuedFallbackMiningDirection = Vector2.down;
+    private Vector2 queuedMiningVisualDirection = Vector2.down;
     private bool hasPendingActionHit;
     private ToolActionMode pendingActionMode = ToolActionMode.None;
     private Vector3 weaponAnchorRestLocalPosition;
+    private Transform toolSpriteTransform;
     private Coroutine miningToolVisualRoutine;
     private Coroutine weaponThrustRoutine;
     private bool isMiningToolVisible;
@@ -61,14 +77,14 @@ public class ToolController : MonoBehaviour
 
     private void OnEnable()
     {
-        PlayerUpgradeState.UpgradesChanged += ApplyWeaponTierSprite;
+        PlayerUpgradeState.UpgradesChanged += ApplyUpgradeVisuals;
         RefreshCarriedVisuals();
-        ApplyWeaponTierSprite();
+        ApplyUpgradeVisuals();
     }
 
     private void OnDisable()
     {
-        PlayerUpgradeState.UpgradesChanged -= ApplyWeaponTierSprite;
+        PlayerUpgradeState.UpgradesChanged -= ApplyUpgradeVisuals;
         isMiningToolVisible = false;
         isWeaponVisualVisible = false;
     }
@@ -76,7 +92,6 @@ public class ToolController : MonoBehaviour
     private void Start()
     {
         player = GetComponentInParent<Player>();
-        playerAnimator = GetComponentInParent<Animator>();
         playerRenderer = GetComponentInParent<SpriteRenderer>();
         miningController = FindFirstObjectByType<MiningController>();
         mainCamera = Camera.main;
@@ -86,8 +101,9 @@ public class ToolController : MonoBehaviour
         }
 
         RefreshCarriedVisuals();
+        CacheMiningToolVisual();
         CacheWeaponVisual();
-        ApplyWeaponTierSprite();
+        ApplyUpgradeVisuals();
     }
 
     private void Update()
@@ -117,16 +133,19 @@ public class ToolController : MonoBehaviour
         // Starting an attack also starts the run-card timer because the player has acted.
         RunCardManager.Instance.RegisterCardTimerStartAction();
 
-        Vector2 aimDirection = ResolveAimDirection();
+        Vector2 rawAimDirection = ResolveRawAimDirection();
+        Vector2 aimDirection = GetCardinalFacing(rawAimDirection);
         if (actionMode == ToolActionMode.Mining)
         {
-            queuedAttackDirection = player != null ? GetCardinalFacing(player.GetFacingDirection()) : aimDirection;
-            queuedFallbackMiningDirection = aimDirection;
+            queuedAttackDirection = aimDirection;
+            queuedFallbackMiningDirection = rawAimDirection;
+            queuedMiningVisualDirection = aimDirection;
         }
         else
         {
             queuedAttackDirection = aimDirection;
             queuedFallbackMiningDirection = queuedAttackDirection;
+            queuedMiningVisualDirection = queuedAttackDirection;
         }
 
         hasPendingActionHit = true;
@@ -138,11 +157,7 @@ public class ToolController : MonoBehaviour
 
         if (actionMode == ToolActionMode.Mining)
         {
-            PlayMiningToolVisual();
-            if (playerAnimator != null)
-            {
-                playerAnimator.SetTrigger("Mine");
-            }
+            PlayMiningToolVisual(queuedMiningVisualDirection);
         }
         else if (actionMode == ToolActionMode.Weapon)
         {
@@ -210,6 +225,7 @@ public class ToolController : MonoBehaviour
     public void EquipTool(ToolData tool)
     {
         currentTool = tool;
+        ApplyToolTierSprite();
         RefreshCarriedVisuals();
     }
 
@@ -322,9 +338,8 @@ public class ToolController : MonoBehaviour
         return new Vector2(0f, Mathf.Sign(rawFacing.y));
     }
 
-    private Vector2 ResolveAimDirection()
+    private Vector2 ResolveRawAimDirection()
     {
-        // Mouse aim is converted to cardinal facing to match the four-direction animation set.
         if (player == null)
         {
             return Vector2.down;
@@ -337,7 +352,7 @@ public class ToolController : MonoBehaviour
 
         if (mainCamera == null)
         {
-            return GetCardinalFacing(player.GetFacingDirection());
+            return player.GetFacingDirection().sqrMagnitude > 0.0001f ? player.GetFacingDirection().normalized : Vector2.down;
         }
 
         Vector3 mouseWorldPos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
@@ -346,10 +361,69 @@ public class ToolController : MonoBehaviour
         Vector2 toMouse = mouseWorldPos - GetAttackOrigin();
         if (toMouse.sqrMagnitude < 0.0001f)
         {
-            return GetCardinalFacing(player.GetFacingDirection());
+            return player.GetFacingDirection().sqrMagnitude > 0.0001f ? player.GetFacingDirection().normalized : Vector2.down;
         }
 
-        return GetCardinalFacing(toMouse);
+        return toMouse.normalized;
+    }
+
+    private void CacheMiningToolVisual()
+    {
+        if (toolSpriteRenderer == null)
+        {
+            Transform toolSprite = transform.Find("ToolSprite");
+            if (toolSprite != null)
+            {
+                toolSpriteRenderer = toolSprite.GetComponent<SpriteRenderer>();
+            }
+
+            if (toolSpriteRenderer == null)
+            {
+                toolSpriteRenderer = GetComponentInChildren<SpriteRenderer>(true);
+            }
+        }
+
+        if (toolSpriteRenderer != null)
+        {
+            toolSpriteTransform = toolSpriteRenderer.transform;
+        }
+    }
+
+    private void ApplyUpgradeVisuals()
+    {
+        ApplyToolTierSprite();
+        ApplyWeaponTierSprite();
+    }
+
+    private void ApplyToolTierSprite()
+    {
+        CacheMiningToolVisual();
+
+        if (toolSpriteRenderer == null)
+        {
+            return;
+        }
+
+        Sprite tierSprite = GetToolTierSprite(PlayerUpgradeState.ToolLevel);
+        if (tierSprite != null)
+        {
+            toolSpriteRenderer.sprite = tierSprite;
+        }
+    }
+
+    private Sprite GetToolTierSprite(int currentToolLevel)
+    {
+        switch (Mathf.Clamp(currentToolLevel, PlayerUpgradeState.MinToolLevel, PlayerUpgradeState.MaxToolLevel))
+        {
+            case 1:
+                return copperToolSprite;
+            case 2:
+                return ironToolSprite;
+            case 3:
+                return crystalToolSprite;
+            default:
+                return copperToolSprite;
+        }
     }
 
     private void CacheWeaponVisual()
@@ -474,7 +548,7 @@ public class ToolController : MonoBehaviour
         weaponAnchor.localPosition = endPosition;
     }
 
-    private void PlayMiningToolVisual()
+    private void PlayMiningToolVisual(Vector2 direction)
     {
         if (miningToolVisualRoutine != null)
         {
@@ -482,16 +556,86 @@ public class ToolController : MonoBehaviour
         }
 
         isMiningToolVisible = true;
+        ApplyToolTierSprite();
+        SetMiningToolPose(direction, miningToolWindupAngle, 0f);
         RefreshCarriedVisuals();
-        miningToolVisualRoutine = StartCoroutine(HideMiningToolAfterUse());
+        miningToolVisualRoutine = StartCoroutine(AnimateMiningToolSwing(direction));
     }
 
-    private System.Collections.IEnumerator HideMiningToolAfterUse()
+    private System.Collections.IEnumerator AnimateMiningToolSwing(Vector2 direction)
     {
-        yield return new WaitForSeconds(Mathf.Max(0.05f, miningToolVisibleDuration));
+        Vector2 facing = GetCardinalFacing(direction);
+
+        if (miningToolWindupDuration > 0f)
+        {
+            yield return new WaitForSeconds(miningToolWindupDuration);
+        }
+
+        yield return AnimateMiningToolPose(facing, miningToolWindupAngle, 0f, miningToolStrikeAngle, miningToolSwingDistance, miningToolStrikeDuration);
+        yield return AnimateMiningToolPose(facing, miningToolStrikeAngle, miningToolSwingDistance, miningToolWindupAngle, 0f, miningToolReturnDuration);
+
+        float elapsedVisibleTime = miningToolWindupDuration + miningToolStrikeDuration + miningToolReturnDuration;
+        float remainingVisibleTime = Mathf.Max(0f, miningToolVisibleDuration - elapsedVisibleTime);
+        if (remainingVisibleTime > 0f)
+        {
+            yield return new WaitForSeconds(remainingVisibleTime);
+        }
+
         isMiningToolVisible = false;
         miningToolVisualRoutine = null;
         RefreshCarriedVisuals();
+    }
+
+    private System.Collections.IEnumerator AnimateMiningToolPose(
+        Vector2 direction,
+        float startAngleOffset,
+        float startForwardOffset,
+        float endAngleOffset,
+        float endForwardOffset,
+        float duration)
+    {
+        if (duration <= 0f)
+        {
+            SetMiningToolPose(direction, endAngleOffset, endForwardOffset);
+            yield break;
+        }
+
+        float elapsed = 0f;
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsed / duration);
+            SetMiningToolPose(
+                direction,
+                Mathf.Lerp(startAngleOffset, endAngleOffset, t),
+                Mathf.Lerp(startForwardOffset, endForwardOffset, t));
+            yield return null;
+        }
+
+        SetMiningToolPose(direction, endAngleOffset, endForwardOffset);
+    }
+
+    private void SetMiningToolPose(Vector2 direction, float angleOffset, float forwardOffset)
+    {
+        CacheMiningToolVisual();
+
+        if (toolSpriteTransform == null)
+        {
+            return;
+        }
+
+        Vector2 facing = GetCardinalFacing(direction);
+        float facingAngle = Vector2.SignedAngle(Vector2.up, facing);
+        Vector3 bodyOffset = new Vector3(miningToolBodyOffset.x, miningToolBodyOffset.y, 0f);
+        Vector3 strikeOffset = new Vector3(facing.x, facing.y, 0f) * Mathf.Max(0f, forwardOffset);
+
+        transform.localPosition = bodyOffset + strikeOffset;
+        transform.localRotation = Quaternion.Euler(0f, 0f, facingAngle + angleOffset);
+        transform.localScale = Vector3.one;
+
+        toolSpriteTransform.localPosition = Vector3.up * Mathf.Max(0f, miningToolPivotToCenterDistance);
+        toolSpriteTransform.localRotation = Quaternion.identity;
+        toolSpriteTransform.localScale = Vector3.one * Mathf.Max(0.01f, miningToolScale);
     }
 
     private void RefreshCarriedVisuals()
