@@ -2240,15 +2240,23 @@ MonoBehaviour:
   - oreName: Yellow Gemstone
     oreTile: {fileID: 11400000, guid: bff9c543ed3aa0d4d9bf971b18bc9dd5, type: 2}
     spawnWeight: 5
+    spawnKind: 0
+    maxSpawns: 0
   - oreName: White Gemstone
     oreTile: {fileID: 11400000, guid: 931d99415aa54424c9bf3a7d5fe75c10, type: 2}
     spawnWeight: 2
+    spawnKind: 0
+    maxSpawns: 0
   - oreName: Blue Gemstone
     oreTile: {fileID: 11400000, guid: 8c298367b43851c41a258f1ab5d49dca, type: 2}
     spawnWeight: 2
+    spawnKind: 0
+    maxSpawns: 0
   - oreName: Red Gemstone
     oreTile: {fileID: 11400000, guid: 97d0f279e5a55f14aad6b4b0f26fba93, type: 2}
     spawnWeight: 1
+    spawnKind: 0
+    maxSpawns: 0
 --- !u!1 &1519382558
 GameObject:
   m_ObjectHideFlags: 0
@@ -2512,6 +2520,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 3082267449048646486, guid: b633d7e38f7801649a8376c5104ba60e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3497325570977658134, guid: b633d7e38f7801649a8376c5104ba60e, type: 3}
+      propertyPath: m_Volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3497325570977658134, guid: b633d7e38f7801649a8376c5104ba60e, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 66c8e68735f37484ab5b3fc5346ea190, type: 3}
     - target: {fileID: 3792630668559656610, guid: b633d7e38f7801649a8376c5104ba60e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0

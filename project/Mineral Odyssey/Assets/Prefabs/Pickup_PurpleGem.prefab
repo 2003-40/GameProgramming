@@ -187,5 +187,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6fd665c6ce64959ae8e13307b4a05f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemData: {fileID: 11400000, guid: f1dbf29572134421a8ba623af0982c26, type: 2}
+  itemData: {fileID: 11400000, guid: 6c3dc665980ab294eb997ffaa1b5d3ac, type: 2}
   rewardMode: 0

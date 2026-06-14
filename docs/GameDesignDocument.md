@@ -13,11 +13,11 @@ Players enter increasingly dangerous mine levels from a hub map, spend limited s
 
 ## 3. Design Intent & Player Experience
 
-The core design philosophy is **"every mining action spends a limited budget."** Stamina replaces a real-time countdown, allowing the player to stop and plan without pressure while still making each swing meaningful.
+The core design philosophy is **"every mining action spends a limited budget."** Stamina mostly replaces a real-time countdown, allowing the player to stop and plan without heavy pressure while still making each swing meaningful. Deeper levels add only small pressure rules so the later stages feel different without hurting playability.
 
 - **Level 1:** Entry-level mining with no monsters. It teaches ore values, stamina spending, collection, and gold rewards.
-- **Level 2:** Adds one simple monster type. The player must balance mining value against stamina lost from enemy pressure.
-- **Level 3:** Adds two simple monster types, harder ores, rare veins, and environmental hazards for higher risk/reward decisions.
+- **Level 2:** Adds one simple monster type and a slight movement-speed reduction. The player must balance mining value against stamina lost from enemy pressure.
+- **Level 3:** Adds two simple monster types, harder ores, rare veins, environmental hazards, and a very light idle stamina drain for higher risk/reward decisions.
 - **Map Hall:** A hub screen shows an S-shaped mine-cart route from Start to Level 1, Level 2, and Level 3. Level nodes display ticket costs, unlock states, and expected risk/reward.
 - **Guide & Trade UI:** The hub contains a guide panel for the next objective and a trade/shop panel for spending gold on tools, weapons, refinement bonuses, card upgrades, and level access.
 
@@ -81,6 +81,6 @@ Cards only affect the current run and should create situational choices.
 
 ### 9.2 Accessibility Considerations
 
-- **Planning-Friendly Pace:** Stamina is action-based rather than timer-based, so players can pause and think.
+- **Planning-Friendly Pace:** Stamina is mostly action-based rather than timer-based. Level 3 uses only a small idle drain after a short delay, so players can still pause briefly and think.
 - **Visual Clarity:** Ore tiers should not rely on color alone; shape, texture, label, or UI hints should distinguish them.
 - **Controls:** Support both WASD and arrow-key movement where practical.

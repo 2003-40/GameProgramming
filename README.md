@@ -9,7 +9,7 @@ Mineral Odyssey is a 2D top-down pixel-art mining roguelite built in Unity. The 
 1. **Map Hall:** The player starts in a hub screen with an S-shaped mine-cart route: Start -> Level 1 -> Level 2 -> Level 3. Each level node shows its unlock state, ticket cost, and risk/reward summary.
 2. **Guide & Shop:** The hub UI includes a guide panel for current objectives and a trade/shop panel for buying weapons, upgrading tools, improving card rewards, and increasing sell-value bonuses.
 3. **Run Setup:** Before entering a level, the game displays the current run modifier and offers a temporary card choice that only affects the current run.
-4. **Mining & Combat:** Stamina is the run budget. Mining spends stamina based on ore hardness and depth, while monster hits also reduce stamina. Planning and movement do not spend stamina.
+4. **Mining & Combat:** Stamina is the run budget. Mining spends stamina based on ore hardness and depth, while monster hits also reduce stamina. Planning and movement are mostly calm, with only light depth-pressure exceptions in deeper levels.
 5. **Reward & Progression:** The run ends when stamina is depleted or the player exits. Earned gold is saved and spent on permanent upgrades, deeper level access, tools, weapons, and card-system upgrades.
 
 ---
@@ -21,6 +21,7 @@ Mineral Odyssey is a 2D top-down pixel-art mining roguelite built in Unity. The 
 - **Cards change the current run:** Temporary cards create tactical variation, such as slower stamina loss, instant gold, bonus ore fragments, combat bonuses, or risky high-reward modifiers.
 - **Shop upgrades support the loop:** Permanent upgrades unlock harder ores, deeper levels, better weapons, card-pool growth, rare-card odds, and passive refinement value bonuses.
 - **Lightweight monsters, not complex combat:** Level 2 introduces one simple monster type. Level 3 introduces two monster types. They create stamina pressure and positioning decisions without turning the project into a full combat game.
+- **Subtle depth pressure:** Level 2 slightly slows movement, and Level 3 lightly drains stamina after the player stands still for a short time. These are tuned as small feel changes rather than major punishment.
 - **No heavy crafting chain:** The forge/refining layer is replaced by a passive shop upgrade that increases sell value, keeping the scope focused and UI-driven.
 
 ---
@@ -74,8 +75,8 @@ The project scope is now focused on a stable solo vertical slice rather than a c
 
 - [ ] **Guide Panel:** Show current objective and next recommended upgrade in the hub.
 - [ ] **Second Level 3 Monster:** Add a clearly different second monster type for Level 3.
-- [ ] **Rare Veins:** Add one rare high-value vein type with depth-scaled spawn chance.
-- [ ] **Single Hazard Block:** Add one explosive or unstable block type.
+- [x] **Rare Veins:** Add one rare high-value vein type with depth-scaled spawn chance.
+- [x] **Single Hazard Block:** Add one explosive or unstable block type.
 - [ ] **Refinement Multiplier:** Add a passive shop upgrade that increases sell value.
 - [ ] **Run Modifier:** Show one random modifier before card selection.
 
@@ -111,20 +112,23 @@ The project scope is now focused on a stable solo vertical slice rather than a c
 
 ## Acknowledgements & Resources
 
-Reference links are intentionally left as placeholders so final source URLs, licences, and credit notes can be filled in before submission.
+The following third-party resources, tools, references, and assistance were used or considered during development. Assets that were only used during early prototyping are marked separately from assets included in the final Unity project.
 
 | Category | Resource / Tool | Link | Licence / Permission | Used For | Notes |
 | --- | --- | --- | --- | --- | --- |
-| Art Asset | Pixel character / environment assets | TODO: add link | TODO | Player, mine background, tiles, UI art | TODO |
-| Art Asset | Mine tile / ore asset pack | TODO: add link | TODO | Mine tilemap, ore tiles, decorations | TODO |
-| UI Asset | UI panels / generated UI elements | TODO: add link or "self-created" | TODO | Map hall, shop, stamina, card UI | TODO |
-| Audio | Pickaxe hit sound | TODO: add link | TODO | Mining hit feedback | TODO |
-| Audio | Stone / ore destruction sound | TODO: add link | TODO | Ore break feedback | TODO |
-| Audio | Additional UI or feedback sounds | TODO: add link | TODO | Button or reward feedback | TODO |
-| Tutorial / Reference | Unity Tilemap documentation or tutorial | TODO: add link | TODO | Tilemap setup and mining scene workflow | TODO |
-| Tutorial / Reference | Unity UI / TextMeshPro reference | TODO: add link | TODO | UI construction and polish | TODO |
-| AI Coding Assistance | ChatGPT / Codex | TODO: add conversation or declaration note | AI assistance declared; final code reviewed and integrated by author | Coding suggestions, debugging ideas, documentation structure, comments | TODO |
-| AI Design Assistance | ChatGPT / Codex | TODO: add conversation or declaration note | AI assistance declared; final decisions by author | Scope planning, feature prioritization, report/contribution outline | TODO |
+| Font | m5x7 by Daniel Linssen / Managore | https://managore.itch.io/m5x7 | Creative Commons Zero v1.0 Universal (CC0); attribution appreciated | Project font / TextMeshPro font asset named `Fun` | Used for pixel-style UI text. |
+| Character Art | Small 8-direction Characters by AxulArt | https://axulart.itch.io/small-8-direction-characters | Creative Commons Attribution 4.0 International (CC BY 4.0); credit required | Player character sprites and animation source | Credited as AxulArt. |
+| Environment / Ore Art | Petixel Mines Asset Pack - Biome Tileset by Ardonie | https://ardonie.itch.io/petixel-mines | Custom itch.io asset terms: commercial and non-commercial use allowed, editing allowed, redistribution/resale prohibited, AI training/NFT/crypto use prohibited; credit appreciated | Mine tiles, ore/crystal visuals, TNT/explosive visuals, borders, cave decorations, bats | Main source for mine environment and mining visuals. Credited as Ardonie. |
+| Prototype Art / Tool Asset | Items pack (x16) by Glionox | https://glionox.itch.io/items16 | Custom itch.io asset terms: free and commercial use allowed, modification allowed, credit appreciated, redistribution/resale prohibited | Early prototype item/tool visuals | Used during early development, then removed from the final game assets. Credited for transparency. |
+| UI Asset | Generated UI elements | Self-created for this project | Original project work | Map hall, shop, stamina, card UI, and menu UI | Created and integrated by the project author. |
+| Audio | "Stone dropping" by alegemaate / Allan Legemaate | https://freesound.org/s/364711/ | Creative Commons 0 (CC0) | Stone drop / ore feedback sound | Source information also recorded from TaoSound. |
+| Audio | "stone.flac" by Hedmarking | https://freesound.org/s/191887/ | Creative Commons 0 (CC0) | Stone / ore sound effect | Source information also recorded from TaoSound. |
+| Audio | "Pick striking stone sound" by JJDG | https://freesound.org/s/441787/ | Creative Commons Attribution NonCommercial 3.0 (CC BY-NC 3.0); credit required; non-commercial use only | Pickaxe hitting stone / mining hit feedback | Used only for this non-commercial coursework project. |
+| Background Music | RPG game background music collection by 萌珑 | NetEase Cloud Music album: `RPG游戏背景音乐合集（持续更新）`, published 2019-06-21 | Author statement allows use of all music in the collection for RPG game creation as long as the author is credited | Scene background music: `bgm003` for Level 1, `bgm002` for Menu, `BGM1-3` for Level 2 and Level 3, `BGM1-2` for Map Hall | Credited as music by 萌珑. Level 2 and Level 3 use the same track. |
+| Tutorial / Reference | Unity Tilemap documentation | https://docs.unity3d.com/2022.3/Documentation/Manual/Tilemap.html | Unity documentation reference | Tilemap setup and mining scene workflow | Used as technical reference, not copied as game content. |
+| Tutorial / Reference | Unity UI and TextMeshPro documentation | https://docs.unity3d.com/Packages/com.unity.textmeshpro@3.0/manual/index.html | Unity package documentation reference | UI construction, text rendering, and polish | Used as technical reference, not copied as game content. |
+| AI Coding Assistance | ChatGPT / Codex | Declared in this README and supporting documentation | AI assistance declared; final code reviewed, edited, tested, and integrated by author | Coding suggestions, debugging ideas, documentation structure, comments | Used as support, not as a replacement for author understanding or final review. |
+| AI Design Assistance | ChatGPT / Codex | Declared in this README and supporting documentation | AI assistance declared; final design decisions by author | Scope planning, feature prioritization, report/contribution outline | Used to refine planning and wording; final project scope and implementation decisions remained author-controlled. |
 
 See also:
 
@@ -140,8 +144,3 @@ See also:
 - **Contact:** 2617378@dundee.ac.uk
 
 ---
-
-## Workflow Automation
-
-- GitHub Kanban auto-management and commit message automation guide:
-  - docs/github_automation.md

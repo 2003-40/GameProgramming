@@ -210,9 +210,10 @@ public class ShopUIController : MonoBehaviour
     {
         int level = PlayerUpgradeState.WeaponLevel;
         bool isMaxed = PlayerUpgradeState.IsWeaponMaxed;
+        string tierName = PlayerUpgradeState.WeaponTierName;
 
-        SetText(weaponNameText, "Weapon");
-        SetText(weaponLevelText, $"Level {level}");
+        SetText(weaponNameText, $"{tierName} Spear");
+        SetText(weaponLevelText, $"Level {level}/{PlayerUpgradeState.MaxWeaponLevel}");
         SetText(weaponEffectText, $"effect: Hit damage {PlayerUpgradeState.WeaponDamage} | monster contact -{level - 1}");
         SetText(weaponCostText, isMaxed ? "cost: Max" : $"cost: {PlayerUpgradeState.WeaponUpgradeCost}");
 

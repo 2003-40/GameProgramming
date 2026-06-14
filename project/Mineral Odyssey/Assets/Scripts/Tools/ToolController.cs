@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.Tilemaps;
 
 /// <summary>
 /// Handles player tool input, aim direction, mining hit detection, and simple monster attacks.
@@ -8,6 +10,7 @@ public class ToolController : MonoBehaviour
 {
     private const int MiningMouseButton = 0;
     private const int WeaponMouseButton = 1;
+    private const string LevelOneSceneName = "FirstFlour";
 
     private enum ToolActionMode
     {
@@ -22,37 +25,73 @@ public class ToolController : MonoBehaviour
     [SerializeField] private float toolEfficiency = 1f;
     [SerializeField] private float attackRadius = 1f;
     [SerializeField] private float attackOffset = 0.75f;
-    [SerializeField] private LayerMask tilemapLayer;
     [SerializeField] private string[] monsterTargetTags = { "Monster", "Enemy" };
+    [SerializeField] private float closeMiningFallbackRadiusMultiplier = 0.75f;
+    [SerializeField] private int minimumToolSortingOrder = 3;
+    [SerializeField] private float miningToolVisibleDuration = 0.42f;
+
+    [Header("Mining Tool Visual")]
+    [SerializeField] private SpriteRenderer toolSpriteRenderer;
+    [SerializeField] private Sprite copperToolSprite;
+    [SerializeField] private Sprite ironToolSprite;
+    [SerializeField] private Sprite crystalToolSprite;
+    [SerializeField] private Vector2 miningToolBodyOffset = new Vector2(-0.22f, 0.08f);
+    [SerializeField] private float miningToolScale = 0.08f;
+    [SerializeField] private float miningToolPivotToCenterDistance = 0.42f;
+    [SerializeField] private float miningToolSwingDistance = 0.08f;
+    [SerializeField] private float miningToolWindupAngle = -90f;
+    [SerializeField] private float miningToolStrikeAngle = 0f;
+    [SerializeField] private float miningToolWindupDuration = 0.06f;
+    [SerializeField] private float miningToolStrikeDuration = 0.09f;
+    [SerializeField] private float miningToolReturnDuration = 0.12f;
 
     [Header("Weapon Visual")]
     [SerializeField] private Transform weaponAnchor;
+    [SerializeField] private SpriteRenderer weaponSpriteRenderer;
+    [SerializeField] private Sprite copperWeaponSprite;
+    [SerializeField] private Sprite ironWeaponSprite;
+    [SerializeField] private Sprite crystalWeaponSprite;
     [SerializeField] private float weaponThrustDistance = 0.45f;
     [SerializeField] private float weaponThrustOutDuration = 0.08f;
     [SerializeField] private float weaponThrustReturnDuration = 0.1f;
+    [SerializeField] private string[] weaponHiddenSceneNames = { LevelOneSceneName };
 
     private Player player;
-    private Animator playerAnimator;
     private SpriteRenderer playerRenderer;
     private MiningController miningController;
     private Collider2D playerCollider;
     private Camera mainCamera;
     private Vector2 queuedAttackDirection = Vector2.down;
+    private Vector2 queuedFallbackMiningDirection = Vector2.down;
+    private Vector2 queuedMiningVisualDirection = Vector2.down;
     private bool hasPendingActionHit;
     private ToolActionMode pendingActionMode = ToolActionMode.None;
     private Vector3 weaponAnchorRestLocalPosition;
+    private Transform toolSpriteTransform;
+    private Coroutine miningToolVisualRoutine;
     private Coroutine weaponThrustRoutine;
+    private bool isMiningToolVisible;
+    private bool isWeaponVisualVisible;
+    private int cachedHighestTilemapSortingOrder = int.MinValue;
     private readonly List<MonsterHealth> damagedMonsters = new List<MonsterHealth>();
 
     private void OnEnable()
     {
-        EnsureToolVisualVisible();
+        PlayerUpgradeState.UpgradesChanged += ApplyUpgradeVisuals;
+        RefreshCarriedVisuals();
+        ApplyUpgradeVisuals();
+    }
+
+    private void OnDisable()
+    {
+        PlayerUpgradeState.UpgradesChanged -= ApplyUpgradeVisuals;
+        isMiningToolVisible = false;
+        isWeaponVisualVisible = false;
     }
 
     private void Start()
     {
         player = GetComponentInParent<Player>();
-        playerAnimator = GetComponentInParent<Animator>();
         playerRenderer = GetComponentInParent<SpriteRenderer>();
         miningController = FindFirstObjectByType<MiningController>();
         mainCamera = Camera.main;
@@ -61,8 +100,10 @@ public class ToolController : MonoBehaviour
             playerCollider = player.GetComponent<Collider2D>();
         }
 
-        EnsureToolVisualVisible();
+        RefreshCarriedVisuals();
+        CacheMiningToolVisual();
         CacheWeaponVisual();
+        ApplyUpgradeVisuals();
     }
 
     private void Update()
@@ -79,7 +120,7 @@ public class ToolController : MonoBehaviour
 
     private void LateUpdate()
     {
-        EnsureToolVisualVisible();
+        RefreshCarriedVisuals();
     }
 
     private void TriggerAttack(ToolActionMode actionMode)
@@ -92,7 +133,21 @@ public class ToolController : MonoBehaviour
         // Starting an attack also starts the run-card timer because the player has acted.
         RunCardManager.Instance.RegisterCardTimerStartAction();
 
-        queuedAttackDirection = ResolveAimDirection();
+        Vector2 rawAimDirection = ResolveRawAimDirection();
+        Vector2 aimDirection = GetCardinalFacing(rawAimDirection);
+        if (actionMode == ToolActionMode.Mining)
+        {
+            queuedAttackDirection = aimDirection;
+            queuedFallbackMiningDirection = rawAimDirection;
+            queuedMiningVisualDirection = aimDirection;
+        }
+        else
+        {
+            queuedAttackDirection = aimDirection;
+            queuedFallbackMiningDirection = queuedAttackDirection;
+            queuedMiningVisualDirection = queuedAttackDirection;
+        }
+
         hasPendingActionHit = true;
         pendingActionMode = actionMode;
         if (player != null)
@@ -100,9 +155,9 @@ public class ToolController : MonoBehaviour
             player.SetFacingDirection(queuedAttackDirection);
         }
 
-        if (actionMode == ToolActionMode.Mining && playerAnimator != null)
+        if (actionMode == ToolActionMode.Mining)
         {
-            playerAnimator.SetTrigger("Mine");
+            PlayMiningToolVisual(queuedMiningVisualDirection);
         }
         else if (actionMode == ToolActionMode.Weapon)
         {
@@ -146,10 +201,17 @@ public class ToolController : MonoBehaviour
 
             if (miningController != null)
             {
-                Collider2D hitCollider = Physics2D.OverlapCircle(hitCenter, attackRadius, tilemapLayer);
-                if (hitCollider != null)
+                bool mined = miningController.TryMineNearPosition(hitCenter, attackRadius, CurrentToolLevel, CurrentToolEfficiency);
+                if (!mined && queuedFallbackMiningDirection != facingDir)
                 {
-                    miningController.TryMineNearPosition(hitCenter, attackRadius, CurrentToolLevel, CurrentToolEfficiency);
+                    Vector3 fallbackHitCenter = GetAttackOrigin() + new Vector3(queuedFallbackMiningDirection.x, queuedFallbackMiningDirection.y, 0f) * attackOffset;
+                    mined = miningController.TryMineNearPosition(fallbackHitCenter, attackRadius, CurrentToolLevel, CurrentToolEfficiency);
+                }
+
+                if (!mined)
+                {
+                    float closeRadius = attackRadius * Mathf.Max(0.75f, closeMiningFallbackRadiusMultiplier);
+                    miningController.TryMineNearPosition(GetAttackOrigin(), closeRadius, CurrentToolLevel, CurrentToolEfficiency);
                 }
             }
         }
@@ -163,7 +225,8 @@ public class ToolController : MonoBehaviour
     public void EquipTool(ToolData tool)
     {
         currentTool = tool;
-        EnsureToolVisualVisible();
+        ApplyToolTierSprite();
+        RefreshCarriedVisuals();
     }
 
     public ToolData CurrentTool => currentTool;
@@ -275,9 +338,8 @@ public class ToolController : MonoBehaviour
         return new Vector2(0f, Mathf.Sign(rawFacing.y));
     }
 
-    private Vector2 ResolveAimDirection()
+    private Vector2 ResolveRawAimDirection()
     {
-        // Mouse aim is converted to cardinal facing to match the four-direction animation set.
         if (player == null)
         {
             return Vector2.down;
@@ -290,7 +352,7 @@ public class ToolController : MonoBehaviour
 
         if (mainCamera == null)
         {
-            return GetCardinalFacing(player.GetFacingDirection());
+            return player.GetFacingDirection().sqrMagnitude > 0.0001f ? player.GetFacingDirection().normalized : Vector2.down;
         }
 
         Vector3 mouseWorldPos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
@@ -299,10 +361,69 @@ public class ToolController : MonoBehaviour
         Vector2 toMouse = mouseWorldPos - GetAttackOrigin();
         if (toMouse.sqrMagnitude < 0.0001f)
         {
-            return GetCardinalFacing(player.GetFacingDirection());
+            return player.GetFacingDirection().sqrMagnitude > 0.0001f ? player.GetFacingDirection().normalized : Vector2.down;
         }
 
-        return GetCardinalFacing(toMouse);
+        return toMouse.normalized;
+    }
+
+    private void CacheMiningToolVisual()
+    {
+        if (toolSpriteRenderer == null)
+        {
+            Transform toolSprite = transform.Find("ToolSprite");
+            if (toolSprite != null)
+            {
+                toolSpriteRenderer = toolSprite.GetComponent<SpriteRenderer>();
+            }
+
+            if (toolSpriteRenderer == null)
+            {
+                toolSpriteRenderer = GetComponentInChildren<SpriteRenderer>(true);
+            }
+        }
+
+        if (toolSpriteRenderer != null)
+        {
+            toolSpriteTransform = toolSpriteRenderer.transform;
+        }
+    }
+
+    private void ApplyUpgradeVisuals()
+    {
+        ApplyToolTierSprite();
+        ApplyWeaponTierSprite();
+    }
+
+    private void ApplyToolTierSprite()
+    {
+        CacheMiningToolVisual();
+
+        if (toolSpriteRenderer == null)
+        {
+            return;
+        }
+
+        Sprite tierSprite = GetToolTierSprite(PlayerUpgradeState.ToolLevel);
+        if (tierSprite != null)
+        {
+            toolSpriteRenderer.sprite = tierSprite;
+        }
+    }
+
+    private Sprite GetToolTierSprite(int currentToolLevel)
+    {
+        switch (Mathf.Clamp(currentToolLevel, PlayerUpgradeState.MinToolLevel, PlayerUpgradeState.MaxToolLevel))
+        {
+            case 1:
+                return copperToolSprite;
+            case 2:
+                return ironToolSprite;
+            case 3:
+                return crystalToolSprite;
+            default:
+                return copperToolSprite;
+        }
     }
 
     private void CacheWeaponVisual()
@@ -316,6 +437,51 @@ public class ToolController : MonoBehaviour
         if (weaponAnchor != null)
         {
             weaponAnchorRestLocalPosition = weaponAnchor.localPosition;
+        }
+
+        if (weaponSpriteRenderer == null && weaponAnchor != null)
+        {
+            Transform weaponSpriteTransform = weaponAnchor.Find("WeaponSprite");
+            if (weaponSpriteTransform != null)
+            {
+                weaponSpriteRenderer = weaponSpriteTransform.GetComponent<SpriteRenderer>();
+            }
+
+            if (weaponSpriteRenderer == null)
+            {
+                weaponSpriteRenderer = weaponAnchor.GetComponentInChildren<SpriteRenderer>(true);
+            }
+        }
+    }
+
+    private void ApplyWeaponTierSprite()
+    {
+        CacheWeaponVisual();
+
+        if (weaponSpriteRenderer == null)
+        {
+            return;
+        }
+
+        Sprite tierSprite = GetWeaponTierSprite(PlayerUpgradeState.WeaponLevel);
+        if (tierSprite != null)
+        {
+            weaponSpriteRenderer.sprite = tierSprite;
+        }
+    }
+
+    private Sprite GetWeaponTierSprite(int weaponLevel)
+    {
+        switch (Mathf.Clamp(weaponLevel, PlayerUpgradeState.MinWeaponLevel, PlayerUpgradeState.MaxWeaponLevel))
+        {
+            case 1:
+                return copperWeaponSprite;
+            case 2:
+                return ironWeaponSprite;
+            case 3:
+                return crystalWeaponSprite;
+            default:
+                return copperWeaponSprite;
         }
     }
 
@@ -332,6 +498,8 @@ public class ToolController : MonoBehaviour
             weaponAnchor.localPosition = weaponAnchorRestLocalPosition;
         }
 
+        isWeaponVisualVisible = true;
+        RefreshCarriedVisuals();
         weaponThrustRoutine = StartCoroutine(AnimateWeaponThrust(queuedAttackDirection));
     }
 
@@ -342,7 +510,7 @@ public class ToolController : MonoBehaviour
             CacheWeaponVisual();
         }
 
-        return weaponAnchor != null && weaponAnchor.gameObject.activeInHierarchy;
+        return IsWeaponVisibleForCurrentScene() && weaponAnchor != null && weaponAnchor.gameObject.activeInHierarchy;
     }
 
     private System.Collections.IEnumerator AnimateWeaponThrust(Vector2 direction)
@@ -356,6 +524,8 @@ public class ToolController : MonoBehaviour
 
         weaponAnchor.localPosition = weaponAnchorRestLocalPosition;
         weaponThrustRoutine = null;
+        isWeaponVisualVisible = false;
+        RefreshCarriedVisuals();
     }
 
     private System.Collections.IEnumerator MoveWeaponAnchor(Vector3 startPosition, Vector3 endPosition, float duration)
@@ -378,15 +548,105 @@ public class ToolController : MonoBehaviour
         weaponAnchor.localPosition = endPosition;
     }
 
-    private void EnsureToolVisualVisible()
+    private void PlayMiningToolVisual(Vector2 direction)
     {
-        // Keep tool sprites visible above the player even when prefabs are enabled dynamically.
+        if (miningToolVisualRoutine != null)
+        {
+            StopCoroutine(miningToolVisualRoutine);
+        }
+
+        isMiningToolVisible = true;
+        ApplyToolTierSprite();
+        SetMiningToolPose(direction, miningToolWindupAngle, 0f);
+        RefreshCarriedVisuals();
+        miningToolVisualRoutine = StartCoroutine(AnimateMiningToolSwing(direction));
+    }
+
+    private System.Collections.IEnumerator AnimateMiningToolSwing(Vector2 direction)
+    {
+        Vector2 facing = GetCardinalFacing(direction);
+
+        if (miningToolWindupDuration > 0f)
+        {
+            yield return new WaitForSeconds(miningToolWindupDuration);
+        }
+
+        yield return AnimateMiningToolPose(facing, miningToolWindupAngle, 0f, miningToolStrikeAngle, miningToolSwingDistance, miningToolStrikeDuration);
+        yield return AnimateMiningToolPose(facing, miningToolStrikeAngle, miningToolSwingDistance, miningToolWindupAngle, 0f, miningToolReturnDuration);
+
+        float elapsedVisibleTime = miningToolWindupDuration + miningToolStrikeDuration + miningToolReturnDuration;
+        float remainingVisibleTime = Mathf.Max(0f, miningToolVisibleDuration - elapsedVisibleTime);
+        if (remainingVisibleTime > 0f)
+        {
+            yield return new WaitForSeconds(remainingVisibleTime);
+        }
+
+        isMiningToolVisible = false;
+        miningToolVisualRoutine = null;
+        RefreshCarriedVisuals();
+    }
+
+    private System.Collections.IEnumerator AnimateMiningToolPose(
+        Vector2 direction,
+        float startAngleOffset,
+        float startForwardOffset,
+        float endAngleOffset,
+        float endForwardOffset,
+        float duration)
+    {
+        if (duration <= 0f)
+        {
+            SetMiningToolPose(direction, endAngleOffset, endForwardOffset);
+            yield break;
+        }
+
+        float elapsed = 0f;
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsed / duration);
+            SetMiningToolPose(
+                direction,
+                Mathf.Lerp(startAngleOffset, endAngleOffset, t),
+                Mathf.Lerp(startForwardOffset, endForwardOffset, t));
+            yield return null;
+        }
+
+        SetMiningToolPose(direction, endAngleOffset, endForwardOffset);
+    }
+
+    private void SetMiningToolPose(Vector2 direction, float angleOffset, float forwardOffset)
+    {
+        CacheMiningToolVisual();
+
+        if (toolSpriteTransform == null)
+        {
+            return;
+        }
+
+        Vector2 facing = GetCardinalFacing(direction);
+        float facingAngle = Vector2.SignedAngle(Vector2.up, facing);
+        Vector3 bodyOffset = new Vector3(miningToolBodyOffset.x, miningToolBodyOffset.y, 0f);
+        Vector3 strikeOffset = new Vector3(facing.x, facing.y, 0f) * Mathf.Max(0f, forwardOffset);
+
+        transform.localPosition = bodyOffset + strikeOffset;
+        transform.localRotation = Quaternion.Euler(0f, 0f, facingAngle + angleOffset);
+        transform.localScale = Vector3.one;
+
+        toolSpriteTransform.localPosition = Vector3.up * Mathf.Max(0f, miningToolPivotToCenterDistance);
+        toolSpriteTransform.localRotation = Quaternion.identity;
+        toolSpriteTransform.localScale = Vector3.one * Mathf.Max(0.01f, miningToolScale);
+    }
+
+    private void RefreshCarriedVisuals()
+    {
+        // Keep the controller object active, but only render carried items while they are being used.
         if (!gameObject.activeSelf)
         {
             gameObject.SetActive(true);
         }
 
-        int sortingOrder = 2;
+        int sortingOrder = Mathf.Max(3, minimumToolSortingOrder);
         string sortingLayerName = string.Empty;
 
         if (playerRenderer == null)
@@ -396,11 +656,13 @@ public class ToolController : MonoBehaviour
 
         if (playerRenderer != null)
         {
-            sortingOrder = playerRenderer.sortingOrder + 1;
+            sortingOrder = Mathf.Max(sortingOrder, playerRenderer.sortingOrder + 1);
             sortingLayerName = playerRenderer.sortingLayerName;
         }
 
-        ApplyToolVisualState(transform, sortingOrder, sortingLayerName);
+        sortingOrder = Mathf.Max(sortingOrder, GetHighestTilemapSortingOrder() + 1);
+
+        ApplyCarriedVisualState(transform, sortingOrder, sortingLayerName, isMiningToolVisible, true);
 
         if (weaponAnchor == null)
         {
@@ -409,28 +671,71 @@ public class ToolController : MonoBehaviour
 
         if (weaponAnchor != null)
         {
-            ApplyToolVisualState(weaponAnchor, sortingOrder, sortingLayerName);
+            ApplyCarriedVisualState(weaponAnchor, sortingOrder, sortingLayerName, isWeaponVisualVisible && IsWeaponVisibleForCurrentScene(), true);
         }
     }
 
-    private static void ApplyToolVisualState(Transform visualRoot, int sortingOrder, string sortingLayerName)
+    private bool IsWeaponVisibleForCurrentScene()
+    {
+        string activeSceneName = SceneManager.GetActiveScene().name;
+        if (activeSceneName == LevelOneSceneName)
+        {
+            return false;
+        }
+
+        if (weaponHiddenSceneNames == null)
+        {
+            return true;
+        }
+
+        for (int i = 0; i < weaponHiddenSceneNames.Length; i++)
+        {
+            if (activeSceneName == weaponHiddenSceneNames[i])
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private int GetHighestTilemapSortingOrder()
+    {
+        if (cachedHighestTilemapSortingOrder != int.MinValue)
+        {
+            return cachedHighestTilemapSortingOrder;
+        }
+
+        cachedHighestTilemapSortingOrder = 0;
+        TilemapRenderer[] tilemapRenderers = FindObjectsByType<TilemapRenderer>(FindObjectsSortMode.None);
+        for (int i = 0; i < tilemapRenderers.Length; i++)
+        {
+            cachedHighestTilemapSortingOrder = Mathf.Max(cachedHighestTilemapSortingOrder, tilemapRenderers[i].sortingOrder);
+        }
+
+        return cachedHighestTilemapSortingOrder;
+    }
+
+    private static void ApplyCarriedVisualState(Transform visualRoot, int sortingOrder, string sortingLayerName, bool visible, bool keepRootActive)
     {
         if (visualRoot == null)
         {
             return;
         }
 
-        if (!visualRoot.gameObject.activeSelf)
-        {
-            visualRoot.gameObject.SetActive(true);
-        }
+        visualRoot.gameObject.SetActive(keepRootActive || visible);
 
         SpriteRenderer[] toolRenderers = visualRoot.GetComponentsInChildren<SpriteRenderer>(true);
         for (int i = 0; i < toolRenderers.Length; i++)
         {
             SpriteRenderer toolRenderer = toolRenderers[i];
-            toolRenderer.gameObject.SetActive(true);
-            toolRenderer.enabled = true;
+            toolRenderer.gameObject.SetActive(visible);
+            toolRenderer.enabled = visible;
+            if (!visible)
+            {
+                continue;
+            }
+
             toolRenderer.sortingOrder = sortingOrder;
 
             if (!string.IsNullOrWhiteSpace(sortingLayerName))
