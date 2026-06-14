@@ -9,7 +9,7 @@ Mineral Odyssey is a 2D top-down pixel-art mining roguelite built in Unity. The 
 1. **Map Hall:** The player starts in a hub screen with an S-shaped mine-cart route: Start -> Level 1 -> Level 2 -> Level 3. Each level node shows its unlock state, ticket cost, and risk/reward summary.
 2. **Guide & Shop:** The hub UI includes a guide panel for current objectives and a trade/shop panel for buying weapons, upgrading tools, improving card rewards, and increasing sell-value bonuses.
 3. **Run Setup:** Before entering a level, the game displays the current run modifier and offers a temporary card choice that only affects the current run.
-4. **Mining & Combat:** Stamina is the run budget. Mining spends stamina based on ore hardness and depth, while monster hits also reduce stamina. Planning and movement do not spend stamina.
+4. **Mining & Combat:** Stamina is the run budget. Mining spends stamina based on ore hardness and depth, while monster hits also reduce stamina. Planning and movement are mostly calm, with only light depth-pressure exceptions in deeper levels.
 5. **Reward & Progression:** The run ends when stamina is depleted or the player exits. Earned gold is saved and spent on permanent upgrades, deeper level access, tools, weapons, and card-system upgrades.
 
 ---
@@ -21,6 +21,7 @@ Mineral Odyssey is a 2D top-down pixel-art mining roguelite built in Unity. The 
 - **Cards change the current run:** Temporary cards create tactical variation, such as slower stamina loss, instant gold, bonus ore fragments, combat bonuses, or risky high-reward modifiers.
 - **Shop upgrades support the loop:** Permanent upgrades unlock harder ores, deeper levels, better weapons, card-pool growth, rare-card odds, and passive refinement value bonuses.
 - **Lightweight monsters, not complex combat:** Level 2 introduces one simple monster type. Level 3 introduces two monster types. They create stamina pressure and positioning decisions without turning the project into a full combat game.
+- **Subtle depth pressure:** Level 2 slightly slows movement, and Level 3 lightly drains stamina after the player stands still for a short time. These are tuned as small feel changes rather than major punishment.
 - **No heavy crafting chain:** The forge/refining layer is replaced by a passive shop upgrade that increases sell value, keeping the scope focused and UI-driven.
 
 ---

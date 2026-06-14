@@ -33,11 +33,13 @@ MapHall -> select level -> enter mine -> mine ores -> collect gold -> use stamin
 - `RunCardManager` starts the card timer from mining, attacking, or ore collection, then exposes draw, skip, and selection states.
 - `RunCardChoiceUIBootstrap` can generate card prompt/choice UI if a mining scene does not already contain one.
 - `ShopUIController` handles tool upgrade purchase, weapon upgrade purchase, insufficient gold feedback, and max-level state.
+- `Player` applies light depth-pressure rules by scene: Level 2 movement is slightly slower, and Level 3 drains a small amount of stamina only after the player stands still briefly.
 - No missing script or empty prefab GUID references were found in the target Mineral Odyssey scenes/prefabs during static search.
 
 ## Bugs Found and Fixed
 
 - **Fixed:** Level 2 ticket cost was inconsistent. `MapHall.unity` used 20 Gold while `MapHallBootstrap` used 25 Gold. The scene value is now 25 Gold.
+- **Changed after peer feedback:** Added subtle Level 2 movement slowdown and subtle Level 3 idle stamina drain to make deeper levels feel different without making the vertical slice much harder.
 
 ## Manual Playtest Checklist
 
@@ -58,9 +60,11 @@ Use a fresh PlayerPrefs state before this pass if possible.
 - [ ] Shop weapon upgrade shows an insufficient gold message when gold is too low.
 - [ ] Shop weapon upgrade reaches max level and disables/labels the max state correctly.
 - [ ] Level 2 requires 25 Gold and deducts the ticket cost on entry.
+- [ ] Level 2 player movement feels only slightly slower, not frustrating or stuck.
 - [ ] Level 2 monster contact reduces stamina and does not block the return flow.
 - [ ] Level 2 mining and return flow remain stable.
 - [ ] Level 3 requires 60 Gold and deducts the ticket cost on entry.
+- [ ] Level 3 standing still for a short time drains stamina slowly, while brief pauses remain playable.
 - [ ] Level 3 contains higher-risk ore layout and monster pressure.
 - [ ] Level 3 hazard/rare ore behavior is reachable and does not break the run-end flow.
 - [ ] Card timer starts after mining, attacking, or ore collection.
@@ -82,6 +86,8 @@ Use a fresh PlayerPrefs state before this pass if possible.
 - Weapon upgrade costs: 50, 100.
 - Default monster contact stamina damage: 10.
 - Explosive hazard stamina damage: 10.
+- Level 2 movement multiplier: 0.85.
+- Level 3 idle stamina drain: 1 stamina after 2.5 seconds idle, then every 4 seconds while idle.
 
 ## Known Issues / Limitations
 

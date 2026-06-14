@@ -39,7 +39,7 @@ This document is a working contribution record for the final report. It is not t
 
 ### Player and Interaction
 
-- `Player.cs`: movement, facing direction, animation parameter updates, stamina damage from enemies/hazards, and animation-event bridge for tool hits.
+- `Player.cs`: movement, facing direction, animation parameter updates, depth-pressure tuning for Level 2/Level 3, stamina damage from enemies/hazards, and animation-event bridge for tool hits.
 - `ToolController.cs`: mouse/tool input, attack direction, mining hit area, tool visual repair, and simple monster hit detection.
 - `MonsterHealth.cs`: simple monster damage and death/disable behavior.
 
@@ -120,6 +120,8 @@ This document is a working contribution record for the final report. It is not t
 - Tool upgrades increase mining power and stamina efficiency.
 - Weapon upgrades increase damage and reduce monster contact stamina loss.
 - Level 1 is free, Level 2 costs gold, and Level 3 costs more gold.
+- Level 2 applies a small movement slowdown as a subtle depth-pressure rule.
+- Level 3 applies a light idle stamina drain after the player stands still briefly.
 - Run-card effects reset after the current mining run.
 - The player receives one card opportunity after enough active mining time.
 - Accepting the card draw can create either a good-card set or a bad-card set.
@@ -161,6 +163,7 @@ This document is a working contribution record for the final report. It is not t
 - After feedback around player motivation, I made gold the central reward and upgrade currency.
 - After feedback around the forge/crafting system being too much for the time available, I removed it from the core loop.
 - After feedback around needing stronger moment-to-moment decisions, I added stamina cost decisions and run-card variation.
+- After feedback that Level 2 and Level 3 could use clearer gameplay differences, I added a subtle Level 2 movement slowdown and a light Level 3 idle stamina drain without making the game much harder.
 - After UI issues during iteration, I added runtime UI repair/bootstrap scripts to keep the demo playable.
 - After playability checks, I added more feedback for stamina, gold, shop messages, selected card state, and run-end rewards.
 
