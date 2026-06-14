@@ -36,7 +36,7 @@ public class ToolController : MonoBehaviour
     [SerializeField] private Sprite ironToolSprite;
     [SerializeField] private Sprite crystalToolSprite;
     [SerializeField] private Vector2 miningToolBodyOffset = new Vector2(-0.22f, 0.08f);
-    [SerializeField] private float miningToolScale = 0.08f;
+    [SerializeField] private float miningToolScale = 0.13f;
     [SerializeField] private float miningToolPivotToCenterDistance = 0.42f;
     [SerializeField] private float miningToolSwingDistance = 0.08f;
     [SerializeField] private float miningToolWindupAngle = -90f;

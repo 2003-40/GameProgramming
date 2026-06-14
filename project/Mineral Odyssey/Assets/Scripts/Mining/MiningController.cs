@@ -8,6 +8,9 @@ using UnityEngine.Tilemaps;
 /// </summary>
 public class MiningController : MonoBehaviour
 {
+    public static event System.Action OreHit;
+    public static event System.Action<int, int, string> ToolLevelBlocked;
+
     [Header("References")]
     [SerializeField] private Tilemap oreTilemap;    
 
@@ -23,17 +26,20 @@ public class MiningController : MonoBehaviour
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip hitClip;
     [SerializeField] private AudioClip destroyClip;
+    [SerializeField] private AudioClip explosionClip;
     [Range(0f, 1f)]
     [SerializeField] private float hitVolume = 0.7f;
     [Range(0f, 1f)]
     [SerializeField] private float destroyVolume = 0.9f;
+    [Range(0f, 1f)]
+    [SerializeField] private float explosionVolume = 1f;
 
     [Header("Juice Config")]
     [SerializeField] private float bounceForce = 4f; 
 
     [Header("Hazard Config")]
     [SerializeField] private int explosiveStaminaDamage = 10;
-    [SerializeField] private int explosiveRadius = 1;
+    [SerializeField] private int explosiveRadius = 2;
 
     private Dictionary<Vector3Int, int> oreHealthTracker = new Dictionary<Vector3Int, int>();
     private Dictionary<ParticleSystem, MiningParticlePool> runtimeParticlePools = new Dictionary<ParticleSystem, MiningParticlePool>();
@@ -76,6 +82,12 @@ public class MiningController : MonoBehaviour
         if (audioSource == null)
         {
             audioSource = GetComponent<AudioSource>();
+            if (audioSource == null)
+            {
+                audioSource = gameObject.AddComponent<AudioSource>();
+                audioSource.playOnAwake = false;
+                audioSource.spatialBlend = 0f;
+            }
         }
     }
 
@@ -214,6 +226,7 @@ public class MiningController : MonoBehaviour
             if (incomingToolLevel < currentOre.requiredToolLevel)
             {
                 Debug.Log($"[Mining Blocked] ToolLevel={incomingToolLevel}, RequiredToolLevel={currentOre.requiredToolLevel}, Ore={currentOre.gemstoneName}, OreHardness={currentOre.hardness}");
+                ToolLevelBlocked?.Invoke(incomingToolLevel, currentOre.requiredToolLevel, currentOre.gemstoneName);
                 return true;
             }
 
@@ -238,6 +251,7 @@ public class MiningController : MonoBehaviour
             }
 
             HandleDamage(gridPos, currentOre);
+            OreHit?.Invoke();
             return true;
         }
 
@@ -327,44 +341,62 @@ public class MiningController : MonoBehaviour
         oreTilemap.SetTileFlags(gridPos, TileFlags.LockColor);
         oreTilemap.SetTile(gridPos, null);
 
-        if (ore.dropPrefab != null)
-        {
-            int dropCount = RunCardManager.Instance.GetOreDropCount();
-            for (int i = 0; i < dropCount; i++)
-            {
-                SpawnDrop(ore.dropPrefab, spawnPosition);
-            }
-        }
+        SpawnOreDrops(ore, spawnPosition);
 
         oreHealthTracker.Remove(gridPos);
     }
 
     private void TriggerExplosion(Vector3Int centerGridPos)
     {
+        PlayOneShot(explosionClip, explosionVolume);
+
         if (explosiveStaminaDamage > 0)
         {
             StaminaManager.Instance.ConsumeStamina(explosiveStaminaDamage);
         }
 
         int radius = Mathf.Max(0, explosiveRadius);
+        int destroyedTileCount = 0;
         for (int x = -radius; x <= radius; x++)
         {
             for (int y = -radius; y <= radius; y++)
             {
                 Vector3Int targetPos = centerGridPos + new Vector3Int(x, y, 0);
-                if (!oreTilemap.HasTile(targetPos))
+                if (!(oreTilemap.GetTile(targetPos) is MiningTile targetOre))
                 {
                     continue;
                 }
 
+                Vector3 dropPosition = oreTilemap.GetCellCenterWorld(targetPos);
                 oreTilemap.SetColor(targetPos, Color.white);
                 oreTilemap.SetTileFlags(targetPos, TileFlags.LockColor);
                 oreTilemap.SetTile(targetPos, null);
                 oreHealthTracker.Remove(targetPos);
+
+                if (targetOre.tileKind == MiningTileKind.NormalOre)
+                {
+                    SpawnOreDrops(targetOre, dropPosition);
+                }
+
+                destroyedTileCount++;
             }
         }
 
-        Debug.Log($"[Hazard] Explosive block detonated at {centerGridPos}, dealt {explosiveStaminaDamage} stamina damage, cleared radius {radius}.");
+        Debug.Log($"[Hazard] Explosive block detonated at {centerGridPos}, dealt {explosiveStaminaDamage} stamina damage, cleared {destroyedTileCount} tile(s) in radius {radius}.");
+    }
+
+    private void SpawnOreDrops(MiningTile ore, Vector3 spawnPosition)
+    {
+        if (ore.dropPrefab == null)
+        {
+            return;
+        }
+
+        int dropCount = RunCardManager.Instance.GetOreDropCount();
+        for (int i = 0; i < dropCount; i++)
+        {
+            SpawnDrop(ore.dropPrefab, spawnPosition);
+        }
     }
 
     private void SpawnDrop(GameObject dropPrefab, Vector3 spawnPosition)
