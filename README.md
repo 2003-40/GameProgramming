@@ -6,37 +6,37 @@ Mineral Odyssey is a 2D top-down pixel-art mining roguelite built in Unity. The 
 
 ## Core Gameplay Loop
 
-1. **Map Hall:** The player starts in a hub screen with an S-shaped mine-cart route: Start -> Level 1 -> Level 2 -> Level 3. Each level node shows its unlock state, ticket cost, and risk/reward summary.
-2. **Guide & Shop:** The hub UI includes a guide panel for current objectives and a trade/shop panel for buying weapons, upgrading tools, improving card rewards, and increasing sell-value bonuses.
-3. **Run Setup:** Before entering a level, the game displays the current run modifier and offers a temporary card choice that only affects the current run.
+1. **Menu & Map Hall:** The player starts from the menu, then enters a hub screen with an S-shaped mine-cart route: Start -> Level 1 -> Level 2 -> Level 3. Each level node shows its ticket cost and supports level entry.
+2. **Shop:** The hub UI includes a shop panel for spending saved gold on tool and weapon upgrades.
+3. **Run Cards:** During a mining run, active mining progress unlocks a temporary card offer. The selected card only affects the current run.
 4. **Mining & Combat:** Stamina is the run budget. Mining spends stamina based on ore hardness and depth, while monster hits also reduce stamina. Planning and movement are mostly calm, with only light depth-pressure exceptions in deeper levels.
-5. **Reward & Progression:** The run ends when stamina is depleted or the player exits. Earned gold is saved and spent on permanent upgrades, deeper level access, tools, weapons, and card-system upgrades.
+5. **Reward & Progression:** The run ends when stamina is depleted or the player exits. Earned gold is saved and spent on level tickets plus permanent tool and weapon upgrades.
 
 ---
 
 ## Design Pillars
 
 - **Every swing is a budget decision:** Stamina limits each run without using a timer, so players can plan calmly.
-- **Deeper levels are structured progression:** Level access is gated by tickets, tool capability, and upgrade milestones rather than raw stat inflation.
-- **Cards change the current run:** Temporary cards create tactical variation, such as slower stamina loss, instant gold, bonus ore fragments, combat bonuses, or risky high-reward modifiers.
-- **Shop upgrades support the loop:** Permanent upgrades unlock harder ores, deeper levels, better weapons, card-pool growth, rare-card odds, and passive refinement value bonuses.
-- **Lightweight monsters, not complex combat:** Level 2 introduces one simple monster type. Level 3 introduces two monster types. They create stamina pressure and positioning decisions without turning the project into a full combat game.
+- **Deeper levels are structured progression:** Level entry uses gold ticket costs, while deeper ore access depends on tool capability rather than raw stat inflation.
+- **Cards change the current run:** Temporary cards create tactical variation, such as slower stamina loss, instant gold, bonus ore fragments, stamina restoration, or curse-style tradeoffs.
+- **Shop upgrades support the loop:** Permanent tool upgrades unlock harder ores and improve mining efficiency, while weapon upgrades make monster pressure more manageable.
+- **Lightweight monsters, not complex combat:** Level 2 and Level 3 use simple monster pressure to create stamina and positioning decisions without turning the project into a full combat game.
 - **Subtle depth pressure:** Level 2 slightly slows movement, and Level 3 lightly drains stamina after the player stands still for a short time. These are tuned as small feel changes rather than major punishment.
-- **No heavy crafting chain:** The forge/refining layer is replaced by a passive shop upgrade that increases sell value, keeping the scope focused and UI-driven.
+- **No heavy crafting chain:** The forge/refining layer is intentionally out of scope for the current vertical slice, keeping progression focused on gold, tools, weapons, cards, and level access.
 
 ---
 
 ## Tech Stack
 
-- **Engine:** Unity 2022.3 LTS
+- **Engine:** Unity 2022.3.62f3c1 (Unity 2022.3 LTS)
 - **Rendering:** Universal Render Pipeline (URP) 2D
 - **Programming Language:** C#
 - **Key Components / Technologies:**
   - **Tilemap:** Dynamic and destructible mining environments.
-  - **ScriptableObjects:** Data-driven item, ore, tool, card, level, and upgrade metadata.
-  - **Singleton / Manager Pattern:** Global state for gold, run state, stamina, shop progression, and UI updates.
+  - **ScriptableObjects / Tile Assets:** Data-driven item, ore tile, tool, and run-card metadata.
+  - **Singleton / Manager Pattern:** Global state for gold, stamina, card state, shop progression, and UI updates.
   - **Lightweight Enemy Logic:** Simple patrol/chase/attack behaviors for layer-based monster pressure.
-  - **PlayerPrefs / JSON:** Simple save/load support for gold and permanent progression.
+  - **PlayerPrefs:** Simple save/load support for gold and permanent tool/weapon progression.
 
 ---
 
@@ -98,15 +98,43 @@ The project scope is now focused on a stable solo vertical slice rather than a c
    git clone https://github.com/2003-40/GameProgramming.git
    ```
 2. **Open in Unity:**
-   Add the project to Unity Hub using Unity 2022.3 LTS.
+   Add `project/Mineral Odyssey` to Unity Hub using Unity 2022.3.62f3c1 or another compatible Unity 2022.3 LTS editor.
 3. **Run the game:**
-   Open the main scene in the Mineral Odyssey Unity project and click Play.
+   Open `Assets/Scenes/_Menu.unity` and click Play. The enabled build scenes are `_Menu`, `MapHall`, `FirstFlour`, `SecondFlour`, and `ThirdFlour`.
+
+### Windows Build
+
+The Windows build is stored in the repository at:
+
+```text
+project/Mineral Odyssey/2617378_CW2_FinalGameBuild/Mineral Odyssey.exe
+```
+
+For coursework submission, this same build can also be zipped and uploaded separately to MyDundee.
 
 ---
 
 ## Screenshots
 
-![FirstLevel](image.png)
+![FirstLevel](first_level.png)
+
+The README screenshot is stored at the repository root as `first_level.png`. To update this screenshot, replace `first_level.png` with a new PNG using the same filename, or add the new image elsewhere and update the Markdown path above.
+
+---
+
+## Replacing Images
+
+For Unity game images, keep the original `.meta` file when replacing an existing asset. Unity references assets through the GUID in the `.meta` file, so replacing the PNG while preserving its `.meta` keeps existing scene, prefab, tile, and UI references intact.
+
+Common image locations:
+
+- README screenshot: `first_level.png`
+- Menu background: `project/Mineral Odyssey/Assets/Images/menu_background.png`
+- Mine background: `project/Mineral Odyssey/Assets/Images/mine_background.png`
+- Player sprite sheet: `project/Mineral Odyssey/Assets/Images/Small-8-Direction-Characters_by_AxulArt.png`
+- Mine tiles and ore sprites: `project/Mineral Odyssey/Assets/GameArts/Environments/Mine/`
+
+If a replacement uses a new filename, import it into Unity and manually reassign the Sprite, Texture, Tile, prefab, or UI Image reference in the Inspector. For sprite sheets, also check Sprite Mode, Pixels Per Unit, slicing, and animation bindings after replacement.
 
 ---
 
