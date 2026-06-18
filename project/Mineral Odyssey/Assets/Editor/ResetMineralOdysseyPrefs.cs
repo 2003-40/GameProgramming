@@ -9,8 +9,9 @@ public static class ResetMineralOdysseyPrefs
         PlayerPrefs.DeleteKey("Gold");
         PlayerPrefs.DeleteKey("ToolUpgradeLevel");
         PlayerPrefs.DeleteKey("WeaponUpgradeLevel");
+        PlayerPrefs.DeleteKey("FirstLevelTutorialComplete");
         PlayerPrefs.Save();
 
-        Debug.Log("Mineral Odyssey fresh save reset: Gold, ToolUpgradeLevel, WeaponUpgradeLevel cleared.");
+        Debug.Log("Mineral Odyssey fresh save reset: Gold, ToolUpgradeLevel, WeaponUpgradeLevel, FirstLevelTutorialComplete cleared.");
     }
 }
