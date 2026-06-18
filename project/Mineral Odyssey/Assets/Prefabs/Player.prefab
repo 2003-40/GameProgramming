@@ -271,7 +271,7 @@ MonoBehaviour:
   audioSource: {fileID: 0}
   hitClip: {fileID: 8300000, guid: f10416dac8490384ba1ce4b3b204d7ae, type: 3}
   destroyClip: {fileID: 8300000, guid: 4ffbcb74c67c2204f8e7ff6857990e00, type: 3}
-  explosionClip: {fileID: 8300000, guid: 4126c2355a2313e45a72ec91f04169bc, type: 3}
+  explosionClip: {fileID: 8300000, guid: aa832d4222f0fb6469bad77606f072f4, type: 3}
   hitVolume: 0.97
   destroyVolume: 1
   explosionVolume: 1
@@ -323,9 +323,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: e7181094772baf3489e0365beafa20c7, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 66c8e68735f37484ab5b3fc5346ea190, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.5
+  m_Volume: 1
   m_Pitch: 1
   Loop: 1
   Mute: 0
