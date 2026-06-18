@@ -12,19 +12,19 @@ Recommended source document:
 
 The PDF should cover:
 
-- [ ] **Game title:** Mineral Odyssey
-- [ ] **One-sentence idea:** A short mining roguelite where the player spends limited stamina to mine, survive deeper levels, earn gold, and buy permanent upgrades.
-- [ ] **Intended player experience:** Calm planning, short runs, risk/reward mining, simple monster pressure, and visible progression.
-- [ ] **Core mechanic:** Stamina is the run budget; mining and monster hits consume stamina.
-- [ ] **Moment-to-moment play:** Choose a level, pick a temporary card, mine valuable ores, avoid/fight monsters, collect gold, return to the hub, upgrade.
-- [ ] **Target player:** Casual players who enjoy resource planning, progression loops, and short replayable sessions.
-- [ ] **Reference games / inspirations:** Motherload, Stardew Valley mining, light roguelite card-choice systems.
-- [ ] **Original / creative element:** Combines action-based stamina budgeting, mining value decisions, simple card effects, and a mine-cart level hub.
-- [ ] **Vertical slice plan:** Level 1 mining, Level 2 monster pressure, Level 3 higher risk/reward, shop upgrades, stamina UI, temporary cards.
+- [x] **Game title:** Mineral Odyssey
+- [x] **One-sentence idea:** A short mining roguelite where the player spends limited stamina to mine, survive deeper levels, earn gold, and buy permanent upgrades.
+- [x] **Intended player experience:** Calm planning, short runs, risk/reward mining, simple monster pressure, and visible progression.
+- [x] **Core mechanic:** Stamina is the run budget; mining and monster hits consume stamina.
+- [x] **Moment-to-moment play:** Choose a level, mine valuable ores, receive temporary card choices during the run, avoid/fight monsters, collect gold, return to the hub, upgrade.
+- [x] **Target player:** Casual players who enjoy resource planning, progression loops, and short replayable sessions.
+- [x] **Reference games / inspirations:** Motherload, Stardew Valley mining, light roguelite card-choice systems.
+- [x] **Original / creative element:** Combines action-based stamina budgeting, mining value decisions, simple card effects, and a mine-cart level hub.
+- [x] **Vertical slice plan:** Level 1 mining, Level 2 monster pressure, Level 3 higher risk/reward, shop upgrades, stamina UI, temporary cards.
 - [ ] **Must-have / should-have / could-have / cut-first features:** See section 2 of this document.
 - [ ] **Unity development plan:** Define systems, implement stamina, add hub, add shop, add cards, add simple monsters, test and polish.
 - [ ] **Main systems/scripts:** Gold, stamina, mining, tool/ore data, card selection, shop, level entry, monster behavior, UI feedback.
-- [ ] **Asset/resource plan:** Existing pixel art, tilemap assets, ore sprites, simple UI panels, credited sound effects.
+- [x] **Asset/resource plan:** Existing pixel art, tilemap assets, ore sprites, simple UI panels, credited sound effects.
 - [ ] **Legal / ethical / accessibility / security:** Asset credits, colorblind-friendly ore distinction, no unnecessary personal data, simple controls.
 - [ ] **Development schedule:** Two-week solo must-have schedule with polish and report time protected.
 
@@ -34,21 +34,21 @@ The PDF should cover:
 
 These are required for a stable playable vertical slice.
 
-- [ ] **Stamina budget:** Right-corner stamina UI, mining stamina cost, monster stamina damage, run end at zero stamina.
-- [ ] **Tool and ore gating:** Tool level controls whether harder ores can be mined and how much stamina mining costs.
-- [ ] **Static map hall:** Start, Level 1, Level 2, Level 3 nodes with simple ticket costs and level entry buttons.
-- [ ] **Basic shop:** Text/menu-based tool and weapon upgrades using gold.
-- [ ] **Three temporary cards:** Slower stamina loss, +20 gold, chance for double ore fragments.
-- [ ] **Minimal monsters:** No monster in Level 1, one simple monster in Level 2, reused or slightly stronger monster in Level 3.
-- [ ] **Essential UI feedback:** Stamina, gold, ticket cost, shop purchase result, and run-end summary.
+- [x] **Stamina budget:** Right-corner stamina UI, mining stamina cost, monster stamina damage, run end at zero stamina.
+- [x] **Tool and ore gating:** Tool level controls whether harder ores can be mined and how much stamina mining costs.
+- [x] **Static map hall:** Start, Level 1, Level 2, Level 3 nodes with simple ticket costs and level entry buttons.
+- [x] **Basic shop:** Text/menu-based tool and weapon upgrades using gold.
+- [x] **Temporary cards:** Current run-card scripts include slower stamina loss, instant gold, double drops, stamina restoration, and curse-style effects. Card choices appear during the run, not before entering a level.
+- [x] **Minimal monsters:** No monster in Level 1, one simple monster in Level 2, reused or slightly stronger monster pressure in Level 3.
+- [x] **Essential UI feedback:** Stamina, gold, ticket cost, shop purchase result, and run-end summary.
 - [x] **Implemented vertical-slice systems:** Current scripts include stamina, tool/ore gating, map hall entry, shop upgrades, temporary cards, monster stamina pressure, gold UI, stamina UI, and run-end feedback. Keep the unchecked items above as final playtest verification tasks.
 
 ### Should-Have
 
 Add only after the must-have loop is playable.
 
-- [ ] One rare vein type with depth-scaled spawn chance.
-- [ ] One hazard block type.
+- [x] One rare vein / higher-value ore reward type through deeper ore data and layouts.
+- [x] One hazard / explosive block type with credited Pixabay explosion audio.
 - [ ] Guide panel in the map hall.
 - [ ] Simple mine-cart movement between nodes.
 - [ ] Passive refinement multiplier in the shop.
@@ -87,9 +87,9 @@ Required upload files:
 Build checklist:
 
 - [ ] Build launches without Unity Editor.
-- [ ] README explains how to open/run the Unity project.
-- [ ] Build includes the playable vertical slice.
-- [ ] Do not upload `Library`, `Temp`, `Obj`, `Logs`, or large build-cache folders.
+- [x] README explains how to open/run the Unity project.
+- [x] Build folder exists locally and includes the playable Windows player files; external launch and final zip still need manual test. The executable files are ignored by Git, so submit the separate build zip rather than relying on GitHub.
+- [ ] Do not upload `Library`, `Temp`, `Obj`, `Logs`, `UserSettings`, large build-cache folders, or `Mineral Odyssey_BurstDebugInformation_DoNotShip`.
 - [ ] Final commit hash is recorded before submission.
 - [x] Known issues are written honestly in `docs/FinalGameplayTesting.md`.
 
@@ -101,16 +101,16 @@ Prepare answers for:
 - [ ] **Student ID:** Add final student ID.
 - [ ] **Game title:** Mineral Odyssey
 - [ ] **Unity version:** Unity 2022.3 LTS
-- [ ] **Build platform:** Add final build target, probably Windows.
+- [x] **Build platform:** Windows.
 - [ ] **GitHub repository link:** `https://github.com/2003-40/GameProgramming`
 - [ ] **Final commit hash:** Fill after final commit.
 - [ ] **Playable build link:** Fill if not uploaded directly.
-- [ ] **How to run the game:** Open build executable or open Unity project and run the main scene.
-- [ ] **Controls:** Add final controls, such as WASD/Arrow Keys movement and mining interaction.
+- [x] **How to run the game:** Open build executable or open Unity project and run the main scene.
+- [x] **Controls:** README lists movement, mouse aiming, mining/attack input, and UI button interaction.
 - [ ] **Main game objective:** Mine efficiently, manage stamina, survive deeper levels, earn gold, and upgrade.
 - [ ] **Win / lose / completion condition:** Run ends when stamina reaches zero; vertical slice completion is reaching and playing Level 3.
 - [ ] **Main systems/scripts created:** Mining, gold, stamina, tool/ore data, cards, shop, level entry, monster pressure, UI.
-- [ ] **External assets/templates/tutorials/AI used:** Fill `README.md` reference placeholders and use `docs/ContributionList.md` for AI assistance wording.
+- [x] **External assets/templates/tutorials/AI used:** README lists the main resources and AI assistance. The unused JJDG import was removed, and the explosion sound was replaced with a credited Pixabay sound effect.
 - [x] **Known issues:** Final limitations such as simple monster AI, limited card variety, and required Play Mode sign-off are recorded in `docs/FinalGameplayTesting.md`.
 
 ## 5. Final Report Outline

@@ -191,9 +191,11 @@ My own contribution remained:
 
 ## 12. Items To Fill Before Final Submission
 
-- Add final external asset links and licences in `README.md`.
-- Add exact audio source links and licences.
+- README now records the main art, font, UI, tutorial/reference, and AI assistance credits.
+- The unverified imported explosion OGG was replaced with the credited Pixabay sound effect `Explosion` by FlashTrauma (Freesound), uploaded through freesound_community. `MiningController.explosionClip` is assigned to `Assets/Sounds/freesound_community-explosion-6055.mp3`.
+- Background music is credited from the NetEase Cloud Music album `RPG游戏背景音乐合集（持续更新）` by 萌珑 / Menglong. The author statement says the collection can be used by people making RPG games as long as the author is credited; screenshot evidence is saved as `docs/bgm_permission_netease.png`.
+- The unused imported JJDG pick-striking audio was removed from `Assets/Sounds` before final packaging.
 - Add AI conversation/tool declaration details required by the coursework form.
-- Add final screenshots or short testing evidence.
+- Add final screenshots or short testing evidence after the hands-on build test.
 - Add known issues honestly after the final playtest.
-- Add final commit hash and build link after creating the final build.
+- Add final commit hash and build link after creating the final build/package.
